@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.spotify_sdk'
+    namespace 'com.example.spotifywrapped'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.spotify_sdk"
+        applicationId "com.example.spotifywrapped"
         minSdk 33
         targetSdk 33
         versionCode 1
