@@ -8,16 +8,19 @@ import java.util.List;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Button;
 
 public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.ViewHolder> {
-    private List<String> friendList; //example data type
+    private List<Friend> friendList; //friend Objects
+    private boolean viewingAddedFriends = false;
+    private List<Friend> filteredFriendList;
 
     /**
      * FriendListAdapter constructor
      * List is the datasource for the RecyclerView
      * @param friendList
      */
-    public FriendListAdapter(List<String> friendList) {
+    public FriendListAdapter(List<Friend> friendList) {
         this.friendList = friendList;
     }
 
@@ -27,12 +30,11 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
      * @param parent The ViewGroup into which the new View will be added after it is bound to
      *               an adapter position.
      * @param viewType The view type of the new View.
-     *
      * @return new instance of ViewHolder inner class
      */
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -45,8 +47,22 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
      * @param position The position of the item within the adapter's data set.
      */
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String friendInfo = friendList.get(position);
-        holder.textView.setText(friendInfo);
+        Friend friendInfo = friendList.get(holder.getAdapterPosition());
+        holder.textView.setText(friendInfo.getFriend());
+        updateButton(holder.addFriendButton, friendInfo.isAdded());
+
+        holder.addFriendButton.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                Friend currentFriend = friendList.get(currentPosition);
+                currentFriend.setAdded(!currentFriend.isAdded());
+                updateButton(holder.addFriendButton, currentFriend.isAdded());
+            }
+        });
+    }
+
+    private void updateButton(Button button, boolean isAdded) {
+        button.setText(isAdded ? "Following" : "Follow");
     }
 
     /**
@@ -61,14 +77,16 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
+        public Button addFriendButton;
 
         /**
          * constructor takes a view object and finds the TextView within it
-         * @param view 
+         * @param view
          */
         public ViewHolder(View view) {
             super(view);
             textView = (TextView) view.findViewById(R.id.textView);
+            addFriendButton = view.findViewById(R.id.addFriendButton);
         }
     }
 }
