@@ -1,5 +1,10 @@
 package com.example.spotifywrapped.useraccounts;
 
+import android.content.Intent;
+
+import com.spotify.sdk.android.auth.AuthorizationClient;
+import com.spotify.sdk.android.auth.AuthorizationResponse;
+
 import java.util.List;
 
 public class User {
