@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrappedListAdapter.MyViewHolder>{
-    List<SpotifyWrappedSummary> spotifyWrappedSummaries;
+    public List<SpotifyWrappedSummary> spotifyWrappedSummaries;
 
     public SpotifyWrappedListAdapter(List<SpotifyWrappedSummary> spotifyWrappedSummaries) {
         this.spotifyWrappedSummaries = spotifyWrappedSummaries;

@@ -8,14 +8,6 @@
     android:background="@color/black"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spotifyWrappedList"
-        >
-
-    </androidx.recyclerview.widget.RecyclerView>
-
     <Button
         android:id="@+id/addSpotifyWrappedButton"
         android:layout_width="300dp"
@@ -24,6 +16,36 @@
         android:backgroundTint="@color/green"
         android:textColor="@color/black"
         android:fontFamily="@font/font_gothammedium"
-        android:text="Create New Spotify Wrapped" />
+        android:text="Generate New Spotify Wrap" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spotifyWrappedList"
+        />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        app:dividerColor="@color/gray"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font_gothammedium"
+        android:layout_marginTop="5dp"
+        android:text="Yours Friends Also Made"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/friendsSpotifyWrappedList"
+        />
 
 </LinearLayout>

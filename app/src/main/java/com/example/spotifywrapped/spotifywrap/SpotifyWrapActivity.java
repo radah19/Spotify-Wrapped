@@ -1,4 +1,4 @@
-package com.example.spotifywrapped.spotifywrappedview;
+package com.example.spotifywrapped.spotifywrap;
 
 import androidx.appcompat.app.AppCompatActivity;
 
