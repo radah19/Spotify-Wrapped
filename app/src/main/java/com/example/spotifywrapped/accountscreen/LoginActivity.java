@@ -1,4 +1,4 @@
-package com.example.spotifywrapped;
+package com.example.spotifywrapped.accountscreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,12 +10,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.os.Bundle;
 
+import com.example.spotifywrapped.R;
+
 public class LoginActivity extends AppCompatActivity {
 
         private EditText emailInput;
         private EditText passwordInput;
-
-        private final user validUser = new user("admin", "admin123");
 
         @SuppressLint("MissingInflatedId")
         @Override
