@@ -31,7 +31,7 @@ android {
     }
 
     lint {
-        lintConfig = file("$rootDir/.github/lintConfig.xml")
+        lintConfig = file("../.github/lintConfig.xml")
     }
 
 }
