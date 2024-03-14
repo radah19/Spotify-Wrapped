@@ -1,12 +1,13 @@
 package com.example.spotifywrapped.spotifywrap;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 
 import com.example.spotifywrapped.R;
 
-public class SpotifyWrapActivity extends AppCompatActivity {
+public class SpotifyWrapActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
