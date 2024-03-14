@@ -1,9 +1,5 @@
 name: Android CI
 
-push:
-    branches-ignore:
-      - master
-
 jobs:
   build:
 
