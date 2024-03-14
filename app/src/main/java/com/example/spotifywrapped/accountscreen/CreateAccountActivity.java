@@ -1,8 +1,10 @@
-package com.example.spotifywrapped;
+package com.example.spotifywrapped.accountscreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.spotifywrapped.R;
 
 public class CreateAccountActivity extends AppCompatActivity {
 

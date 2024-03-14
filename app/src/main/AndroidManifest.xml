@@ -15,6 +15,12 @@
         android:theme="@style/Theme.SpotifyWrapped"
         tools:targetApi="34">
         <activity
+            android:name=".accountscreen.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".accountscreen.CreateAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".spotifywrap.SpotifyWrapActivity"
             android:exported="false" />
         <activity
