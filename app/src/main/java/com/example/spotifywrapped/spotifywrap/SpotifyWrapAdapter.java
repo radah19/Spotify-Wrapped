@@ -24,14 +24,15 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
 
     public List<Fragment> myFragments;
 
-    public SpotifyWrapAdapter(@NonNull Fragment fragment, List<String> topArtistIds, List<String> topTrackIds, List<String> topGenres, List<String> topFriendArtistIds, List<String> topFriendTrackIds, List<Fragment> myFragments) {
+    public SpotifyWrapAdapter(@NonNull Fragment fragment, List<Fragment> myFragments, List<String> topArtistIds, List<String> topTrackIds, List<String> topGenres, List<String> topFriendArtistIds, List<String> topFriendTrackIds) {
         super(fragment);
+        this.myFragments = myFragments;
+
         this.topArtistIds = topArtistIds;
         this.topTrackIds = topTrackIds;
         this.topGenres = topGenres;
         this.topFriendArtistIds = topFriendArtistIds;
         this.topFriendTrackIds = topFriendTrackIds;
-        this.myFragments = myFragments;
     }
 
     @NonNull
