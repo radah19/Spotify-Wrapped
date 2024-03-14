@@ -31,7 +31,7 @@ android {
     }
 
     lint {
-        lintConfig = file("../.github/lintConfig.xml")
+        baseline = file("lint-baseline.xml")
     }
 
 }
