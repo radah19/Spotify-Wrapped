@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/spotify_track_image_border"
+        android:height="50dp"
+        android:width="50dp"
+        />
+    <item
+        android:drawable="@drawable/default_track_img"
+        android:width="48dp"
+        android:height="48dp"
+        android:left="1dp"
+        android:top="1dp"
+        />
+</layer-list>
