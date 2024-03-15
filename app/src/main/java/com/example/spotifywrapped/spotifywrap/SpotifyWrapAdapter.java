@@ -15,6 +15,8 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.spotifywrapped.R;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerIntroductionFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopTrackAndArtistFragment;
 
 import java.util.List;
 
@@ -40,8 +42,12 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch(position) {
             //Introduction Screen
+            case 0:
+                return new PagerIntroductionFragment();
 
             //Top Artist and Top Track Screen
+            case 1:
+                return new PagerTopTrackAndArtistFragment();
 
             //Top 5 Artists
 

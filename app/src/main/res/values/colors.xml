@@ -8,7 +8,13 @@
 
     <color name="banana">#FFFC7B</color>
     <color name="yellow">#FFF400</color>
+    <color name="indigo">#002BFF</color>
     <color name="papaya">#FF4F13</color>
+    <color name="blue">#00B8FF</color>
     <color name="pink">#FF7BB6</color>
     <color name="hot_pink">#FF2085</color>
+    <color name="l_green">#00FF5A</color>
+    <color name="lime">#95FF00</color>
+    <color name="d_green">#1D6737</color>
+
 </resources>
