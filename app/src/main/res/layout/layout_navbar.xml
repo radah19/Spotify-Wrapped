@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    tools:context=".navbar.NavbarFragment">
+    android:orientation="horizontal">
 
     <ImageButton
         android:id="@+id/navbarSpotifyWraps"
@@ -27,15 +26,15 @@
         android:backgroundTint="@color/green"
         />
 
-    <ImageButton
-        android:id="@+id/navbarLogout"
-        android:src="@drawable/icon_logout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:cornerRadius="0dp"
-        android:backgroundTint="@color/green"
-        />
+<!--    <ImageButton-->
+<!--        android:id="@+id/navbarLogout"-->
+<!--        android:src="@drawable/icon_logout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_weight="1"-->
+<!--        app:cornerRadius="0dp"-->
+<!--        android:backgroundTint="@color/green"-->
+<!--        />-->
 
     <ImageButton
         android:id="@+id/navbarNotifications"

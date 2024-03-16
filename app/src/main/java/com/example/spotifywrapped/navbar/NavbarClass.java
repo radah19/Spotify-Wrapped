@@ -33,20 +33,20 @@ public class NavbarClass {
         });
 
         // Log Out
-        a.findViewById(R.id.navbarLogout).setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(a);
-            builder
-                    .setMessage("Are you sure you want to log out?")
-                    .setPositiveButton("Yes", (dialogInterface, i) -> {
-                        Intent myIntent = new Intent(a, LoginActivity.class);
-                        a.startActivity(myIntent);
-                        dialogInterface.dismiss();
-                    })
-                    .setNegativeButton("No", (dialogInterface, i) -> {
-                        dialogInterface.dismiss();
-                    })
-                    .show();
-        });
+//        a.findViewById(R.id.navbarLogout).setOnClickListener(view -> {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(a);
+//            builder
+//                    .setMessage("Are you sure you want to log out?")
+//                    .setPositiveButton("Yes", (dialogInterface, i) -> {
+//                        Intent myIntent = new Intent(a, LoginActivity.class);
+//                        a.startActivity(myIntent);
+//                        dialogInterface.dismiss();
+//                    })
+//                    .setNegativeButton("No", (dialogInterface, i) -> {
+//                        dialogInterface.dismiss();
+//                    })
+//                    .show();
+//        });
 
         // Notifications
         a.findViewById(R.id.navbarNotifications).setOnClickListener(view -> {
