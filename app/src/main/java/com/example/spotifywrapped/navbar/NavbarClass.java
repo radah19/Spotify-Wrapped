@@ -22,7 +22,7 @@ public class NavbarClass {
     public static void initializeNavbar(Activity a){
         // Spotify Wrap Bar
         a.findViewById(R.id.navbarSpotifyWraps).setOnClickListener(view -> {
-            Intent myIntent = new Intent(a, SpotifyWrapActivity.class);
+            Intent myIntent = new Intent(a, SpotifyWrappedListActivity.class);
             a.startActivity(myIntent);
         });
 
