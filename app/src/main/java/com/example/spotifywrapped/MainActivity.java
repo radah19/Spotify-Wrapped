@@ -11,6 +11,8 @@ import com.example.spotifywrapped.accountscreen.LoginActivity;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
