@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent myIntent = new Intent(this, SpotifyWrapActivity.class);
-        this.startActivity(myIntent);
+        Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
     }
 }

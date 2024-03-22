@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
+import com.example.spotifywrapped.navbar.NavbarClass;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -59,5 +60,6 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
     public void initWidgets(){
         spotifyWrappedList = findViewById(R.id.spotifyWrappedList);
         addSpotifyWrappedButton = findViewById(R.id.addSpotifyWrappedButton);
+        NavbarClass.initializeNavbar(this);
     }
 }
