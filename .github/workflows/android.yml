@@ -1,13 +1,7 @@
 name: Android CI
 
-on:
-  push:
-    branches-ignore:
-      - master
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
