@@ -1,4 +1,4 @@
-package com.example.spotifywrapped;
+package com.example.spotifywrapped.friendslist;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import android.os.Bundle;
 import android.widget.SearchView;
+
+import com.example.spotifywrapped.R;
 
 public class FriendListActivity extends AppCompatActivity {
     private FriendListAdapter adapter;
@@ -20,7 +22,7 @@ public class FriendListActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.friend_list);
+        setContentView(R.layout.activity_friend_list);
 
         RecyclerView recyclerView = findViewById(R.id.friendsListRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

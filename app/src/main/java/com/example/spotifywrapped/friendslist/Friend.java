@@ -1,4 +1,4 @@
-package com.example.spotifywrapped;
+package com.example.spotifywrapped.friendslist;
 
 public class Friend {
     private String friend;

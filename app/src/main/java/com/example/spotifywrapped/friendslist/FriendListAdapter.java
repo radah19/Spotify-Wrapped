@@ -1,4 +1,4 @@
-package com.example.spotifywrapped;
+package com.example.spotifywrapped.friendslist;
 
 import android.view.LayoutInflater;
 
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
+
+import com.example.spotifywrapped.R;
 
 public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.ViewHolder> {
     private List<Friend> friendList; //friend Objects
@@ -34,7 +36,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
      */
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_friend_item, parent, false);
         return new ViewHolder(view);
     }
 
