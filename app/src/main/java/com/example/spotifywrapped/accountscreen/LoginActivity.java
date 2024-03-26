@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
             emailInput = findViewById(R.id.email_input);
             passwordInput = findViewById(R.id.password_input);
-            Button loginButton = findViewById(R.id.login_button);
+            Button loginButton = findViewById(R.id.createAccount_btn);
 
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
