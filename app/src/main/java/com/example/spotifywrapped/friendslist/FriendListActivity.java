@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.SearchView;
 
 import com.example.spotifywrapped.R;
+import com.example.spotifywrapped.navbar.NavbarClass;
 
 public class FriendListActivity extends AppCompatActivity {
     private FriendListAdapter adapter;
@@ -39,6 +40,7 @@ public class FriendListActivity extends AppCompatActivity {
         adapter = new FriendListAdapter(filteredFriendList);
         recyclerView.setAdapter(adapter);
 
+        NavbarClass.initializeNavbar(this);
         setUpSearchView();
     }
 
