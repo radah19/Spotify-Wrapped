@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.accountscreen.LoginActivity;
+import com.example.spotifywrapped.friendslist.FriendListActivity;
 import com.example.spotifywrapped.spotifywrap.SpotifyWrapActivity;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 
@@ -28,8 +29,8 @@ public class NavbarClass {
 
         // Settings
         a.findViewById(R.id.navbarSettings).setOnClickListener(view -> {
-//            Intent myIntent = new Intent(getActivity(), SpotifyWrappedListActivity.class);
-//            this.startActivity(myIntent);
+//            Intent myIntent = new Intent(a, SpotifyWrappedListActivity.class);
+//            a.startActivity(myIntent);
         });
 
         // Log Out
@@ -50,14 +51,14 @@ public class NavbarClass {
 
         // Notifications
         a.findViewById(R.id.navbarNotifications).setOnClickListener(view -> {
-//            Intent myIntent = new Intent(getActivity(), SpotifyWrappedListActivity.class);
-//            this.startActivity(myIntent);
+//            Intent myIntent = new Intent(a, SpotifyWrappedListActivity.class);
+//            a.startActivity(myIntent);
         });
 
         // Friends
         a.findViewById(R.id.navbarFriends).setOnClickListener(view -> {
-//            Intent myIntent = new Intent(getActivity(), SpotifyWrappedListActivity.class);
-//            this.startActivity(myIntent);
+            Intent myIntent = new Intent(a, FriendListActivity.class);
+            a.startActivity(myIntent);
         });
     }
 }
