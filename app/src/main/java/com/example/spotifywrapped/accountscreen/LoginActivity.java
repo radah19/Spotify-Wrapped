@@ -1,9 +1,13 @@
 package com.example.spotifywrapped.accountscreen;
 
+import static com.spotify.sdk.android.auth.AccountsQueryParameters.CLIENT_ID;
+import static com.spotify.sdk.android.auth.AccountsQueryParameters.REDIRECT_URI;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +17,17 @@ import android.os.Bundle;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 import com.example.spotifywrapped.useraccounts.User;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -59,7 +74,31 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                 // Get Spotify Login Using SpotifyAPIManager & dump into User class
                 User.setAccessCode("");
-                User.setAccessToken("");
+                //User.setAccessToken("");
+
+                //Making the necessary API calls and setting access token: "User.setAccessToken(accessToken);"
+                OkHttpClient client = new OkHttpClient();
+                RequestBody body = new FormBody.Builder()
+                        .add("grant_type", "authorization_code")
+                        .add("code", AUTH_CODE) // The authorization code you received
+                        .add("redirect_uri", REDIRECT_URI)
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url("https://accounts.spotify.com/api/token")
+                        .addHeader("Authorization", "Basic " + Base64.encodeToString((CLIENT_ID + ":" + CLIENT_SECRET).getBytes(), Base64.NO_WRAP))
+                        .post(body)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    String responseBody = response.body().string();
+                    // Parse the response body to extract the access token
+                    JSONObject jsonResponse = new JSONObject(responseBody);
+                    String accessToken = jsonResponse.getString("access_token");
+                    User.setAccessToken(accessToken);
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
 
                 // Dump data into User class
                 User.username = emailInput.getText().toString();
