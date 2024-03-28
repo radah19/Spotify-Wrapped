@@ -2,6 +2,7 @@ package com.example.spotifywrapped.accountscreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.spotifywrapped.DatabaseManager;
 import com.example.spotifywrapped.R;
+import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -34,6 +36,8 @@ public class CreateAccountActivity extends AppCompatActivity {
 
             DatabaseManager.setFirebaseAuth();
             DatabaseManager.createNewAccount(email_input, password_input, CreateAccountActivity.this);
+            Intent myIntent = new Intent(this, LoginActivity.class);
+            this.startActivity(myIntent);
         });
     }
 }

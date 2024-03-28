@@ -53,13 +53,27 @@ public class LoginActivity extends AppCompatActivity {
 
              */
 
+            loginButton.setOnClickListener((View v) -> {
+                String email_input = emailInput.getText().toString();
+                String password_input = passwordInput.getText().toString();
 
+                DatabaseManager.setFirebaseAuth();
+                DatabaseManager.loginUser(email_input, password_input, LoginActivity.this);
+                /*
+                Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
+                this.startActivity(myIntent);
+
+                 */
+            });
+            /*
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    validateCredentials(emailInput.getText().toString(), passwordInput.getText().toString());
+                   // validateCredentials(emailInput.getText().toString(), passwordInput.getText().toString());
                 }
             });
+
+             */
         }
 
         private void validateCredentials(String username, String password) {

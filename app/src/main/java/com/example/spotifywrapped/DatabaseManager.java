@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 import com.example.spotifywrapped.useraccounts.User;
 import com.google.android.gms.common.PackageVerificationResult;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -74,11 +75,13 @@ public class DatabaseManager {
         } // if
     } // inputVerification
 
-    public void loginUser(String email, String password, Activity activity) {
+    public static void loginUser(String email, String password, Activity activity) {
         mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(activity, "Login Successful!", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(activity, SpotifyWrappedListActivity.class);
+                activity.startActivity(myIntent);
                 // need to switch activities and also call finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -89,7 +92,7 @@ public class DatabaseManager {
         });
     } // loginUser
 
-    public void logOut() {
+    public static void logOut() {
         FirebaseAuth.getInstance().signOut();
     } // logOut
 
