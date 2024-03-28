@@ -10,9 +10,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.os.Bundle;
 
+import com.example.spotifywrapped.DatabaseManager;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 import com.example.spotifywrapped.useraccounts.User;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,14 +40,40 @@ public class LoginActivity extends AppCompatActivity {
 
             emailInput = findViewById(R.id.email_input);
             passwordInput = findViewById(R.id.password_input);
-            Button loginButton = findViewById(R.id.login_button);
+            Button loginButton = findViewById(R.id.createAccount_btn);
 
+            // --- Testing for database ---
+            /*
+            ArrayList<String> friendsList = new ArrayList<String>();
+            friendsList.add("Dennis");
+            friendsList.add("Andrew");
+            DatabaseManager.setFirebaseAuth();
+            DatabaseManager.addUser("Ethan", "lucky", friendsList, 14);
+             DatabaseManager.retrieveUser("Ethan", LoginActivity.this);
+
+             */
+
+            loginButton.setOnClickListener((View v) -> {
+                String email_input = emailInput.getText().toString();
+                String password_input = passwordInput.getText().toString();
+
+                DatabaseManager.setFirebaseAuth();
+                DatabaseManager.loginUser(email_input, password_input, LoginActivity.this);
+                /*
+                Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
+                this.startActivity(myIntent);
+
+                 */
+            });
+            /*
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    validateCredentials(emailInput.getText().toString(), passwordInput.getText().toString());
+                   // validateCredentials(emailInput.getText().toString(), passwordInput.getText().toString());
                 }
             });
+
+             */
         }
 
         private void validateCredentials(String username, String password) {
