@@ -1,40 +1,29 @@
 package com.example.spotifywrapped.spotifywrap;
 
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Lifecycle;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.spotifywrapped.R;
+import com.example.spotifywrapped.SpotifyArtist;
+import com.example.spotifywrapped.SpotifyTrack;
+import com.example.spotifywrapped.SpotifyWrappedSummary;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerIntroductionFragment;
-import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopTrackAndArtistFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopTrackFragment;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SpotifyWrapAdapter extends FragmentStateAdapter {
-    public List<String> topArtistIds, topTrackIds, topGenres;
-    public List<String> topFriendArtistIds, topFriendTrackIds;
+    private SpotifyWrappedSummary mSummary;
 
-    public List<Fragment> myFragments;
+    public List<String> myFragments = Arrays.asList(new String[]{
+            "Intro Fragment", "Top Track Fragment"
+    });
 
-    public SpotifyWrapAdapter(@NonNull Fragment fragment, List<Fragment> myFragments, List<String> topArtistIds, List<String> topTrackIds, List<String> topGenres, List<String> topFriendArtistIds, List<String> topFriendTrackIds) {
-        super(fragment);
-        this.myFragments = myFragments;
-
-        this.topArtistIds = topArtistIds;
-        this.topTrackIds = topTrackIds;
-        this.topGenres = topGenres;
-        this.topFriendArtistIds = topFriendArtistIds;
-        this.topFriendTrackIds = topFriendTrackIds;
+    public SpotifyWrapAdapter(@NonNull FragmentActivity fragmentActivity, SpotifyWrappedSummary mSummary) {
+        super(fragmentActivity);
+        this.mSummary = mSummary;
     }
 
     @NonNull
@@ -47,7 +36,11 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
 
             //Top Artist and Top Track Screen
             case 1:
-                return new PagerTopTrackAndArtistFragment();
+                return new PagerTopTrackFragment(
+                        mSummary.topTracks.get(0).getTrackImageLink(),
+                        mSummary.topTracks.get(0).getTrackName(),
+                        mSummary.topTracks.get(0).getTrackArtist()
+                        );
 
             //Top 5 Artists
 

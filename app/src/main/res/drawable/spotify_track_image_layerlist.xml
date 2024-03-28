@@ -6,6 +6,7 @@
         android:width="50dp"
         />
     <item
+        android:id="@+id/trackImg"
         android:drawable="@drawable/default_track_img"
         android:width="48dp"
         android:height="48dp"

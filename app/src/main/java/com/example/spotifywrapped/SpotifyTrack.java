@@ -1,15 +1,16 @@
 package com.example.spotifywrapped;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class SpotifyTrack {
     private List<String> trackGenres;
     private String trackArtist, trackName, trackLink, trackImageLink;
-    private int trackLen;
+    private LocalTime trackLen;
     private LocalDateTime trackPublishDate;
 
-    public SpotifyTrack(List<String> trackGenres, String trackArtist, String trackName, String trackLink, int trackLen, LocalDateTime trackPublishDate, String trackImageLink) {
+    public SpotifyTrack(List<String> trackGenres, String trackArtist, String trackName, String trackLink, LocalTime trackLen, LocalDateTime trackPublishDate, String trackImageLink) {
         this.trackGenres = trackGenres;
         this.trackArtist = trackArtist;
         this.trackName = trackName;
@@ -19,7 +20,7 @@ public class SpotifyTrack {
         this.trackImageLink = trackImageLink;
     }
 
-    public SpotifyTrack(List<String> trackGenres, String trackArtist, String trackName, String trackLink, int trackLen, LocalDateTime trackPublishDate) {
+    public SpotifyTrack(List<String> trackGenres, String trackArtist, String trackName, String trackLink, LocalTime trackLen, LocalDateTime trackPublishDate) {
         this.trackGenres = trackGenres;
         this.trackArtist = trackArtist;
         this.trackName = trackName;
@@ -60,11 +61,11 @@ public class SpotifyTrack {
         this.trackLink = trackLink;
     }
 
-    public int getTrackLen() {
+    public LocalTime getTrackLen() {
         return trackLen;
     }
 
-    public void setTrackLen(int trackLen) {
+    public void setTrackLen(LocalTime trackLen) {
         this.trackLen = trackLen;
     }
 

@@ -1,5 +1,7 @@
 package com.example.spotifywrapped.spotifywrappedlist;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
+import com.example.spotifywrapped.friendslist.FriendListActivity;
+import com.example.spotifywrapped.spotifywrap.SpotifyWrapActivity;
 import com.squareup.picasso.Picasso;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrappedListAdapter.MyViewHolder>{
@@ -37,7 +38,7 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        List<SpotifyTrack> mTracks = spotifyWrappedSummaries.get(position).getTracks();
+        List<SpotifyTrack> mTracks = spotifyWrappedSummaries.get(position).topTracks;
 
         holder.sw_img.setImageResource(R.drawable.default_track_img);
         holder.sw_title.setText(spotifyWrappedSummaries.get(position).getTitle());
@@ -69,6 +70,13 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
         str.append("...");
 
         holder.sw_trackNameList.setText(str);
+
+        //Navigate to Selected Spotify Wrap
+        holder.itemView.setOnClickListener(v -> {
+            Intent myIntent = new Intent(v.getContext(), SpotifyWrapActivity.class);
+            myIntent.putExtra("spotifyWrapId", spotifyWrappedSummaries.get(position).getId());
+            v.getContext().startActivity(myIntent);
+        });
     }
 
     @Override

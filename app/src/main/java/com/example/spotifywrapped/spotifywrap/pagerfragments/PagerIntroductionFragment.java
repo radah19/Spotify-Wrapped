@@ -11,11 +11,9 @@ import android.view.ViewGroup;
 import com.example.spotifywrapped.R;
 
 public class PagerIntroductionFragment extends Fragment {
-
     public PagerIntroductionFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

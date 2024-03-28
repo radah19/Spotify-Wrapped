@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pink"
+    tools:context=".spotifywrap.pagerfragments.PagerTopTrackFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:paddingBottom="100dp"
+        >
+
+        <ImageView
+            android:id="@+id/sw_top_track_img"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/spotify_wrap_image_border_banana"
+            android:src="@drawable/default_track_img"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_marginBottom="30dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_gothammedium"
+                android:textSize="25dp"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:textColor="@color/banana"
+                android:text="You've listened the most to"
+                />
+            <TextView
+                android:id="@+id/sw_top_track_trackName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_gothambold"
+                android:textSize="50dp"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:text="BLIZZARD"
+                />
+            <TextView
+                android:id="@+id/sw_top_track_trackArtistName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_gothambold"
+                android:textSize="28dp"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:text="Yuno Miles"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

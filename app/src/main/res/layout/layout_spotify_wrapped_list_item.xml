@@ -8,18 +8,17 @@
 
     <ImageView
         android:id="@+id/sw_img"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_margin="10dp"
-        android:layout_weight="2"
-        android:src="@drawable/spotify_track_image_layerlist"
+        android:background="@drawable/spotify_track_image_border"
+        android:src="@drawable/default_track_img"
         />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_weight="4"
         android:orientation="vertical"
         >
 
@@ -53,6 +52,4 @@
             android:text="Martin Luther King - Yuno Miles, Blizzard - Yuno Miles, I'm an Alcoholic - Yuno Miles, I want Ice Cream - Yuno Miles..."
             />
     </LinearLayout>
-
-
 </LinearLayout>
