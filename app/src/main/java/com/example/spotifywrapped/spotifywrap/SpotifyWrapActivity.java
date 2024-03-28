@@ -29,7 +29,7 @@ public class SpotifyWrapActivity extends FragmentActivity {
             int wrapId = b.getInt("spotifyWrapId");
 
             //Query database to get Spotify Wrap Information
-            mSummary = ls_summaries.get(wrapId - 1); //temporary
+            mSummary = ls_summaries.get(wrapId); //temporary
         }
 
         ViewPager2 pager = findViewById(R.id.viewPager);

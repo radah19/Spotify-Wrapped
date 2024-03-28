@@ -5,36 +5,19 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class SpotifyTrack {
-    private List<String> trackGenres;
     private String trackArtist, trackName, trackLink, trackImageLink;
     private LocalTime trackLen;
     private LocalDateTime trackPublishDate;
+    private int trackPopularity;
 
-    public SpotifyTrack(List<String> trackGenres, String trackArtist, String trackName, String trackLink, LocalTime trackLen, LocalDateTime trackPublishDate, String trackImageLink) {
-        this.trackGenres = trackGenres;
+    public SpotifyTrack(String trackArtist, String trackName, String trackLink, String trackImageLink, LocalTime trackLen, LocalDateTime trackPublishDate, int trackPopularity) {
         this.trackArtist = trackArtist;
         this.trackName = trackName;
         this.trackLink = trackLink;
-        this.trackLen = trackLen;
-        this.trackPublishDate = trackPublishDate;
         this.trackImageLink = trackImageLink;
-    }
-
-    public SpotifyTrack(List<String> trackGenres, String trackArtist, String trackName, String trackLink, LocalTime trackLen, LocalDateTime trackPublishDate) {
-        this.trackGenres = trackGenres;
-        this.trackArtist = trackArtist;
-        this.trackName = trackName;
-        this.trackLink = trackLink;
         this.trackLen = trackLen;
         this.trackPublishDate = trackPublishDate;
-    }
-
-    public List<String> getTrackGenres() {
-        return trackGenres;
-    }
-
-    public void setTrackGenres(List<String> trackGenres) {
-        this.trackGenres = trackGenres;
+        this.trackPopularity = trackPopularity;
     }
 
     public String getTrackArtist() {
@@ -61,6 +44,14 @@ public class SpotifyTrack {
         this.trackLink = trackLink;
     }
 
+    public String getTrackImageLink() {
+        return trackImageLink;
+    }
+
+    public void setTrackImageLink(String trackImageLink) {
+        this.trackImageLink = trackImageLink;
+    }
+
     public LocalTime getTrackLen() {
         return trackLen;
     }
@@ -77,12 +68,11 @@ public class SpotifyTrack {
         this.trackPublishDate = trackPublishDate;
     }
 
-    public String getTrackImageLink() {
-        return trackImageLink;
+    public int getTrackPopularity() {
+        return trackPopularity;
     }
 
-    public void setTrackImageLink(String trackImageLink) {
-        this.trackImageLink = trackImageLink;
+    public void setTrackPopularity(int trackPopularity) {
+        this.trackPopularity = trackPopularity;
     }
-
 }

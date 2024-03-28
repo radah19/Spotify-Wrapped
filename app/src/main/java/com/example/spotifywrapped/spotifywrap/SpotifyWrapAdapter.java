@@ -10,6 +10,7 @@ import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerIntroductionFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopTrackFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTracksFragment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,7 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
     private SpotifyWrappedSummary mSummary;
 
     public List<String> myFragments = Arrays.asList(new String[]{
-            "Intro Fragment", "Top Track Fragment"
+            "Intro Fragment", "Top Track Fragment", "Top Tracks Fragment"
     });
 
     public SpotifyWrapAdapter(@NonNull FragmentActivity fragmentActivity, SpotifyWrappedSummary mSummary) {
@@ -43,6 +44,8 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
                         );
 
             //Top 5 Artists
+            case 2:
+                return new PagerTracksFragment(mSummary.topTracks);
 
             //Top 5 Tracks
 
