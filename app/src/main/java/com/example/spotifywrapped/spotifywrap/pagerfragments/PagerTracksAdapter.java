@@ -56,7 +56,7 @@ public class PagerTracksAdapter extends RecyclerView.Adapter<PagerTracksAdapter.
         holder.sw_tracks_trackArtist.setText(ls_tracks.get(position).getTrackArtist());
         holder.sw_tracks_trackRelease.setText(
                 ls_tracks.get(position).getTrackPublishDate().format(
-                        DateTimeFormatter.ofPattern("MMMM dd, yyyy")
+                        DateTimeFormatter.ofPattern("MMMM d, yyyy")
                 ).toString()
         );
 
@@ -65,11 +65,11 @@ public class PagerTracksAdapter extends RecyclerView.Adapter<PagerTracksAdapter.
         LocalTime len = ls_tracks.get(position).getTrackLen();
 
         if(len.isAfter( LocalTime.of(0,59,59) )) {
-            holder.sw_tracks_trackRelease.setText(
+            holder.sw_tracks_duration.setText(
                     len.format(DateTimeFormatter.ofPattern("H:mm:ss")).toString()
             );
         } else {
-            holder.sw_tracks_trackRelease.setText(
+            holder.sw_tracks_duration.setText(
                     len.format(DateTimeFormatter.ofPattern("m:ss")).toString()
             );
         }

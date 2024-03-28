@@ -46,7 +46,7 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
         StringBuilder strDate = new StringBuilder();
         strDate.append("Created ");
         strDate.append(
-                spotifyWrappedSummaries.get(position).getCreatedAt().format(DateTimeFormatter.ofPattern("MMMM dd, yyyy")).toString()
+                spotifyWrappedSummaries.get(position).getCreatedAt().format(DateTimeFormatter.ofPattern("MMMM d, yyyy")).toString()
         );
         holder.sw_createdAtDate.setText(strDate);
 

@@ -76,7 +76,7 @@
                 android:textColor="@color/yellow"
                 android:fontFamily="@font/font_gothammedium"
                 android:textSize="18dp"
-                android:text="100"
+                android:text="999"
                 />
         </LinearLayout>
 
@@ -101,7 +101,7 @@
                 android:textColor="@color/yellow"
                 android:fontFamily="@font/font_gothammedium"
                 android:textSize="18dp"
-                android:text="4:26"
+                android:text="XX:XX"
                 />
         </LinearLayout>
 
