@@ -62,10 +62,10 @@
             android:orientation="horizontal"
             android:paddingLeft="15dp"
             >
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/spotify_wrap_icon_popularity"
+                app:srcCompat="@drawable/spotify_wrap_icon_popularity"
                 app:tint="@color/yellow"
                 />
 
@@ -87,10 +87,10 @@
             android:orientation="horizontal"
             android:paddingLeft="15dp"
             >
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/spotify_wrap_icon_duration"
+                app:srcCompat="@drawable/spotify_wrap_icon_duration"
                 app:tint="@color/yellow"
                 />
 
