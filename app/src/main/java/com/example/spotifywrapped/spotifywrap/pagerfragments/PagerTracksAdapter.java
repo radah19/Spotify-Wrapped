@@ -19,6 +19,7 @@ import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -60,7 +61,9 @@ public class PagerTracksAdapter extends RecyclerView.Adapter<PagerTracksAdapter.
                 ).toString()
         );
 
-        holder.sw_tracks_popularity.setText(String.valueOf(ls_tracks.get(position).getTrackPopularity()));
+        holder.sw_tracks_popularity.setText(String.valueOf(
+                new DecimalFormat("###,###,###,###").format(ls_tracks.get(position).getTrackPopularity()))
+        );
 
         LocalTime len = ls_tracks.get(position).getTrackLen();
 

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pink"
-    tools:context=".spotifywrap.pagerfragments.PagerTopTrackFragment">
+    android:background="@color/orange"
+    tools:context=".spotifywrap.pagerfragments.PagerTopArtistFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,13 +17,13 @@
         >
 
         <ImageView
-            android:id="@+id/sw_top_track_img"
+            android:id="@+id/sw_top_artist_img"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_margin="10dp"
             android:layout_gravity="center"
             android:background="@drawable/spotify_wrap_image_border"
-            android:backgroundTint="@color/banana"
+            android:backgroundTint="@color/aquamarine"
             android:src="@drawable/default_track_img"
             />
 
@@ -41,11 +41,11 @@
                 android:textSize="25dp"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:textColor="@color/banana"
-                android:text="You've listened the most to"
+                android:textColor="@color/aquamarine"
+                android:text="Your favorite artist was"
                 />
             <TextView
-                android:id="@+id/sw_top_track_trackName"
+                android:id="@+id/sw_top_artist_artistName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font_gothambold"
@@ -53,18 +53,7 @@
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
-                android:text="BLIZZARD"
-                />
-            <TextView
-                android:id="@+id/sw_top_track_trackArtistName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/font_gothambold"
-                android:textSize="28dp"
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:textColor="@color/white"
-                android:text="Yuno Miles"
+                android:text="YUNO MILES"
                 />
         </LinearLayout>
 

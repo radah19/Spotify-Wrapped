@@ -9,6 +9,8 @@ import com.example.spotifywrapped.SpotifyArtist;
 import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerIntroductionFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopArtistFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopArtistsFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopTrackFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTracksFragment;
 
@@ -19,7 +21,8 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
     private SpotifyWrappedSummary mSummary;
 
     public List<String> myFragments = Arrays.asList(new String[]{
-            "Intro Fragment", "Top Track Fragment", "Top Tracks Fragment"
+            "Intro Fragment", "Top Track Fragment", "Top Tracks Fragment", "Top Artist Fragment",
+            "Top Artists Fragment"
     });
 
     public SpotifyWrapAdapter(@NonNull FragmentActivity fragmentActivity, SpotifyWrappedSummary mSummary) {
@@ -35,7 +38,7 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
             case 0:
                 return new PagerIntroductionFragment();
 
-            //Top Artist and Top Track Screen
+            //Top Track
             case 1:
                 return new PagerTopTrackFragment(
                         mSummary.topTracks.get(0).getTrackImageLink(),
@@ -43,13 +46,20 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
                         mSummary.topTracks.get(0).getTrackArtist()
                         );
 
-            //Top 5 Artists
+            //Top 10 Tracks
             case 2:
                 return new PagerTracksFragment(mSummary.topTracks);
 
-            //Top 5 Tracks
+            //Top Artist
+            case 3:
+                return new PagerTopArtistFragment(
+                        mSummary.topArtists.get(0).getArtistImageLink(),
+                        mSummary.topArtists.get(0).getArtistName()
+                        );
 
-            //Favorite Genre List
+            //Top 10 Artists
+            case 4:
+                return new PagerTopArtistsFragment(mSummary.topArtists);
 
             //Track Recommendations combined with some friend's favorite tracks
 
