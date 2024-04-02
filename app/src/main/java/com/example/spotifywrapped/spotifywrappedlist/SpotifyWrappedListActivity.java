@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.example.spotifywrapped.R;
@@ -68,25 +69,25 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
 
     public static List<SpotifyWrappedSummary> ls_summaries = Arrays.asList(
             new SpotifyWrappedSummary(0, "Jim123", "My Spotify Wrap 2023", LocalDateTime.now(),
-                    new ArrayList<String>(), ls_tracks, ls_tracks2, ls_artists, ls_genres,
+                    new ArrayList<String>(), ls_tracks, ls_tracks2, ls_artists, ls_artists2, ls_genres,
             LocalDateTime.of(2025, Month.JANUARY, 1, 0, 0),
             LocalDateTime.of(2023, Month.JANUARY, 1, 0, 0)),
             new SpotifyWrappedSummary(1, "Jim123", "Spotify Wrap but bad!!", LocalDateTime.now(),
-                    new ArrayList<String>(), ls_tracks2, ls_tracks2, ls_artists2, ls_genres,
+                    new ArrayList<String>(), ls_tracks2, ls_tracks2, ls_artists2, ls_artists, ls_genres,
             LocalDateTime.of(2021, Month.JANUARY, 1, 0, 0),
             LocalDateTime.of(2023, Month.JANUARY, 1, 0, 0)),
             new SpotifyWrappedSummary(2, "Jim123", "I love burger king", LocalDateTime.now(),
-                    new ArrayList<String>(), ls_tracks, ls_tracks, ls_artists, ls_genres,
+                    new ArrayList<String>(), ls_tracks, ls_tracks, ls_artists, ls_artists2, ls_genres,
             LocalDateTime.of(2019, Month.JANUARY, 1, 0, 0),
             LocalDateTime.of(2023, Month.JANUARY, 1, 0, 0))
     );
 
     public static List<SpotifyWrappedSummary> ls_friendSummaries = Arrays.asList(
-            new SpotifyWrappedSummary(3, "Jim123", "Spotify Wrap but great!!", LocalDateTime.now(),
-                    new ArrayList<String>(), ls_tracks2, ls_tracks2, ls_artists, ls_genres,
-                    LocalDateTime.of(2022, Month.JANUARY, 1, 0, 0),
-                    LocalDateTime.of(2023, Month.JANUARY, 1, 0, 0)
-    ));
+            new SpotifyWrappedSummary(0, "Jim123", "Spotify Wrap but great!!", LocalDateTime.now(),
+                    new ArrayList<String>(), ls_tracks2, ls_tracks2, ls_artists, ls_artists2, ls_genres,
+                    LocalDateTime.of(2022, Month.FEBRUARY, 1, 0, 0),
+                    LocalDateTime.of(2023, Month.JANUARY, 1, 0, 0))
+    );
     // --------------------------------------------------------------
 
     //Widgets
@@ -110,6 +111,11 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         spotifyWrappedList.setLayoutManager(llm);
         spotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(userSpotifyWrappedSummaries));
+
+        if(ls_friendSummaries.size() == 0){
+            findViewById(R.id.spotifyWrappedListDividerLine).setVisibility(View.GONE);
+            findViewById(R.id.yourFriendsAlsoMadeText).setVisibility(View.GONE);
+        }
 
         LinearLayoutManager fllm = new LinearLayoutManager(this);
         fllm.setOrientation(LinearLayoutManager.VERTICAL);
