@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SpotifyWrappedListActivity extends AppCompatActivity {
-    public List<SpotifyWrappedSummary> userSpotifyWrappedSummaries;
+    public List<SpotifyWrappedSummary> userSpotifyWrappedSummaries, friendSpotifyWrappedSummaries;
     public String orderBy;
 
     // -------------------- Testing Variables ----------------------
@@ -90,7 +90,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
     // --------------------------------------------------------------
 
     //Widgets
-    private RecyclerView spotifyWrappedList;
+    private RecyclerView spotifyWrappedList, friendsSpotifyWrappedList;
     private Button addSpotifyWrappedButton;
 
     @Override
@@ -100,6 +100,8 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
 
         userSpotifyWrappedSummaries = new ArrayList<>();
         userSpotifyWrappedSummaries.addAll(ls_summaries);
+        friendSpotifyWrappedSummaries = new ArrayList<>();
+        friendSpotifyWrappedSummaries.addAll(ls_friendSummaries);
 
         initUserSummaries();
         initWidgets();
@@ -108,6 +110,11 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         spotifyWrappedList.setLayoutManager(llm);
         spotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(userSpotifyWrappedSummaries));
+
+        LinearLayoutManager fllm = new LinearLayoutManager(this);
+        fllm.setOrientation(LinearLayoutManager.VERTICAL);
+        friendsSpotifyWrappedList.setLayoutManager(fllm);
+        friendsSpotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(friendSpotifyWrappedSummaries));
     }
 
     public void initUserSummaries(){
@@ -116,6 +123,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
 
     public void initWidgets(){
         spotifyWrappedList = findViewById(R.id.spotifyWrappedList);
+        friendsSpotifyWrappedList = findViewById(R.id.friendsSpotifyWrappedList);
         addSpotifyWrappedButton = findViewById(R.id.addSpotifyWrappedButton);
         NavbarClass.initializeNavbar(this);
     }
