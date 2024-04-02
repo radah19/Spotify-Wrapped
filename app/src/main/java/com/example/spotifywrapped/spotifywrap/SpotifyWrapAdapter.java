@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.spotifywrapped.SpotifyArtist;
-import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerGenresFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerIntroductionFragment;
@@ -14,6 +12,8 @@ import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopArtistFragm
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopArtistsFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopTrackFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTracksFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerConclusionFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTrackRecommendationsFragment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +23,7 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
 
     public List<String> myFragments = Arrays.asList(new String[]{
             "Intro Fragment", "Top Track Fragment", "Top Tracks Fragment", "Top Artist Fragment",
-            "Top Artists Fragment", "Top Genres Fragment"
+            "Top Artists Fragment", "Top Genres Fragment", "Recommended Tracks", "Conclusion"
     });
 
     public SpotifyWrapAdapter(@NonNull FragmentActivity fragmentActivity, SpotifyWrappedSummary mSummary) {
@@ -65,6 +65,14 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
             //Top Genres
             case 5:
                 return new PagerGenresFragment(mSummary.topGenres);
+
+            //Recommended Tracks
+            case 6:
+                return new SWPagerTrackRecommendationsFragment(mSummary.trackRecommendations);
+
+            //Conclusion
+            case 7:
+                return new SWPagerConclusionFragment(mSummary.startTime, mSummary.endTime);
 
             default:
                 return null;
