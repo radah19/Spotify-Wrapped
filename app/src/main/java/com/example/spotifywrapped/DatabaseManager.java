@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -65,13 +66,16 @@ public class DatabaseManager {
         } // if
     } // isLoggedin
 
-    public static void inputVerification(String email, String password, Activity activity) {
+    public static boolean inputVerification(String email, String password, Activity activity) {
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(activity, "Empty credentials!", Toast.LENGTH_SHORT).show();
+            return false;
         } else if (password.length() < 6){
             Toast.makeText(activity, "Password too short!", Toast.LENGTH_SHORT).show();
+            return false;
         } else {
             createNewAccount(email, password, activity);
+            return true;
         } // if
     } // inputVerification
 
@@ -131,10 +135,10 @@ public class DatabaseManager {
         });
     } // retrieveUser
 
-    public static void addSpotifyWrapped(String username, String createdBy, ArrayList<String> invitedUsers,
-                                         ArrayList<Integer> tracks, String title, Date createdOn,
-                                         ArrayList<Integer> topArtists, ArrayList<Integer> topTracks, ArrayList<String> topGenres,
-                                         ArrayList<Integer> friendTopArtists, ArrayList<Integer> friendTopTracks, ArrayList<Integer> trackRecommendations) {
+    public static void addSpotifyWrapped(int id, String createdBy, List<String> invitedUsers,
+                                         List<Integer> tracks, String title, Date createdOn,
+                                         List<Integer> topArtists, List<Integer> topTracks, List<String> topGenres,
+                                         List<Integer> trackRecommendations) {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("Created by", createdBy);
@@ -145,11 +149,38 @@ public class DatabaseManager {
         map.put("Top Artists", topArtists);
         map.put("Top Tracks", topTracks);
         map.put("Top Genres", topGenres);
-        map.put("Friend's Top Artists", friendTopArtists);
-        map.put("Friend's Top Tracks", friendTopTracks);
         map.put("Recommended Tracks", trackRecommendations);
-        FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(username).setValue(map);
+        FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(String.valueOf(id)).setValue(map);
     } // addSpotifyWrapped
+
+    public static void retrieveSpotifyWrapped(String username, Activity activity) {
+        reference = FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(username);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                /*
+                User.setUsername(username);
+                User.setPassword(snapshot.child("Password").getValue().toString());
+                Toast.makeText(activity, User.getPassword(), Toast.LENGTH_SHORT).show();
+                int spotifyUserId = snapshot.child("SpotifyUserID").getValue(Integer.class);
+                User.setSpotifyUserId(spotifyUserId);
+                Toast.makeText(activity, String.valueOf(User.getSpotifyUserId()), Toast.LENGTH_SHORT).show();
+                User.setFriendsList(((ArrayList<String>)snapshot.child("Friends List").getValue()));
+                Toast.makeText(activity, User.getFriendsList().get(0), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, User.getFriendsList().get(1), Toast.LENGTH_SHORT).show();
+                 */
+                String createdBy = snapshot.child("Created by").getValue().toString();
+                ArrayList<String> invitedUsers =  (ArrayList<String>)snapshot.child("Invited users").getValue();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    } // retrieveSpotifyWrapped
+
 
 
 } // DatabaseManager
