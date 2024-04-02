@@ -14,8 +14,8 @@ import com.example.spotifywrapped.R;
 import com.squareup.picasso.Picasso;
 
 public class PagerTopTrackFragment extends Fragment {
-    ImageView topTrackImg;
-    TextView topTrackNameText, topTrackArtistText;
+    private ImageView topTrackImg;
+    private TextView topTrackNameText, topTrackArtistText;
 
     String topTrackImgUrl, topTrackName, topTrackArtistName;
 

@@ -52,11 +52,16 @@ public class PagerTopArtistsAdapter extends RecyclerView.Adapter<PagerTopArtists
         holder.sw_artists_name.setText(ls_artists.get(position).getArtistName());
 
         StringBuilder genresStr = new StringBuilder();
-        for(int i = 0; i < ls_artists.get(position).getArtistGenres().size(); i++){
-            genresStr.append(ls_artists.get(position).getArtistGenres().get(i));
+        for(int i = 0; i < 5; i++){
+            if (i < ls_artists.get(position).getArtistGenres().size()) {
+                genresStr.append(ls_artists.get(position).getArtistGenres().get(i));
 
-            if(i != ls_artists.get(position).getArtistGenres().size()-1) {
-                genresStr.append(", ");
+                if (i != 4 && i != ls_artists.get(position).getArtistGenres().size() - 1) {
+                    genresStr.append(", ");
+                }
+                if (i == 4 && ls_artists.get(position).getArtistGenres().size() > 5) {
+                    genresStr.append("...");
+                }
             }
         }
         holder.sw_artists_genres.setText(genresStr);

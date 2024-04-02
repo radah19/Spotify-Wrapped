@@ -8,6 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.spotifywrapped.SpotifyArtist;
 import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerGenresFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerIntroductionFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopArtistFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopArtistsFragment;
@@ -22,7 +23,7 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
 
     public List<String> myFragments = Arrays.asList(new String[]{
             "Intro Fragment", "Top Track Fragment", "Top Tracks Fragment", "Top Artist Fragment",
-            "Top Artists Fragment"
+            "Top Artists Fragment", "Top Genres Fragment"
     });
 
     public SpotifyWrapAdapter(@NonNull FragmentActivity fragmentActivity, SpotifyWrappedSummary mSummary) {
@@ -61,7 +62,9 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
             case 4:
                 return new PagerTopArtistsFragment(mSummary.topArtists);
 
-            //Track Recommendations combined with some friend's favorite tracks
+            //Top Genres
+            case 5:
+                return new PagerGenresFragment(mSummary.topGenres);
 
             default:
                 return null;

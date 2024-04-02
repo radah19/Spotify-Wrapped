@@ -14,10 +14,10 @@ import com.example.spotifywrapped.R;
 import com.squareup.picasso.Picasso;
 
 public class PagerTopArtistFragment extends Fragment {
-    ImageView topArtistImg;
-    TextView topArtistText;
+    private ImageView topArtistImg;
+    private TextView topArtistText;
 
-    String topArtistImgUrl, topArtistName;
+    private String topArtistImgUrl, topArtistName;
 
     public PagerTopArtistFragment(String topArtistImgUrl, String topArtistName) {
         this.topArtistImgUrl = topArtistImgUrl;

@@ -6,13 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
+import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
+import com.google.android.material.button.MaterialButton;
 
 public class SpotifyWrapActivity extends FragmentActivity {
     private SpotifyWrappedSummary mSummary;
+    private MaterialButton exitButton;
 
     public SpotifyWrapActivity() {
 
@@ -34,5 +39,21 @@ public class SpotifyWrapActivity extends FragmentActivity {
 
         ViewPager2 pager = findViewById(R.id.viewPager);
         pager.setAdapter(new SpotifyWrapAdapter(this, mSummary));
+
+        exitButton = findViewById(R.id.sw_exitSpotifyWrapButton);
+        exitButton.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder
+                    .setMessage("Go back to Spotify Wrap List?")
+                    .setPositiveButton("Yes", (dialogInterface, i) -> {
+                        Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
+                        this.startActivity(myIntent);
+                        dialogInterface.dismiss();
+                    })
+                    .setNegativeButton("No", (dialogInterface, i) -> {
+                        dialogInterface.dismiss();
+                    })
+                    .show();
+        });
     }
 }

@@ -25,7 +25,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
     public String orderBy;
 
     // -------------------- Testing Variables ----------------------
-    public static List<String> ls_genres = Arrays.asList("Rock", "Metal", "Trap", "Ice Cream Wave");
+    public static List<String> ls_genres = Arrays.asList("Rock", "Metal", "Trap", "Ice Cream Wave", "Soul Wave", "Solar Punk Wave", "Prog Rock", "Death Metal", "Mark Metal");
     public static List<String> ls_genres2 = Arrays.asList("Hip Hop", "Classical");
     public static List<String> ls_genres3 = Arrays.asList("Hip Hop", "Gym Hop", "Rabbit Hop");
 
