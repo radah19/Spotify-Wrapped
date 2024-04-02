@@ -37,7 +37,7 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
         switch(position) {
             //Introduction Screen
             case 0:
-                return new PagerIntroductionFragment();
+                return new PagerIntroductionFragment(mSummary.startTime, mSummary.endTime);
 
             //Top Track
             case 1:
