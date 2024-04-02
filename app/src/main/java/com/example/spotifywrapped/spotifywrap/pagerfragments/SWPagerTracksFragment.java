@@ -9,22 +9,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.example.spotifywrapped.R;
-import com.example.spotifywrapped.SpotifyArtist;
 import com.example.spotifywrapped.SpotifyTrack;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class PagerTopArtistsFragment extends Fragment {
-    private List<SpotifyArtist> ls_artists;
-    private RecyclerView artistList;
+public class SWPagerTracksFragment extends Fragment {
+    private List<SpotifyTrack> ls_tracks;
+    private RecyclerView trackList;
 
-    public PagerTopArtistsFragment(List<SpotifyArtist> ls_artists) {
-        this.ls_artists = ls_artists;
+    public SWPagerTracksFragment(List<SpotifyTrack> ls_tracks) {
+        this.ls_tracks = ls_tracks;
     }
 
     @Override
@@ -35,15 +30,15 @@ public class PagerTopArtistsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pager_top_artists, container, false);
+        View view = inflater.inflate(R.layout.fragment_sw_pager_tracks, container, false);
 
-        artistList = view.findViewById(R.id.spotifyWrapTopArtistsList);
+        trackList = view.findViewById(R.id.spotifyWrapTopTracksList);
 
         LinearLayoutManager llm = new LinearLayoutManager(view.getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        artistList.setLayoutManager(llm);
+        trackList.setLayoutManager(llm);
 
-        artistList.setAdapter(new PagerTopArtistsAdapter(this.ls_artists, getContext()));
+        trackList.setAdapter(new SWPagerTracksAdapter(this.ls_tracks, getContext()));
 
         return view;
     }

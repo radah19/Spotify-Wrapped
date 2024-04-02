@@ -13,12 +13,12 @@ import com.example.spotifywrapped.R;
 
 import java.util.List;
 
-public class PagerGenresFragment extends Fragment {
+public class SWPagerGenresFragment extends Fragment {
     private TextView sw_s1, sw_s2, sw_s3;
     private StringBuilder s1, s2, s3;
     private List<String> ls_genres;
 
-    public PagerGenresFragment(List<String> ls_genres) {
+    public SWPagerGenresFragment(List<String> ls_genres) {
         this.ls_genres = ls_genres;
     }
 
@@ -46,7 +46,7 @@ public class PagerGenresFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pager_genres, container, false);
+        View view = inflater.inflate(R.layout.fragment_sw_pager_genres, container, false);
 
         sw_s1 = view.findViewById(R.id.sw_top_genres_s1);
         sw_s2 = view.findViewById(R.id.sw_top_genres_s2);

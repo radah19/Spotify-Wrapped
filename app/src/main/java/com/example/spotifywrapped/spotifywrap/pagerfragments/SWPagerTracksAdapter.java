@@ -1,7 +1,5 @@
 package com.example.spotifywrapped.spotifywrap.pagerfragments;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,20 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyTrack;
-import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
-public class PagerTracksAdapter extends RecyclerView.Adapter<PagerTracksAdapter.MyViewHolder> {
+public class SWPagerTracksAdapter extends RecyclerView.Adapter<SWPagerTracksAdapter.MyViewHolder> {
     private List<SpotifyTrack> ls_tracks;
     private Context context;
 
-    public PagerTracksAdapter(List<SpotifyTrack> ls_tracks, Context context) {
+    public SWPagerTracksAdapter(List<SpotifyTrack> ls_tracks, Context context) {
         this.ls_tracks = ls_tracks;
         this.context = context;
     }
@@ -38,7 +34,7 @@ public class PagerTracksAdapter extends RecyclerView.Adapter<PagerTracksAdapter.
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_spotify_wrap_pager_tracks_item,parent,false);
-        PagerTracksAdapter.MyViewHolder holder = new PagerTracksAdapter.MyViewHolder(view);
+        SWPagerTracksAdapter.MyViewHolder holder = new SWPagerTracksAdapter.MyViewHolder(view);
         return holder;
     }
 

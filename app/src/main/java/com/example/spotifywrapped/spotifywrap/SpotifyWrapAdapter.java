@@ -6,12 +6,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.spotifywrapped.SpotifyWrappedSummary;
-import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerGenresFragment;
-import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerIntroductionFragment;
-import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopArtistFragment;
-import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopArtistsFragment;
-import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTopTrackFragment;
-import com.example.spotifywrapped.spotifywrap.pagerfragments.PagerTracksFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerGenresFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerIntroductionFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTopArtistFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTopArtistsFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTopTrackFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTracksFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerConclusionFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTrackRecommendationsFragment;
 
@@ -37,11 +37,11 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
         switch(position) {
             //Introduction Screen
             case 0:
-                return new PagerIntroductionFragment(mSummary.startTime, mSummary.endTime);
+                return new SWPagerIntroductionFragment(mSummary.startTime, mSummary.endTime);
 
             //Top Track
             case 1:
-                return new PagerTopTrackFragment(
+                return new SWPagerTopTrackFragment(
                         mSummary.topTracks.get(0).getTrackImageLink(),
                         mSummary.topTracks.get(0).getTrackName(),
                         mSummary.topTracks.get(0).getTrackArtist()
@@ -49,22 +49,22 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
 
             //Top 10 Tracks
             case 2:
-                return new PagerTracksFragment(mSummary.topTracks);
+                return new SWPagerTracksFragment(mSummary.topTracks);
 
             //Top Artist
             case 3:
-                return new PagerTopArtistFragment(
+                return new SWPagerTopArtistFragment(
                         mSummary.topArtists.get(0).getArtistImageLink(),
                         mSummary.topArtists.get(0).getArtistName()
                         );
 
             //Top 10 Artists
             case 4:
-                return new PagerTopArtistsFragment(mSummary.topArtists);
+                return new SWPagerTopArtistsFragment(mSummary.topArtists);
 
             //Top Genres
             case 5:
-                return new PagerGenresFragment(mSummary.topGenres);
+                return new SWPagerGenresFragment(mSummary.topGenres);
 
             //Recommended Tracks
             case 6:

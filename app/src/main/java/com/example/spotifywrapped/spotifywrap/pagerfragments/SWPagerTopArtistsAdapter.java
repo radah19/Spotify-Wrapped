@@ -14,33 +14,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyArtist;
-import com.example.spotifywrapped.SpotifyTrack;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class PagerTopArtistsAdapter extends RecyclerView.Adapter<PagerTopArtistsAdapter.MyViewHolder> {
+public class SWPagerTopArtistsAdapter extends RecyclerView.Adapter<SWPagerTopArtistsAdapter.MyViewHolder> {
     private List<SpotifyArtist> ls_artists;
     private Context context;
 
-    public PagerTopArtistsAdapter(List<SpotifyArtist> ls_artists, Context context) {
+    public SWPagerTopArtistsAdapter(List<SpotifyArtist> ls_artists, Context context) {
         this.ls_artists = ls_artists;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public PagerTopArtistsAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SWPagerTopArtistsAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_spotify_wrap_pager_artists_item,parent,false);
-        PagerTopArtistsAdapter.MyViewHolder holder = new PagerTopArtistsAdapter.MyViewHolder(view);
+        SWPagerTopArtistsAdapter.MyViewHolder holder = new SWPagerTopArtistsAdapter.MyViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PagerTopArtistsAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SWPagerTopArtistsAdapter.MyViewHolder holder, int position) {
         holder.itemView.setOnClickListener(v -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(
                     ls_artists.get(position).getArtistLink()

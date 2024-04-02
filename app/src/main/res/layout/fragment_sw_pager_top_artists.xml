@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/red"
-    tools:context=".spotifywrap.pagerfragments.PagerTracksFragment">
+    android:background="@color/banana"
+    tools:context=".spotifywrap.pagerfragments.SWPagerTopArtistsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,20 +24,20 @@
             android:textSize="25dp"
             android:textAlignment="center"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/white"
-            android:text="Here are the tracks you listened to the most"
+            android:textColor="@color/purple"
+            android:text="Here are your favorite artists"
             android:layout_marginBottom="20dp"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/spotify_wrap_pager_tracks_recycler_border"
-        >
+            android:background="@drawable/spotify_wrap_pager_artists_recycler_border"
+            >
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/spotifyWrapTopTracksList"
+                android:id="@+id/spotifyWrapTopArtistsList"
                 />
         </LinearLayout>
 

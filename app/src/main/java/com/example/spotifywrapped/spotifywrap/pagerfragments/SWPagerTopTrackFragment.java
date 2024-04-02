@@ -13,13 +13,13 @@ import android.widget.TextView;
 import com.example.spotifywrapped.R;
 import com.squareup.picasso.Picasso;
 
-public class PagerTopTrackFragment extends Fragment {
+public class SWPagerTopTrackFragment extends Fragment {
     private ImageView topTrackImg;
     private TextView topTrackNameText, topTrackArtistText;
 
     String topTrackImgUrl, topTrackName, topTrackArtistName;
 
-    public PagerTopTrackFragment(String topTrackImgUrl, String topTrackName, String topTrackArtistName) {
+    public SWPagerTopTrackFragment(String topTrackImgUrl, String topTrackName, String topTrackArtistName) {
         this.topTrackImgUrl = topTrackImgUrl;
         this.topTrackName = topTrackName;
         this.topTrackArtistName = topTrackArtistName;
@@ -33,7 +33,7 @@ public class PagerTopTrackFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pager_top_track, container, false);
+        View view = inflater.inflate(R.layout.fragment_sw_pager_top_track, container, false);
 
         topTrackNameText = view.findViewById(R.id.sw_top_track_trackName);
         topTrackArtistText = view.findViewById(R.id.sw_top_track_trackArtistName);
