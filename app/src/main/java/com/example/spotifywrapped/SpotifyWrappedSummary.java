@@ -10,13 +10,13 @@ public class SpotifyWrappedSummary {
     private LocalDateTime createdAt;
     private List<String> invitedUsers;
     public List<SpotifyTrack> topTracks, trackRecommendations;
-    public List<SpotifyArtist> topArtists;
+    public List<SpotifyArtist> topArtists, artistRecommendations;
     public List<String> topGenres;
 
     //Filters & Customizations
     public LocalDateTime startTime, endTime;
 
-    public SpotifyWrappedSummary(int id, String createdBy, String title, LocalDateTime createdAt, List<String> invitedUsers, List<SpotifyTrack> topTracks, List<SpotifyTrack> trackRecommendations, List<SpotifyArtist> topArtists, List<String> topGenres, LocalDateTime startTime, LocalDateTime endTime) {
+    public SpotifyWrappedSummary(int id, String createdBy, String title, LocalDateTime createdAt, List<String> invitedUsers, List<SpotifyTrack> topTracks, List<SpotifyTrack> trackRecommendations, List<SpotifyArtist> topArtists, List<SpotifyArtist> artistRecommendations, List<String> topGenres, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
         this.createdBy = createdBy;
         this.title = title;
@@ -25,6 +25,7 @@ public class SpotifyWrappedSummary {
         this.topTracks = topTracks;
         this.trackRecommendations = trackRecommendations;
         this.topArtists = topArtists;
+        this.artistRecommendations = artistRecommendations;
         this.topGenres = topGenres;
         this.startTime = startTime;
         this.endTime = endTime;

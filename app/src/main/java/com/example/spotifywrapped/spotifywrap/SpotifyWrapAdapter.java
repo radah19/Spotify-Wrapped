@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.spotifywrapped.SpotifyWrappedSummary;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerArtistRecommendationsFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerGenresFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerIntroductionFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTopArtistFragment;
@@ -23,7 +24,7 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
 
     public List<String> myFragments = Arrays.asList(new String[]{
             "Intro Fragment", "Top Track Fragment", "Top Tracks Fragment", "Top Artist Fragment",
-            "Top Artists Fragment", "Top Genres Fragment", "Recommended Tracks", "Conclusion"
+            "Top Artists Fragment", "Top Genres Fragment", "Recommended Tracks", "Recommended Artists", "Conclusion"
     });
 
     public SpotifyWrapAdapter(@NonNull FragmentActivity fragmentActivity, SpotifyWrappedSummary mSummary) {
@@ -70,8 +71,11 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
             case 6:
                 return new SWPagerTrackRecommendationsFragment(mSummary.trackRecommendations);
 
-            //Conclusion
             case 7:
+                return new SWPagerArtistRecommendationsFragment(mSummary.artistRecommendations);
+
+            //Conclusion
+            case 8:
                 return new SWPagerConclusionFragment(mSummary.startTime, mSummary.endTime);
 
             default:

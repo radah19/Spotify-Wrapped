@@ -36,6 +36,7 @@
         app:dividerColor="@color/gray"
         android:layout_marginTop="15dp"
         android:layout_gravity="center"
+        android:id="@+id/spotifyWrappedListDividerLine"
         />
 
     <TextView
@@ -46,6 +47,7 @@
         android:fontFamily="@font/font_gothammedium"
         android:layout_marginTop="5dp"
         android:text="Yours Friends Also Made"
+        android:id="@+id/yourFriendsAlsoMadeText"
         />
 
     <androidx.recyclerview.widget.RecyclerView
