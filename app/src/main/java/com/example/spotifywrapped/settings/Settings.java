@@ -28,8 +28,9 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        //update password method
         NavbarClass.initializeNavbar(this);
+
+        //updatePassword method
 
         oldPassword = findViewById(R.id.oldPassword_input);
         newPassword = findViewById(R.id.newPassword_input);
@@ -37,11 +38,10 @@ public class Settings extends AppCompatActivity {
         String oldPassword_input = oldPassword.getText().toString();
         String newPassword_input = newPassword.getText().toString();
 
+        //log out method
+
+        //delete account method
+
+        //clear data method
     }
-
-    //log out method
-
-    //delete account method
-
-    //clear data method
 }
