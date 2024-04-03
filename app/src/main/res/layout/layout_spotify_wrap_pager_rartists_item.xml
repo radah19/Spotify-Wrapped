@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="2dp"
+    android:paddingRight="8dp"
+    android:background="@color/purple">
+
+    <ImageView
+        android:id="@+id/sw_artists_img"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/spotify_wrap_image_border"
+        android:backgroundTint="@color/aquamarine"
+        android:src="@drawable/default_track_img"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/sw_artists_artistName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/aquamarine"
+            android:fontFamily="@font/font_gothambold"
+            android:textSize="22dp"
+            android:text="ARTIST"
+            />
+
+        <TextView
+            android:id="@+id/sw_artists_genres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/cyan"
+            android:fontFamily="@font/font_gothammedium"
+            android:textSize="20dp"
+            android:text="Prog Rock, Classical, Sleepcore"
+            />
+
+        <!-- Bullet Point Items -->
+
+        <!-- Popularity -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            >
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/spotify_wrap_icon_popularity"
+                app:tint="@color/blue"
+                />
+
+            <TextView
+                android:id="@+id/sw_artists_popularity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:fontFamily="@font/font_gothammedium"
+                android:textSize="18dp"
+                android:text="999"
+                />
+        </LinearLayout>
+
+        <!-- Duration -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            >
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/spotify_wrap_icon_followers"
+                app:tint="@color/blue"
+                />
+
+            <TextView
+                android:id="@+id/sw_artists_followers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:fontFamily="@font/font_gothammedium"
+                android:textSize="18dp"
+                android:text="9,999,999"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
