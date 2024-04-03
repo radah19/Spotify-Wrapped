@@ -1,114 +1,89 @@
 package com.example.spotifywrapped.accountscreen;
 
-import static com.spotify.sdk.android.auth.AccountsQueryParameters.CLIENT_ID;
-import static com.spotify.sdk.android.auth.AccountsQueryParameters.REDIRECT_URI;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.util.Base64;
-import android.view.View;
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.os.Bundle;
 
 import com.example.spotifywrapped.R;
-import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 import com.example.spotifywrapped.useraccounts.User;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import com.spotify.sdk.android.auth.AuthorizationClient;
+import com.spotify.sdk.android.auth.AuthorizationRequest;
+import com.spotify.sdk.android.auth.AuthorizationResponse;
 
 public class LoginActivity extends AppCompatActivity {
 
-        private EditText emailInput;
-        private EditText passwordInput;
+    private static final int REQUEST_CODE = 1337; // Any arbitrary number for the request code
+    private static final String CLIENT_ID = "your_client_id_here";
+    private static final String REDIRECT_URI = "your_redirect_uri_here";
+    private static final String CLIENT_SECRET = "your_client_secret_here";
 
-        @SuppressLint("MissingInflatedId")
-        @Override
-        protected void onCreate (Bundle savedInstanceState){
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_login);
+    private EditText emailInput;
+    private EditText passwordInput;
 
-            Button signUpButton = findViewById(R.id.sign_up_button);
-            signUpButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Start CreateAccount activity
-                    Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
-                    startActivity(intent);
-                }
-            });
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
 
-            emailInput = findViewById(R.id.email_input);
-            passwordInput = findViewById(R.id.password_input);
-            Button loginButton = findViewById(R.id.login_button);
+        Button signUpButton = findViewById(R.id.sign_up_button);
+        signUpButton.setOnClickListener(v -> {
+            // Start CreateAccount activity
+            Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
+            startActivity(intent);
+        });
 
-            loginButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    validateCredentials(emailInput.getText().toString(), passwordInput.getText().toString());
-                }
-            });
-        }
+        emailInput = findViewById(R.id.email_input);
+        passwordInput = findViewById(R.id.password_input);
+        Button loginButton = findViewById(R.id.login_button);
 
-        private void validateCredentials(String username, String password) {
-            String trueUsername = "";
-            String truePassword = "";
+        loginButton.setOnClickListener(v -> {
+            // Consider validating the email and password before proceeding
+            initiateSpotifyLogin();
+        });
+    }
 
-            //Retrieve Correct Credentials from Database
-            
-            // Check if the credentials are valid.
-            if (trueUsername.equals(username) && truePassword.equals(password)) {
-                // Credentials are valid.
-                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                // Get Spotify Login Using SpotifyAPIManager & dump into User class
-                User.setAccessCode("");
-                //User.setAccessToken("");
+    private void initiateSpotifyLogin() {
+        AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
+        builder.setScopes(new String[]{"user-read-private", "streaming"}); // Define your scopes here
+        AuthorizationRequest request = builder.build();
 
-                //Making the necessary API calls and setting access token: "User.setAccessToken(accessToken);"
-                OkHttpClient client = new OkHttpClient();
-                RequestBody body = new FormBody.Builder()
-                        .add("grant_type", "authorization_code")
-                        .add("code", AUTH_CODE) // The authorization code you received
-                        .add("redirect_uri", REDIRECT_URI)
-                        .build();
+        AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
+    }
 
-                Request request = new Request.Builder()
-                        .url("https://accounts.spotify.com/api/token")
-                        .addHeader("Authorization", "Basic " + Base64.encodeToString((CLIENT_ID + ":" + CLIENT_SECRET).getBytes(), Base64.NO_WRAP))
-                        .post(body)
-                        .build();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
 
-                try (Response response = client.newCall(request).execute()) {
-                    String responseBody = response.body().string();
-                    // Parse the response body to extract the access token
-                    JSONObject jsonResponse = new JSONObject(responseBody);
-                    String accessToken = jsonResponse.getString("access_token");
-                    User.setAccessToken(accessToken);
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                }
+        if (requestCode == REQUEST_CODE) {
+            AuthorizationResponse response = AuthorizationClient.getResponse(resultCode, intent);
+            switch (response.getType()) {
+                case TOKEN:
+                    // Use the token to make requests on behalf of the user
+                    String accessToken = response.getAccessToken();
+                    proceedWithLoggedInUser(accessToken);
+                    break;
 
-                // Dump data into User class
-                User.username = emailInput.getText().toString();
-                // Proceed with logging in the user or navigating to the next screen.
-                Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
-                this.startActivity(myIntent);
-            } else {
-                // Credentials are invalid.
-                Toast.makeText(LoginActivity.this, "Incorrect Email or Password. Try again!", Toast.LENGTH_LONG).show();
+                case ERROR:
+                    // Handle error response
+                    Toast.makeText(this, "Authentication error: " + response.getError(), Toast.LENGTH_LONG).show();
+                    break;
+
+                default:
+                    // Most likely auth flow was cancelled
+                    Toast.makeText(this, "Authentication cancelled", Toast.LENGTH_LONG).show();
             }
         }
-
     }
+
+    private void proceedWithLoggedInUser(String accessToken) {
+        // Here you can update your User class with the access token and proceed
+        User.setAccessToken(accessToken);
+
+        // Navigate to the next screen or perform further user setup
+        //Intent myIntent = new Intent(this, SpotifyWrappedListActivity?.class);
+        //startActivity(myIntent);
+    }
+}
