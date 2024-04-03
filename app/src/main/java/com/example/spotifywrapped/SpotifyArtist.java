@@ -4,15 +4,25 @@ import java.util.List;
 
 public class SpotifyArtist {
     private List<String> artistGenres;
-    private String artistName, artistLink;
-    private int artistPopularity, artistFollowers;
+    private String artistName, artistLink, artistImageLink;
+    private int artistPopularity, artistFollowers, id;
 
-    public SpotifyArtist(List<String> artistGenres, String artistName, String artistLink, int artistPopularity, int artistFollowers) {
+    public SpotifyArtist(int id, List<String> artistGenres, String artistName, String artistLink, String artistImageLink, int artistPopularity, int artistFollowers) {
+        this.id = id;
         this.artistGenres = artistGenres;
         this.artistName = artistName;
         this.artistLink = artistLink;
+        this.artistImageLink = artistImageLink;
         this.artistPopularity = artistPopularity;
         this.artistFollowers = artistFollowers;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<String> getArtistGenres() {
@@ -53,5 +63,13 @@ public class SpotifyArtist {
 
     public void setArtistFollowers(int artistFollowers) {
         this.artistFollowers = artistFollowers;
+    }
+
+    public String getArtistImageLink() {
+        return artistImageLink;
+    }
+
+    public void setArtistImageLink(String artistImageLink) {
+        this.artistImageLink = artistImageLink;
     }
 }

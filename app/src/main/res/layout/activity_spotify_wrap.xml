@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/white"
     tools:context=".spotifywrap.SpotifyWrapActivity"
     android:orientation="vertical">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"></androidx.viewpager2.widget.ViewPager2>
 
-</LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sw_exitSpotifyWrapButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/transparent"
+        app:icon="@drawable/icon_logout"
+        app:iconTint="@color/black"
+        app:iconGravity="textTop"
+        android:layout_gravity="bottom"
+        />
+</FrameLayout>

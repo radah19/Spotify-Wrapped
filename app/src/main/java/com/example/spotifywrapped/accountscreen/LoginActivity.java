@@ -7,11 +7,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.spotifywrapped.DatabaseManager;
 import com.example.spotifywrapped.R;
+import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 import com.example.spotifywrapped.useraccounts.User;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,12 +41,33 @@ public class LoginActivity extends AppCompatActivity {
 
         emailInput = findViewById(R.id.email_input);
         passwordInput = findViewById(R.id.password_input);
-        Button loginButton = findViewById(R.id.login_button);
+        Button loginButton = findViewById(R.id.createAccount_btn);
+
+            // --- Testing for database ---
+            /*
+            ArrayList<String> friendsList = new ArrayList<String>();
+            friendsList.add("Dennis");
+            friendsList.add("Andrew");
+            DatabaseManager.setFirebaseAuth();
+            DatabaseManager.addUser("Ethan", "lucky", friendsList, 14);
+             DatabaseManager.retrieveUser("Ethan", LoginActivity.this);
+
+             */
 
         loginButton.setOnClickListener(v -> {
-            // Consider validating the email and password before proceeding
-            initiateSpotifyLogin();
-        });
+                String email_input = emailInput.getText().toString();
+                String password_input = passwordInput.getText().toString();
+
+                DatabaseManager.setFirebaseAuth();
+                DatabaseManager.loginUser(email_input, password_input, LoginActivity.this);
+
+                initiateSpotifyLogin();
+
+                Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
+                this.startActivity(myIntent);
+            });
+        }
+
     }
 
     private void initiateSpotifyLogin() {

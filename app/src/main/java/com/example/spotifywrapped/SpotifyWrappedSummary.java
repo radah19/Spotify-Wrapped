@@ -1,27 +1,34 @@
 package com.example.spotifywrapped;
 
-import com.example.spotifywrapped.SpotifyTrack;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class SpotifyWrappedSummary {
+    private int id;
     private String createdBy;
-    private List<String> invitedUsers;
-    private List<SpotifyTrack> tracks;
     private String title;
     private LocalDateTime createdAt;
+    private List<String> invitedUsers;
+    public List<SpotifyTrack> topTracks, trackRecommendations;
+    public List<SpotifyArtist> topArtists, artistRecommendations;
+    public List<String> topGenres;
 
     //Filters & Customizations
     public LocalDateTime startTime, endTime;
-    public List<String> filteredGenres, filteredArtists, filteredTracks;
 
-    public SpotifyWrappedSummary(String createdBy, List<String> invitedUsers, List<SpotifyTrack> tracks, String title, LocalDateTime createdAt) {
+    public SpotifyWrappedSummary(int id, String createdBy, String title, LocalDateTime createdAt, List<String> invitedUsers, List<SpotifyTrack> topTracks, List<SpotifyTrack> trackRecommendations, List<SpotifyArtist> topArtists, List<SpotifyArtist> artistRecommendations, List<String> topGenres, LocalDateTime startTime, LocalDateTime endTime) {
+        this.id = id;
         this.createdBy = createdBy;
-        this.invitedUsers = invitedUsers;
-        this.tracks = tracks;
         this.title = title;
         this.createdAt = createdAt;
+        this.invitedUsers = invitedUsers;
+        this.topTracks = topTracks;
+        this.trackRecommendations = trackRecommendations;
+        this.topArtists = topArtists;
+        this.artistRecommendations = artistRecommendations;
+        this.topGenres = topGenres;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public String getCreatedBy() {
@@ -40,12 +47,12 @@ public class SpotifyWrappedSummary {
         this.invitedUsers = invitedUsers;
     }
 
-    public List<SpotifyTrack> getTracks() {
-        return tracks;
+    public List<SpotifyTrack> getTrackRecommendations() {
+        return trackRecommendations;
     }
 
-    public void setTracks(List<SpotifyTrack> tracks) {
-        this.tracks = tracks;
+    public void setTrackRecommendations(List<SpotifyTrack> trackRecommendations) {
+        this.trackRecommendations = trackRecommendations;
     }
 
     public String getTitle() {
@@ -62,5 +69,13 @@ public class SpotifyWrappedSummary {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
