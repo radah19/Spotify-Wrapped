@@ -9,23 +9,30 @@ import android.widget.Toast;
 
 import com.example.spotifywrapped.DatabaseManager;
 import com.example.spotifywrapped.R;
+import com.example.spotifywrapped.SpotifyAPIManager;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 import com.example.spotifywrapped.useraccounts.User;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 1337; // Any arbitrary number for the request code
-    private static final String CLIENT_ID = "your_client_id_here";
-    private static final String REDIRECT_URI = "your_redirect_uri_here";
-    private static final String CLIENT_SECRET = "your_client_secret_here";
+    private static final String CLIENT_ID = "3e82d56a15ac4887b2e645941b29b6cc";
+    private static final String REDIRECT_URI = "spotifywrapped://auth";
+    //private static final String CLIENT_SECRET = "your_client_secret_here";
 
     private EditText emailInput;
     private EditText passwordInput;
+
+    public static boolean loginSuccessful = false;
+    private static boolean authSuccessful = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +50,16 @@ public class LoginActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.password_input);
         Button loginButton = findViewById(R.id.createAccount_btn);
 
-            // --- Testing for database ---
-            /*
-            ArrayList<String> friendsList = new ArrayList<String>();
-            friendsList.add("Dennis");
-            friendsList.add("Andrew");
-            DatabaseManager.setFirebaseAuth();
-            DatabaseManager.addUser("Ethan", "lucky", friendsList, 14);
-             DatabaseManager.retrieveUser("Ethan", LoginActivity.this);
+        // --- Testing for database ---
+        /*
+        ArrayList<String> friendsList = new ArrayList<String>();
+        friendsList.add("Dennis");
+        friendsList.add("Andrew");
+        DatabaseManager.setFirebaseAuth();
+        DatabaseManager.addUser("Ethan", "lucky", friendsList, 14);
+         DatabaseManager.retrieveUser("Ethan", LoginActivity.this);
 
-             */
+         */
 
         loginButton.setOnClickListener(v -> {
                 String email_input = emailInput.getText().toString();
@@ -61,18 +68,15 @@ public class LoginActivity extends AppCompatActivity {
                 DatabaseManager.setFirebaseAuth();
                 DatabaseManager.loginUser(email_input, password_input, LoginActivity.this);
 
-                initiateSpotifyLogin();
-
-                Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
-                this.startActivity(myIntent);
+                if(loginSuccessful) {
+                    initiateSpotifyLogin();
+                }
             });
-        }
-
     }
 
     private void initiateSpotifyLogin() {
         AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
-        builder.setScopes(new String[]{"user-read-private", "streaming"}); // Define your scopes here
+        builder.setScopes(new String[]{"user-read-private", "user-read-email", "streaming"}); // Define your scopes here
         AuthorizationRequest request = builder.build();
 
         AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
@@ -88,7 +92,11 @@ public class LoginActivity extends AppCompatActivity {
                 case TOKEN:
                     // Use the token to make requests on behalf of the user
                     String accessToken = response.getAccessToken();
-                    proceedWithLoggedInUser(accessToken);
+                    try {
+                        proceedWithLoggedInUser(accessToken);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case ERROR:
@@ -99,16 +107,26 @@ public class LoginActivity extends AppCompatActivity {
                 default:
                     // Most likely auth flow was cancelled
                     Toast.makeText(this, "Authentication cancelled", Toast.LENGTH_LONG).show();
+                    break;
             }
         }
     }
 
-    private void proceedWithLoggedInUser(String accessToken) {
+    private void proceedWithLoggedInUser(String accessToken) throws JSONException {
         // Here you can update your User class with the access token and proceed
-        User.setAccessToken(accessToken);
+        SpotifyAPIManager spotApi = SpotifyAPIManager.getInstance();
+        spotApi.setAccessToken(accessToken);
 
-        // Navigate to the next screen or perform further user setup
-        //Intent myIntent = new Intent(this, SpotifyWrappedListActivity?.class);
-        //startActivity(myIntent);
+        // Perform further user setup
+        try {
+            JSONObject userData = new JSONObject(spotApi.getUserData());
+
+            System.out.println(userData);
+            // Navigate to the next screen
+            Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
+            this.startActivity(myIntent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

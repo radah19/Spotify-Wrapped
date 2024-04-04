@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.spotifywrapped.accountscreen.LoginActivity;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 import com.example.spotifywrapped.useraccounts.User;
 import com.google.android.gms.common.PackageVerificationResult;
@@ -80,14 +81,16 @@ public class DatabaseManager {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(activity, "Login Successful!", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(activity, SpotifyWrappedListActivity.class);
-                activity.startActivity(myIntent);
+                LoginActivity.loginSuccessful = true;
+                //Intent myIntent = new Intent(activity, SpotifyWrappedListActivity.class);
+                //activity.startActivity(myIntent);
                 // need to switch activities and also call finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(activity, "Login Failed!", Toast.LENGTH_SHORT).show();
+                LoginActivity.loginSuccessful = false;
             }
         });
     } // loginUser
