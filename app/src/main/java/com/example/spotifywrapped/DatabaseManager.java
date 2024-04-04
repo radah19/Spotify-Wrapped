@@ -189,7 +189,6 @@ public class DatabaseManager {
                 //   Toast.makeText(activity, String.valueOf(recommendedArtists.get(0)), Toast.LENGTH_SHORT).show();
 
                 ArrayList<String> topGenres =  (ArrayList<String>)snapshot.child("Top Genres").getValue();
-            //    Toast.makeText(activity, topGenres.get(0), Toast.LENGTH_SHORT).show();
 
 
 
