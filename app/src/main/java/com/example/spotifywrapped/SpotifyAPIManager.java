@@ -2,6 +2,8 @@ package com.example.spotifywrapped;
 
 import android.os.NetworkOnMainThreadException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -15,6 +17,8 @@ import org.json.JSONException;
 public class SpotifyAPIManager {
     private static SpotifyAPIManager instance;
     private static OkHttpClient mOkHttpClient;
+    private static Call mCall;
+    private static String mResponse;
 
     private static String accessToken, accessCode;
 
@@ -65,17 +69,29 @@ public class SpotifyAPIManager {
                 .url(url)
                 .addHeader("Authorization", "Bearer " + getAccessToken())
                 .build();
+        if(mCall != null) mCall.cancel();
+        mCall = mOkHttpClient.newCall(request);
 
-        try {
-            if(mOkHttpClient == null ){
-                mOkHttpClient = new OkHttpClient();
+        mResponse = null;
+
+        mCall.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                mResponse = "TRANSACTION FAILED";
+                e.printStackTrace();
             }
-            Response response = mOkHttpClient.newCall(request).execute();
-            return response.body().string();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                mResponse = response.body().string();
+            }
+        });
+
+        while (mResponse == null || mResponse != "TRANSACTION FAILED") {
+            //Don't do anything
         }
+
+        return mResponse;
     }
 
     public static List<String> parseJsonData(String jsonData, String key) {

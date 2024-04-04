@@ -119,12 +119,18 @@ public class LoginActivity extends AppCompatActivity {
 
         // Perform further user setup
         try {
-            JSONObject userData = new JSONObject(spotApi.getUserData());
+            String getUserData = spotApi.getUserData();
 
-            System.out.println(userData);
-            // Navigate to the next screen
-            Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
-            this.startActivity(myIntent);
+            if(!getUserData.equals("TRANSACTION FAILED")) {
+                JSONObject userData = new JSONObject(getUserData);
+
+                // Navigate to the next screen
+                User.setSpotifyUserId(Integer.parseInt(userData.getString("id")));
+                
+                Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
+                this.startActivity(myIntent);
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
