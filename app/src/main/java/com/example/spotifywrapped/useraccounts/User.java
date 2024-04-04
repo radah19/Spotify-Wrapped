@@ -20,8 +20,6 @@ public class User {
 
     private static int spotifyUserId;
 
-
-
     public static String getAccessCode() {
         return accessCode;
     }
