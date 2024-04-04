@@ -8,12 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.spotifywrapped.DatabaseManager;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyArtist;
 import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
 import com.example.spotifywrapped.navbar.NavbarClass;
 
+import org.checkerframework.checker.units.qual.A;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
@@ -121,6 +125,26 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         fllm.setOrientation(LinearLayoutManager.VERTICAL);
         friendsSpotifyWrappedList.setLayoutManager(fllm);
         friendsSpotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(friendSpotifyWrappedSummaries));
+
+        // --- Testing for database ---
+        DatabaseManager.setFirebaseAuth();
+        ArrayList<String> invitedUsers = new ArrayList<>();
+        invitedUsers.add("Pedro");
+        ArrayList<Integer> topTracks = new ArrayList<>();
+        topTracks.add(1);
+        ArrayList<Integer> topArtists = new ArrayList<>();
+        topArtists.add(2);
+        ArrayList<String> topGenres = new ArrayList<>();
+        topGenres.add("Rap");
+        ArrayList<Integer> trackRec = new ArrayList<>();
+        trackRec.add(3);
+        ArrayList<Integer> artistRec = new ArrayList<>();
+        artistRec.add(4);
+       // DatabaseManager.addSpotifyWrapped(14, "Lee", invitedUsers, "My Wrapped", LocalDateTime.of(2025, Month.JANUARY, 1, 0, 0),
+         //       topArtists, topTracks, topGenres, trackRec, artistRec);
+        DatabaseManager.retrieveSpotifyWrapped(14, this);
+
+        // ---                      ---
     }
 
     public void initUserSummaries(){

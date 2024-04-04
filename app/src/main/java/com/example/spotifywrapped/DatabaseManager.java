@@ -25,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.checkerframework.checker.units.qual.A;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -135,42 +137,58 @@ public class DatabaseManager {
         });
     } // retrieveUser
 
-    public static void addSpotifyWrapped(int id, String createdBy, List<String> invitedUsers,
-                                         List<Integer> tracks, String title, Date createdOn,
-                                         List<Integer> topArtists, List<Integer> topTracks, List<String> topGenres,
-                                         List<Integer> trackRecommendations) {
+    public static void addSpotifyWrapped(int id, String createdBy, ArrayList<String> invitedUsers,
+                                         String title, LocalDateTime createdOn,
+                                         ArrayList<Integer> topArtists, ArrayList<Integer> topTracks, ArrayList<String> topGenres,
+                                         ArrayList<Integer> trackRecommendations, ArrayList<Integer> artistRecommendations) {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("Created by", createdBy);
         map.put("Invited users", invitedUsers);
-        map.put("Tracks", tracks);
         map.put("Title", title);
         map.put("Created on", createdOn);
         map.put("Top Artists", topArtists);
         map.put("Top Tracks", topTracks);
         map.put("Top Genres", topGenres);
         map.put("Recommended Tracks", trackRecommendations);
+        map.put("Recommended Artists", artistRecommendations);
         FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(String.valueOf(id)).setValue(map);
     } // addSpotifyWrapped
 
-    public static void retrieveSpotifyWrapped(String username, Activity activity) {
-        reference = FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(username);
+    public static void retrieveSpotifyWrapped(int id, Activity activity) {
+        reference = FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(String.valueOf(id));
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                /*
-                User.setUsername(username);
-                User.setPassword(snapshot.child("Password").getValue().toString());
-                Toast.makeText(activity, User.getPassword(), Toast.LENGTH_SHORT).show();
-                int spotifyUserId = snapshot.child("SpotifyUserID").getValue(Integer.class);
-                User.setSpotifyUserId(spotifyUserId);
-                Toast.makeText(activity, String.valueOf(User.getSpotifyUserId()), Toast.LENGTH_SHORT).show();
-                User.setFriendsList(((ArrayList<String>)snapshot.child("Friends List").getValue()));
-                Toast.makeText(activity, User.getFriendsList().get(0), Toast.LENGTH_SHORT).show();
-                Toast.makeText(activity, User.getFriendsList().get(1), Toast.LENGTH_SHORT).show();
-                 */
+
                 String createdBy = snapshot.child("Created by").getValue().toString();
+                //  Toast.makeText(activity, createdBy, Toast.LENGTH_SHORT).show();
+
+                String title = snapshot.child("Title").getValue().toString();
+                //   Toast.makeText(activity, title, Toast.LENGTH_SHORT).show();
+
+                LocalDateTime createdOn = (LocalDateTime)snapshot.child("Created on").getValue();
+            //    Toast.makeText(activity, String.valueOf(createdOn), Toast.LENGTH_SHORT).show();
+
                 ArrayList<String> invitedUsers =  (ArrayList<String>)snapshot.child("Invited users").getValue();
+                //   Toast.makeText(activity, invitedUsers.get(0), Toast.LENGTH_SHORT).show();
+
+                ArrayList<Integer> topTracks =  (ArrayList<Integer>)snapshot.child("Top Tracks").getValue();
+                //  Toast.makeText(activity, String.valueOf(topTracks.get(0)), Toast.LENGTH_SHORT).show();
+
+                ArrayList<Integer> recommendedTracks =  (ArrayList<Integer>)snapshot.child("Recommended Tracks").getValue();
+                //  Toast.makeText(activity, String.valueOf(recommendedTracks.get(0)), Toast.LENGTH_SHORT).show();
+
+                ArrayList<Integer> topArtists =  (ArrayList<Integer>)snapshot.child("Top Artists").getValue();
+                //   Toast.makeText(activity, String.valueOf(topArtists.get(0)), Toast.LENGTH_SHORT).show();
+
+                ArrayList<Integer> recommendedArtists =  (ArrayList<Integer>)snapshot.child("Recommended Artists").getValue();
+                //   Toast.makeText(activity, String.valueOf(recommendedArtists.get(0)), Toast.LENGTH_SHORT).show();
+
+                ArrayList<String> topGenres =  (ArrayList<String>)snapshot.child("Top Genres").getValue();
+            //    Toast.makeText(activity, topGenres.get(0), Toast.LENGTH_SHORT).show();
+
+
 
             }
 
