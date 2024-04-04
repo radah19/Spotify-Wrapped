@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Navigate to the next screen
                 User.setSpotifyUserId(Integer.parseInt(userData.getString("id")));
-                
+
                 Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
                 this.startActivity(myIntent);
             }
