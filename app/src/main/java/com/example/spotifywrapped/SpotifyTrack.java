@@ -5,12 +5,12 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class SpotifyTrack {
-    private String trackArtist, trackName, trackLink, trackImageLink;
+    private String trackArtist, trackName, trackLink, trackImageLink, id;
     private LocalTime trackLen;
     private LocalDateTime trackPublishDate;
-    private int trackPopularity, id;
+    private int trackPopularity;
 
-    public SpotifyTrack(int id, String trackArtist, String trackName, String trackLink, String trackImageLink, LocalTime trackLen, LocalDateTime trackPublishDate, int trackPopularity) {
+    public SpotifyTrack(String id, String trackArtist, String trackName, String trackLink, String trackImageLink, LocalTime trackLen, LocalDateTime trackPublishDate, int trackPopularity) {
         this.id = id;
         this.trackArtist = trackArtist;
         this.trackName = trackName;
@@ -21,11 +21,11 @@ public class SpotifyTrack {
         this.trackPopularity = trackPopularity;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
