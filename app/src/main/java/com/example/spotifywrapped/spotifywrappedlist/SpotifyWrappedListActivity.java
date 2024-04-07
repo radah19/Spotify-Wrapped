@@ -32,7 +32,6 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
     public static List<String> ls_genres2 = Arrays.asList("Hip Hop", "Classical");
     public static List<String> ls_genres3 = Arrays.asList("Hip Hop", "Gym Hop", "Rabbit Hop");
 
-    static String hmaryaLink = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fis5-ssl.mzstatic.com%2Fimage%2Fthumb%2FMusic124%2Fv4%2F22%2Ffb%2Fee%2F22fbeefc-820b-ce52-dd96-c54a943d2091%2Fartwork.jpg%2F1200x1200bf-60.jpg&f=1&nofb=1&ipt=a2f44d309809848402616749596f7e903ac709dc1d9b8f398a7da17a36c5886e&ipo=images";
     public static List<SpotifyTrack> ls_tracks = Arrays.asList(
             SpotifyAPIManager.loadSpotifyTrackById("0eqaqo2r4ukxyNsjm3kcyr"),
             SpotifyAPIManager.loadSpotifyTrackById("11dFghVXANMlKmJXsNCbNl")
@@ -46,6 +45,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
     );
 
     public static List<SpotifyArtist> ls_artists = Arrays.asList(
+            SpotifyAPIManager.loadSpotifyArtistById("0TnOYISbd1XYRBk9myaseg"),
         new SpotifyArtist("0", ls_genres3, "Markler", "https://zombo.com",
                 "https://i.kym-cdn.com/photos/images/original/002/578/725/794", 1, 392409230),
         new SpotifyArtist("1", ls_genres2, "Shubh Saran", "https://open.spotify.com/artist/2F9WG9ugzneeesOZfmQ18V",

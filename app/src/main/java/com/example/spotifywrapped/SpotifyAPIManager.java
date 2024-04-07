@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -100,6 +101,34 @@ public class SpotifyAPIManager {
         return null;
     }
 
+    public static SpotifyArtist loadSpotifyArtistById(String id) {
+        String url = "https://api.spotify.com/v1/artists/" + id;
+        String data = makeRequest(url);
+
+        if(data != "TRANSACTION FAILED") {
+            try {
+                JSONObject json = new JSONObject(data);
+
+                SpotifyArtist artist = new SpotifyArtist(
+                        id,
+                        SpotifyAPIManager.convertJsonArrToStringList(json.getJSONArray("genres")),
+                        json.getString("name"),
+                        json.getJSONObject("external_urls").getString("spotify"),
+                        json.getJSONArray("images").getJSONObject(0).getString("url"),
+                        json.getInt("popularity"),
+                        json.getJSONObject("followers").getInt("total")
+                    );
+
+                return artist;
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
     private static String makeRequest(String url) {
         Request request = new Request.Builder()
                 .url(url)
@@ -165,5 +194,15 @@ public class SpotifyAPIManager {
 
     public static void setAccessCode(String accessCode) {
         SpotifyAPIManager.accessCode = accessCode;
+    }
+
+    public static List<String> convertJsonArrToStringList(JSONArray arr) throws JSONException {
+        List<String> ls = new ArrayList<>();
+
+        for(int i = 0; i < arr.length(); i++){
+            ls.add((String) arr.get(i));
+        }
+
+        return ls;
     }
 }
