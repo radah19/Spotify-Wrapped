@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if(!getUserData.equals("TRANSACTION FAILED")) {
                 JSONObject userData = new JSONObject(getUserData);
-                
+
                 User.setSpotifyUserId(userData.getString("id"));
 
                 Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);

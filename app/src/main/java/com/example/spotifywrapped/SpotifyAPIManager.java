@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -70,7 +71,6 @@ public class SpotifyAPIManager {
     public static SpotifyTrack loadSpotifyTrackById(String id) {
         String url = "https://api.spotify.com/v1/tracks/" + id;
         String data = makeRequest(url);
-        while(data == null) {}
 
         if(data != "TRANSACTION FAILED") {
             try {
@@ -78,12 +78,15 @@ public class SpotifyAPIManager {
 
                 SpotifyTrack track = new SpotifyTrack(
                         id,
-                        json.getString("artists[0].name"),
+                        json.getJSONArray("artists").getJSONObject(0).getString("name"),
                         json.getString("name"),
-                        json.getString("external_urls.spotify"),
-                        json.getString("album.images[0].url"),
+                        json.getJSONObject("external_urls").getString("spotify"),
+                        json.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url"),
                         SpotifyTrack.generateTrackLengthFromInt(json.getInt("duration_ms")),
-                        LocalDateTime.parse(json.getString("album.release_date"), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        LocalDate.parse(
+                                json.getJSONObject("album").getString("release_date"),
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        ),
                         json.getInt("popularity")
                 );
 

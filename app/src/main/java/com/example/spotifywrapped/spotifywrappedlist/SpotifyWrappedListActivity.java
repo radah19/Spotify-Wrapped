@@ -15,6 +15,7 @@ import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
 import com.example.spotifywrapped.navbar.NavbarClass;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
@@ -36,15 +37,15 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
             new SpotifyTrack("0", "Shubh Saran", "The Sacred",
                     "https://open.spotify.com/track/0eqaqo2r4ukxyNsjm3kcyr", hmaryaLink,
                     LocalTime.of(0, 2, 57),
-                    LocalDateTime.of(2017, Month.MAY, 7, 0, 0),
+                    LocalDate.of(2017, Month.MAY, 7),
                     28),
             new SpotifyTrack("1", "The Markler", "Markle", "https://zombo.com",
                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228",
                     LocalTime.of(0, 3, 26),
-                    LocalDateTime.now(), 100),
+                    LocalDate.now(), 100),
             new SpotifyTrack("2", "Yuno Miles", "Blizzard", "https://zombo.com",
                                 hmaryaLink, LocalTime.of(6, 11, 45),
-                                LocalDateTime.now(), 63),
+                    LocalDate.now(), 63),
             SpotifyAPIManager.loadSpotifyTrackById("11dFghVXANMlKmJXsNCbNl")
     );
 
@@ -52,7 +53,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
             new SpotifyTrack("3", "The Markler", "Markle", "https://zombo.com",
                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228",
                     LocalTime.of(0, 3, 26),
-                    LocalDateTime.now(), 100)
+                    LocalDate.now(), 100)
     );
 
     public static List<SpotifyArtist> ls_artists = Arrays.asList(
