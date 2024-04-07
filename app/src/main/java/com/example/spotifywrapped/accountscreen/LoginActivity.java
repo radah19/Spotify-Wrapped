@@ -121,10 +121,6 @@ public class LoginActivity extends AppCompatActivity {
         try {
             String getUserData = spotApi.getUserData();
 
-            while(getUserData == null) {
-                //Do nothing
-            }
-
             if(!getUserData.equals("TRANSACTION FAILED")) {
                 JSONObject userData = new JSONObject(getUserData);
 

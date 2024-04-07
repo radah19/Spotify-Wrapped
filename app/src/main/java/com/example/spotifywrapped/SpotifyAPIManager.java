@@ -8,6 +8,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
@@ -64,6 +67,36 @@ public class SpotifyAPIManager {
         return makeRequest(url);
     }
 
+    public static SpotifyTrack loadSpotifyTrackById(String id) {
+        String url = "https://api.spotify.com/v1/tracks/" + id;
+        String data = makeRequest(url);
+        while(data == null) {}
+
+        if(data != "TRANSACTION FAILED") {
+            try {
+                JSONObject json = new JSONObject(data);
+
+                SpotifyTrack track = new SpotifyTrack(
+                        id,
+                        json.getString("artists[0].name"),
+                        json.getString("name"),
+                        json.getString("external_urls.spotify"),
+                        json.getString("album.images[0].url"),
+                        SpotifyTrack.generateTrackLengthFromInt(json.getInt("duration_ms")),
+                        LocalDateTime.parse(json.getString("album.release_date"), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        json.getInt("popularity")
+                );
+
+                return track;
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
     private static String makeRequest(String url) {
         Request request = new Request.Builder()
                 .url(url)
@@ -86,6 +119,8 @@ public class SpotifyAPIManager {
                 mResponse = response.body().string();
             }
         });
+
+        while(mResponse == null) {}
 
         return mResponse;
     }

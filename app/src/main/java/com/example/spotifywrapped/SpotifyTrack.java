@@ -69,6 +69,14 @@ public class SpotifyTrack {
         this.trackLen = trackLen;
     }
 
+    /*
+    *   Provided Amn should be in milliseconds
+    *   Returns LocalTime Object to Provide for Spotify Wraps
+    */
+    public static LocalTime generateTrackLengthFromInt(int amn) {
+        return LocalTime.of((amn/1000)/3600, (amn/1000)%60, (amn/1000)%3600);
+    }
+
     public LocalDateTime getTrackPublishDate() {
         return trackPublishDate;
     }
