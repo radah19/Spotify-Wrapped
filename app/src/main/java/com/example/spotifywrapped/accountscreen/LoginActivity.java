@@ -1,6 +1,9 @@
 package com.example.spotifywrapped.accountscreen;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -30,9 +33,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText emailInput;
     private EditText passwordInput;
-
-    public static boolean loginSuccessful = false;
-    private static boolean authSuccessful = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,15 +66,11 @@ public class LoginActivity extends AppCompatActivity {
                 String password_input = passwordInput.getText().toString();
 
                 DatabaseManager.setFirebaseAuth();
-                DatabaseManager.loginUser(email_input, password_input, LoginActivity.this);
-
-                if(loginSuccessful) {
-                    initiateSpotifyLogin();
-                }
+                DatabaseManager.loginUser(email_input, password_input, this);
             });
     }
 
-    private void initiateSpotifyLogin() {
+    public void initiateSpotifyLogin() {
         AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
         builder.setScopes(new String[]{"user-read-private", "user-read-email", "streaming"}); // Define your scopes here
         AuthorizationRequest request = builder.build();
@@ -125,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject userData = new JSONObject(getUserData);
 
                 // Navigate to the next screen
-                User.setSpotifyUserId(Integer.parseInt(userData.getString("id")));
+                User.setSpotifyUserId(userData.getString("id"));
 
                 Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
                 this.startActivity(myIntent);
