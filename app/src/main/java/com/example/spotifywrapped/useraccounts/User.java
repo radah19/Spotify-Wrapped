@@ -17,7 +17,7 @@ public class User {
 
     public static ArrayList<String> friendsList;
 
-    private static int spotifyUserId;
+    private static String spotifyUserId;
 
     public static String getUsername() {
         return username;
@@ -51,11 +51,11 @@ public class User {
         User.friendsList = friendsList;
     }
 
-    public static int getSpotifyUserId() {
+    public static String getSpotifyUserId() {
         return spotifyUserId;
     }
 
-    public static void setSpotifyUserId(int spotifyUserId) {
+    public static void setSpotifyUserId(String spotifyUserId) {
         User.spotifyUserId = spotifyUserId;
     }
 }
