@@ -4,10 +4,10 @@ import java.util.List;
 
 public class SpotifyArtist {
     private List<String> artistGenres;
-    private String artistName, artistLink, artistImageLink;
-    private int artistPopularity, artistFollowers, id;
+    private String artistName, artistLink, artistImageLink, id;
+    private int artistPopularity, artistFollowers;
 
-    public SpotifyArtist(int id, List<String> artistGenres, String artistName, String artistLink, String artistImageLink, int artistPopularity, int artistFollowers) {
+    public SpotifyArtist(String id, List<String> artistGenres, String artistName, String artistLink, String artistImageLink, int artistPopularity, int artistFollowers) {
         this.id = id;
         this.artistGenres = artistGenres;
         this.artistName = artistName;
@@ -17,11 +17,11 @@ public class SpotifyArtist {
         this.artistFollowers = artistFollowers;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
