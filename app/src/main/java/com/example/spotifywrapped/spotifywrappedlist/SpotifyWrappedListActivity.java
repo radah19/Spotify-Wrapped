@@ -34,18 +34,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
 
     static String hmaryaLink = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fis5-ssl.mzstatic.com%2Fimage%2Fthumb%2FMusic124%2Fv4%2F22%2Ffb%2Fee%2F22fbeefc-820b-ce52-dd96-c54a943d2091%2Fartwork.jpg%2F1200x1200bf-60.jpg&f=1&nofb=1&ipt=a2f44d309809848402616749596f7e903ac709dc1d9b8f398a7da17a36c5886e&ipo=images";
     public static List<SpotifyTrack> ls_tracks = Arrays.asList(
-            new SpotifyTrack("0", "Shubh Saran", "The Sacred",
-                    "https://open.spotify.com/track/0eqaqo2r4ukxyNsjm3kcyr", hmaryaLink,
-                    LocalTime.of(0, 2, 57),
-                    LocalDate.of(2017, Month.MAY, 7),
-                    28),
-            new SpotifyTrack("1", "The Markler", "Markle", "https://zombo.com",
-                    "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228",
-                    LocalTime.of(0, 3, 26),
-                    LocalDate.now(), 100),
-            new SpotifyTrack("2", "Yuno Miles", "Blizzard", "https://zombo.com",
-                                hmaryaLink, LocalTime.of(6, 11, 45),
-                    LocalDate.now(), 63),
+            SpotifyAPIManager.loadSpotifyTrackById("0eqaqo2r4ukxyNsjm3kcyr"),
             SpotifyAPIManager.loadSpotifyTrackById("11dFghVXANMlKmJXsNCbNl")
     );
 

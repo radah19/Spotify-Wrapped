@@ -123,7 +123,13 @@ public class SpotifyAPIManager {
             }
         });
 
-        while(mResponse == null) {}
+        while(mResponse == null) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         return mResponse;
     }
