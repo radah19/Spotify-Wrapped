@@ -87,10 +87,6 @@ public class SpotifyAPIManager {
             }
         });
 
-        while (mResponse == null || mResponse == "TRANSACTION FAILED") {
-            //Don't do anything
-        }
-
         return mResponse;
     }
 
