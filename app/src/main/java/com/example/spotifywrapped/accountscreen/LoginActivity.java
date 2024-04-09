@@ -72,7 +72,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void initiateSpotifyLogin() {
         AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
-        builder.setScopes(new String[]{"user-read-private", "user-read-email", "streaming"}); // Define your scopes here
+        builder.setScopes(new String[]{
+                "user-read-private", "user-read-email",
+                "streaming", "user-top-read"
+        });
         AuthorizationRequest request = builder.build();
 
         AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
@@ -120,7 +123,6 @@ public class LoginActivity extends AppCompatActivity {
             if(!getUserData.equals("TRANSACTION FAILED")) {
                 JSONObject userData = new JSONObject(getUserData);
 
-                // Navigate to the next screen
                 User.setSpotifyUserId(userData.getString("id"));
 
                 Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);

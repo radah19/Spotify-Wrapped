@@ -7,13 +7,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.spotifywrapped.R;
+import com.example.spotifywrapped.SpotifyAPIManager;
 import com.example.spotifywrapped.SpotifyArtist;
 import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
 import com.example.spotifywrapped.navbar.NavbarClass;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
@@ -30,30 +33,20 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
     public static List<String> ls_genres2 = Arrays.asList("Hip Hop", "Classical");
     public static List<String> ls_genres3 = Arrays.asList("Hip Hop", "Gym Hop", "Rabbit Hop");
 
-    static String hmaryaLink = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fis5-ssl.mzstatic.com%2Fimage%2Fthumb%2FMusic124%2Fv4%2F22%2Ffb%2Fee%2F22fbeefc-820b-ce52-dd96-c54a943d2091%2Fartwork.jpg%2F1200x1200bf-60.jpg&f=1&nofb=1&ipt=a2f44d309809848402616749596f7e903ac709dc1d9b8f398a7da17a36c5886e&ipo=images";
     public static List<SpotifyTrack> ls_tracks = Arrays.asList(
-            new SpotifyTrack("0", "Shubh Saran", "The Sacred",
-                    "https://open.spotify.com/track/0eqaqo2r4ukxyNsjm3kcyr", hmaryaLink,
-                    LocalTime.of(0, 2, 57),
-                    LocalDateTime.of(2017, Month.MAY, 7, 0, 0),
-                    28),
-            new SpotifyTrack("1", "The Markler", "Markle", "https://zombo.com",
-                    "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228",
-                    LocalTime.of(0, 3, 26),
-                    LocalDateTime.now(), 100),
-            new SpotifyTrack("2", "Yuno Miles", "Blizzard", "https://zombo.com",
-                                hmaryaLink, LocalTime.of(6, 11, 45),
-                                LocalDateTime.now(), 63)
+            SpotifyAPIManager.loadSpotifyTrackById("0eqaqo2r4ukxyNsjm3kcyr"),
+            SpotifyAPIManager.loadSpotifyTrackById("11dFghVXANMlKmJXsNCbNl")
     );
 
     public static List<SpotifyTrack> ls_tracks2 = Arrays.asList(
             new SpotifyTrack("3", "The Markler", "Markle", "https://zombo.com",
                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228",
                     LocalTime.of(0, 3, 26),
-                    LocalDateTime.now(), 100)
+                    LocalDate.now(), 100)
     );
 
     public static List<SpotifyArtist> ls_artists = Arrays.asList(
+            SpotifyAPIManager.loadSpotifyArtistById("0TnOYISbd1XYRBk9myaseg"),
         new SpotifyArtist("0", ls_genres3, "Markler", "https://zombo.com",
                 "https://i.kym-cdn.com/photos/images/original/002/578/725/794", 1, 392409230),
         new SpotifyArtist("1", ls_genres2, "Shubh Saran", "https://open.spotify.com/artist/2F9WG9ugzneeesOZfmQ18V",
@@ -67,7 +60,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
             "https://i.scdn.co/image/ab6761610000e5eb838ec4e15914cfe0dd427f38", 2463, 85)
     );
 
-    public static List<SpotifyWrappedSummary> ls_summaries = Arrays.asList(
+    public static List<SpotifyWrappedSummary> ls_summaries = new ArrayList<>(Arrays.asList(
             new SpotifyWrappedSummary(0, "Jim123", "My Spotify Wrap 2023", LocalDateTime.now(),
                     new ArrayList<String>(), ls_tracks, ls_tracks2, ls_artists, ls_artists2, ls_genres,
             LocalDateTime.of(2025, Month.JANUARY, 1, 0, 0),
@@ -80,14 +73,14 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
                     new ArrayList<String>(), ls_tracks, ls_tracks, ls_artists, ls_artists2, ls_genres,
             LocalDateTime.of(2019, Month.JANUARY, 1, 0, 0),
             LocalDateTime.of(2023, Month.JANUARY, 1, 0, 0))
-    );
+    ));
 
-    public static List<SpotifyWrappedSummary> ls_friendSummaries = Arrays.asList(
+    public static List<SpotifyWrappedSummary> ls_friendSummaries = new ArrayList<>(Arrays.asList(
             new SpotifyWrappedSummary(0, "Jim123", "Spotify Wrap but great!!", LocalDateTime.now(),
                     new ArrayList<String>(), ls_tracks2, ls_tracks2, ls_artists, ls_artists2, ls_genres,
                     LocalDateTime.of(2022, Month.FEBRUARY, 1, 0, 0),
                     LocalDateTime.of(2023, Month.JANUARY, 1, 0, 0))
-    );
+    ));
     // --------------------------------------------------------------
 
     //Widgets
@@ -121,6 +114,19 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         fllm.setOrientation(LinearLayoutManager.VERTICAL);
         friendsSpotifyWrappedList.setLayoutManager(fllm);
         friendsSpotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(friendSpotifyWrappedSummaries));
+
+        addSpotifyWrappedButton.setOnClickListener(v -> {
+            SpotifyWrappedSummary newSummary = SpotifyAPIManager.generateSpotifyWrapped(
+                    "My New Spotify Wrapped Wow", "medium_term", new ArrayList<>()
+            );
+            if(newSummary != null) {
+                ls_summaries.add(newSummary);
+                spotifyWrappedList.getAdapter().notifyItemInserted(ls_summaries.size() - 1);
+                Toast.makeText(this, "Spotify Wrap Successfully Generated", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Spotify Wrap Generation failed...\nPlease try again later.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void initUserSummaries(){

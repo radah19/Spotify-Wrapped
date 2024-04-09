@@ -1,5 +1,6 @@
 package com.example.spotifywrapped;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -7,10 +8,10 @@ import java.util.List;
 public class SpotifyTrack {
     private String trackArtist, trackName, trackLink, trackImageLink, id;
     private LocalTime trackLen;
-    private LocalDateTime trackPublishDate;
+    private LocalDate trackPublishDate;
     private int trackPopularity;
 
-    public SpotifyTrack(String id, String trackArtist, String trackName, String trackLink, String trackImageLink, LocalTime trackLen, LocalDateTime trackPublishDate, int trackPopularity) {
+    public SpotifyTrack(String id, String trackArtist, String trackName, String trackLink, String trackImageLink, LocalTime trackLen, LocalDate trackPublishDate, int trackPopularity) {
         this.id = id;
         this.trackArtist = trackArtist;
         this.trackName = trackName;
@@ -69,11 +70,19 @@ public class SpotifyTrack {
         this.trackLen = trackLen;
     }
 
-    public LocalDateTime getTrackPublishDate() {
+    /*
+    *   Provided Amn should be in milliseconds
+    *   Returns LocalTime Object to Provide for Spotify Wraps
+    */
+    public static LocalTime generateTrackLengthFromInt(int amn) {
+        return LocalTime.of((amn/1000)/3600, (amn/1000)/60, (amn/1000)%60);
+    }
+
+    public LocalDate getTrackPublishDate() {
         return trackPublishDate;
     }
 
-    public void setTrackPublishDate(LocalDateTime trackPublishDate) {
+    public void setTrackPublishDate(LocalDate trackPublishDate) {
         this.trackPublishDate = trackPublishDate;
     }
 

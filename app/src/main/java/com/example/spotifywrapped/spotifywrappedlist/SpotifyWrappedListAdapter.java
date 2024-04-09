@@ -57,6 +57,7 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
             //Find & Load Track Image
             if(!foundImg && mTracks.get(i).getTrackImageLink() != null) {
                 Picasso.get().load(mTracks.get(i).getTrackImageLink()).into(holder.sw_img);
+                foundImg = true;
             }
 
             if(str.length() < 120) {
