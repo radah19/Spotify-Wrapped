@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyAPIManager;
@@ -115,10 +116,16 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         friendsSpotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(friendSpotifyWrappedSummaries));
 
         addSpotifyWrappedButton.setOnClickListener(v -> {
-            ls_summaries.add(SpotifyAPIManager.generateSpotifyWrapped(
+            SpotifyWrappedSummary newSummary = SpotifyAPIManager.generateSpotifyWrapped(
                     "My New Spotify Wrapped Wow", "medium_term", new ArrayList<>()
-            ));
-            spotifyWrappedList.getAdapter().notifyItemInserted(ls_summaries.size()-1);
+            );
+            if(newSummary != null) {
+                ls_summaries.add(newSummary);
+                spotifyWrappedList.getAdapter().notifyItemInserted(ls_summaries.size() - 1);
+                Toast.makeText(this, "Spotify Wrap Successfully Generated", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Spotify Wrap Generation failed...\nPlease try again later.", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
