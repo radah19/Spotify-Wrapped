@@ -11,6 +11,7 @@ import com.example.spotifywrapped.accountscreen.LoginActivity;
 import com.example.spotifywrapped.spotifywrap.SpotifyWrapActivity;
 import com.example.spotifywrapped.friendslist.FriendListActivity;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
+import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedCreation;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
+        Intent myIntent = new Intent(this, SpotifyWrappedCreation.class);
         
         this.startActivity(myIntent);
     }
