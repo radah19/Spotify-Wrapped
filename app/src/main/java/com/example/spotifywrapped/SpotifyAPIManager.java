@@ -212,9 +212,9 @@ public class SpotifyAPIManager {
             for(String s: topGenres){
                 rTracksStr.append(s.replace(' ', '+').trim() + "%2C");
             }
-            rTracksStr.replace(rTracksStr.length()-3, rTracksStr.length(), "&seed_tracks=");
-            rTracksStr.append(topTracks.get(0).getId() + "&seed_artists=");
-            rTracksStr.append(topArtists.get(0).getId());
+            rTracksStr.replace(rTracksStr.length()-3, rTracksStr.length(), "");
+            if(topTracks.size() > 0) rTracksStr.append("&seed_tracks=" + topTracks.get(0).getId());
+            if(topArtists.size() > 0) rTracksStr.append("&seed_artists=" + topArtists.get(0).getId());
             dataHolder = makeRequest(rTracksStr.toString());
 
             if(!dataHolder.equals("TRANSACTION FAILED")) {
