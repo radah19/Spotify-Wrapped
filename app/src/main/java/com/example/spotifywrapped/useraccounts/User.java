@@ -12,6 +12,8 @@ public class User {
     public static String username;
     public static List<String> myFriends;
 
+    public static ArrayList<String> otherUsers;
+
     public static String email;
     private static String password;
 
@@ -58,4 +60,13 @@ public class User {
     public static void setSpotifyUserId(int spotifyUserId) {
         User.spotifyUserId = spotifyUserId;
     }
+
+    public static ArrayList<String> getOtherUsers() {
+        return otherUsers;
+    }
+
+    public static void setOtherUsers(ArrayList<String> otherUsers) {
+        User.otherUsers = otherUsers;
+    }
+
 }

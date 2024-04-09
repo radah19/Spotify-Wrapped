@@ -7,13 +7,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.spotifywrapped.DatabaseManager;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyArtist;
 import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
 import com.example.spotifywrapped.navbar.NavbarClass;
+import com.example.spotifywrapped.useraccounts.User;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
@@ -121,6 +125,39 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         fllm.setOrientation(LinearLayoutManager.VERTICAL);
         friendsSpotifyWrappedList.setLayoutManager(fllm);
         friendsSpotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(friendSpotifyWrappedSummaries));
+
+        // --- Database testing ---
+        /*
+        DatabaseManager.setFirebaseAuth();
+        ArrayList<String> friendsList1 = new ArrayList<>();
+        friendsList1.add("Tony");
+        DatabaseManager.addUser("Dj", "password2", friendsList1, 2);
+
+        ArrayList<String> friendsList2 = new ArrayList<>();
+        friendsList2.add("Grace");
+        DatabaseManager.addUser("Dom", "password3", friendsList1, 3);*/
+
+
+        //Toast.makeText(this, User.getUsername(), Toast.LENGTH_SHORT).show();
+        DatabaseManager.setFirebaseAuth();
+       // DatabaseManager.deleteUser(this);
+        /*
+        DatabaseManager.addCurrentUser("Dj");
+        DatabaseManager.addCurrentUser("Ethan");
+        DatabaseManager.addCurrentUser("Dom");
+*/
+        //DatabaseManager.addCurrentUser("Ethan");
+       ArrayList<String> otherUsers = DatabaseManager.getOtherUsers("Ethan", this);
+       Toast.makeText(this, String.valueOf(otherUsers.size()), Toast.LENGTH_SHORT).show();
+        /*
+        for (int i = 0; i < User.getOtherUsers().size(); i++) {
+            Toast.makeText(this, User.getOtherUsers().get(i), Toast.LENGTH_SHORT).show();
+        } // for
+         */
+       // Toast.makeText(this, User.getTest(), Toast.LENGTH_SHORT).show();
+        // --- End of testing ---
+
+
     }
 
     public void initUserSummaries(){
