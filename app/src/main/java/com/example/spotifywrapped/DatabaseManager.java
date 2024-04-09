@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.spotifywrapped.accountscreen.LoginActivity;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 import com.example.spotifywrapped.useraccounts.User;
 import com.google.android.gms.common.PackageVerificationResult;
@@ -75,14 +76,12 @@ public class DatabaseManager {
         } // if
     } // inputVerification
 
-    public static void loginUser(String email, String password, Activity activity) {
+    public static void loginUser(String email, String password, LoginActivity activity) {
         mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(activity, "Login Successful!", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(activity, SpotifyWrappedListActivity.class);
-                activity.startActivity(myIntent);
-                // need to switch activities and also call finish();
+                activity.initiateSpotifyLogin();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -116,7 +115,7 @@ public class DatabaseManager {
                 User.setUsername(username);
                 User.setPassword(snapshot.child("Password").getValue().toString());
                 Toast.makeText(activity, User.getPassword(), Toast.LENGTH_SHORT).show();
-                int spotifyUserId = snapshot.child("SpotifyUserID").getValue(Integer.class);
+                String spotifyUserId = snapshot.child("SpotifyUserID").getValue().toString();
                 User.setSpotifyUserId(spotifyUserId);
                 Toast.makeText(activity, String.valueOf(User.getSpotifyUserId()), Toast.LENGTH_SHORT).show();
                 User.setFriendsList(((ArrayList<String>)snapshot.child("Friends List").getValue()));
