@@ -1,5 +1,7 @@
 package com.example.spotifywrapped;
 
+import static com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity.ls_summaries;
+
 import android.os.NetworkOnMainThreadException;
 
 import com.example.spotifywrapped.useraccounts.User;
@@ -10,12 +12,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import org.json.JSONArray;
@@ -100,9 +106,8 @@ public class SpotifyAPIManager {
                 json.getJSONObject("external_urls").getString("spotify"),
                 json.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url"),
                 SpotifyTrack.generateTrackLengthFromInt(json.getInt("duration_ms")),
-                LocalDate.parse(
-                        json.getJSONObject("album").getString("release_date"),
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                parseSpotifyApiDate(
+                        json.getJSONObject("album").getString("release_date")
                 ),
                 json.getInt("popularity")
         );
@@ -155,11 +160,22 @@ public class SpotifyAPIManager {
 
         try {
             //Get User's Top Tracks --------------------------------------------------------
-            if (!(term.equals("medium_range") || term.equals("short_term") || term.equals("long_term"))) {
-                term = "medium_range";
+            if (!(term.equals("medium_term") || term.equals("short_term") || term.equals("long_term"))) {
+                term = "medium_term";
             }
 
-
+            LocalDateTime daysOffset = LocalDateTime.now();
+            switch (term){
+                case "short_term":
+                    daysOffset = daysOffset.minusMonths(1);
+                    break;
+                case "medium_term":
+                    daysOffset = daysOffset.minusMonths(6);
+                    break;
+                case "long_term":
+                    daysOffset = daysOffset.minusYears(1);
+                    break;
+            }
 
             dataHolder = makeRequest("https://api.spotify.com/v1/me/top/tracks?" +
                     "time_range=" + term + "&limit=20");
@@ -193,10 +209,12 @@ public class SpotifyAPIManager {
 
             //Get User's Recommended Tracks -------------------------------------------------------------------
             StringBuilder rTracksStr = new StringBuilder("https://api.spotify.com/v1/recommendations?limit=20&seed_genres=");
-            for(String s: topGenres) rTracksStr.append(s + "%2C");
+            for(String s: topGenres){
+                rTracksStr.append(s.replace(' ', '+').trim() + "%2C");
+            }
             rTracksStr.replace(rTracksStr.length()-3, rTracksStr.length(), "&seed_tracks=");
-            rTracksStr.append(topTracks.get(0) + "&seed_artists=");
-            rTracksStr.append(topArtists.get(0));
+            rTracksStr.append(topTracks.get(0).getId() + "&seed_artists=");
+            rTracksStr.append(topArtists.get(0).getId());
             dataHolder = makeRequest(rTracksStr.toString());
 
             if(!dataHolder.equals("TRANSACTION FAILED")) {
@@ -218,18 +236,21 @@ public class SpotifyAPIManager {
                     if(!dataHolder.equals("TRANSACTION FAILED")) {
                         JSONArray topArtistsData = new JSONObject(dataHolder).getJSONArray("artists");
 
-                        while (topArtistsData.length() > 0){
+                        int amn = (topArtistIds.size() >= 3) ? 14 : (topArtistIds.size() == 2) ? 8 : 0;
+                        while (topArtistsData.length() > amn){
                             recommendedArtists.add(createSpotifyArtistFromJson(topArtistsData.getJSONObject(0)));
                             topArtistsData.remove(0);
                         }
                     }
                 }
             }
+            Collections.sort(recommendedArtists, Comparator.comparingInt(SpotifyArtist::getArtistPopularity).reversed());
 
             for(SpotifyArtist a: recommendedArtists) rArtistIds.add(a.getId());
 
+            // Return Spotify Wrap -----------------------------------
             return new SpotifyWrappedSummary(
-                    0,
+                    ls_summaries.size(),
                     User.getUsername(),
                     title,
                     LocalDateTime.now(),
@@ -238,8 +259,8 @@ public class SpotifyAPIManager {
                     recommendedTracks,
                     topArtists,
                     recommendedArtists,
-                    new ArrayList<String>(topGenres),
-                    LocalDateTime.now().minusDays(1),
+                    new ArrayList<>(topGenres),
+                    daysOffset,
                     LocalDateTime.now()
             );
 
@@ -248,6 +269,21 @@ public class SpotifyAPIManager {
         }
 
         return null;
+    }
+
+    public static LocalDate parseSpotifyApiDate(String s){
+        DateTimeFormatter[] formats = {DateTimeFormatter.ISO_LOCAL_DATE, DateTimeFormatter.ofPattern("yyyy")};
+
+        try {
+            for(DateTimeFormatter d: formats){
+                LocalDate ld = LocalDate.parse(s, d);
+                return ld;
+            }
+        } catch (DateTimeParseException e){
+            //Do nothing
+        }
+
+        return LocalDate.now();
     }
 
     private static String makeRequest(String url) {

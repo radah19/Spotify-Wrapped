@@ -59,7 +59,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
             "https://i.scdn.co/image/ab6761610000e5eb838ec4e15914cfe0dd427f38", 2463, 85)
     );
 
-    public static List<SpotifyWrappedSummary> ls_summaries = Arrays.asList(
+    public static List<SpotifyWrappedSummary> ls_summaries = new ArrayList<>(Arrays.asList(
             new SpotifyWrappedSummary(0, "Jim123", "My Spotify Wrap 2023", LocalDateTime.now(),
                     new ArrayList<String>(), ls_tracks, ls_tracks2, ls_artists, ls_artists2, ls_genres,
             LocalDateTime.of(2025, Month.JANUARY, 1, 0, 0),
@@ -72,14 +72,14 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
                     new ArrayList<String>(), ls_tracks, ls_tracks, ls_artists, ls_artists2, ls_genres,
             LocalDateTime.of(2019, Month.JANUARY, 1, 0, 0),
             LocalDateTime.of(2023, Month.JANUARY, 1, 0, 0))
-    );
+    ));
 
-    public static List<SpotifyWrappedSummary> ls_friendSummaries = Arrays.asList(
+    public static List<SpotifyWrappedSummary> ls_friendSummaries = new ArrayList<>(Arrays.asList(
             new SpotifyWrappedSummary(0, "Jim123", "Spotify Wrap but great!!", LocalDateTime.now(),
                     new ArrayList<String>(), ls_tracks2, ls_tracks2, ls_artists, ls_artists2, ls_genres,
                     LocalDateTime.of(2022, Month.FEBRUARY, 1, 0, 0),
                     LocalDateTime.of(2023, Month.JANUARY, 1, 0, 0))
-    );
+    ));
     // --------------------------------------------------------------
 
     //Widgets
@@ -113,6 +113,13 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         fllm.setOrientation(LinearLayoutManager.VERTICAL);
         friendsSpotifyWrappedList.setLayoutManager(fllm);
         friendsSpotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(friendSpotifyWrappedSummaries));
+
+        addSpotifyWrappedButton.setOnClickListener(v -> {
+            ls_summaries.add(SpotifyAPIManager.generateSpotifyWrapped(
+                    "My New Spotify Wrapped Wow", "medium_term", new ArrayList<>()
+            ));
+            spotifyWrappedList.getAdapter().notifyItemInserted(ls_summaries.size()-1);
+        });
     }
 
     public void initUserSummaries(){
