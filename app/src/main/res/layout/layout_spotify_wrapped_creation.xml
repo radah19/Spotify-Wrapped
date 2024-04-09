@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="New Spotify Wrapped"
+        android:letterSpacing="0.05"
+        android:padding="18dp"
+        android:textColorHint="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:hint="Title"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
+        android:background="@drawable/rounded_corners"
+        android:padding="18dp"
+        android:inputType="text"
+        android:id="@+id/spotify_wrapped_title"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select Time Range"
+        android:drawableEnd="@drawable/ic_arrow_drop_down"
+        android:inputType="none"
+        android:padding="7dp"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_corners" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextViewFriends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select Friends"
+        android:drawableEnd="@drawable/ic_arrow_drop_down"
+        android:inputType="none"
+        android:padding="7dp"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_corners" />
+
+<!--    <Spinner
+        android:id="@+id/spinner_time_range"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_corners"
+        android:padding="18dp" />-->
+
+   <!-- <Spinner
+        android:id="@+id/spinner_select_friends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_corners"
+        android:padding="18dp" />-->
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Create Spotify Wrapped"
+        android:textColor="#000000"
+        android:backgroundTint="@color/green"
+        android:padding="10dp"
+        android:layout_marginTop="3dp"
+        android:textSize="20sp"
+        android:id="@+id/create_spotify_wrapped__button"
+        />
+
+</LinearLayout>
