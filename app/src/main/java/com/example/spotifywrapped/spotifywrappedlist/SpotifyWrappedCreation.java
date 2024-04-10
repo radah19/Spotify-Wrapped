@@ -3,98 +3,73 @@ package com.example.spotifywrapped.spotifywrappedlist;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.spotifywrapped.R;
+import com.example.spotifywrapped.SpotifyAPIManager;
+import com.example.spotifywrapped.SpotifyWrappedSummary;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SpotifyWrappedCreation extends AppCompatActivity {
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_spotify_wrapped_creation);
 
-        // Initialize the AutoCompleteTextView
-        AutoCompleteTextView autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
-        AutoCompleteTextView autoCompleteTextViewFriends = findViewById(R.id.autoCompleteTextViewFriends);
+        AutoCompleteTextView timeRangeDropDown = findViewById(R.id.time_range);
+        EditText title = findViewById(R.id.spotify_wrapped_title);
+        String[] timeRanges = {"1 Year", "6 Months", "1 Month"};
 
-        // Define the options for the dropdown
-        String[] timeRanges = {"Long Term", "Medium Term", "Short Term"};
-        String[] friends = {"Friend 1", "Friend 2", "Friend 3"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, timeRanges);
+        timeRangeDropDown.setAdapter(adapter);
 
-        // Create an ArrayAdapter using the string array and a default layout for the dropdown items
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, timeRanges);
-
-        ArrayAdapter<String> adapterFriends = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, friends);
-
-        // Set the adapter to the AutoCompleteTextView
-        autoCompleteTextView.setAdapter(adapter);
-        autoCompleteTextViewFriends.setAdapter(adapterFriends);
-
-        // dropdown to appear as soon as the AutoCompleteTextView is focused
-        // or when tapped
-
-        autoCompleteTextView.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) autoCompleteTextView.showDropDown();
+        timeRangeDropDown.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) timeRangeDropDown.showDropDown();
         });
-        autoCompleteTextView.setOnClickListener(v -> autoCompleteTextView.showDropDown());
+        timeRangeDropDown.setOnClickListener(v -> timeRangeDropDown.showDropDown());
 
-        autoCompleteTextViewFriends.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) autoCompleteTextViewFriends.showDropDown();
+        RecyclerView friendsRecyclerView = findViewById(R.id.friendsRecyclerView);
+        friendsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        String[] friendsArray = {"Friend 1", "Friend 2", "Friend 3", "Friend 4", "Friend 5", "Friend 6", "Friend 7", "Friend 8", "Friend 9", "Friend 10"};
+        List<String> friendsList = new ArrayList<>(Arrays.asList(friendsArray));
+        FriendsAdapter adapter2 = new FriendsAdapter(friendsList);
+        friendsRecyclerView.setAdapter(adapter2);
+
+        Button createButton = findViewById(R.id.create_spotify_wrapped_button);
+        createButton.setOnClickListener(v -> {
+            String timeRange = timeRangeDropDown.getText().toString();
+            String actualTimeRange;
+            if (timeRange.equals("1 Year")) {
+                actualTimeRange = "long_term";
+            } else if (timeRange.equals("6 Months")) {
+                actualTimeRange = "medium_term";
+            } else {
+                actualTimeRange = "short_term";
+            }
+
+            SpotifyAPIManager apiManager = SpotifyAPIManager.getInstance();
+            if (apiManager != null) {
+                SpotifyWrappedSummary summary = apiManager.generateSpotifyWrapped(title.getText().toString(), actualTimeRange, friendsList);
+
+                if (summary != null) {
+                    Toast.makeText(this, "Spotify Wrapped Created!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Failed to create Spotify Wrapped.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "SpotifyAPIManager not initialized.", Toast.LENGTH_SHORT).show();
+            }
         });
-        autoCompleteTextViewFriends.setOnClickListener(v -> autoCompleteTextViewFriends.showDropDown());
     }
 }
-    //@Override
-/*    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_spotify_wrapped_creation);
 
-        // Initialize the Spinner
-        Spinner spinnerTimeRange = findViewById(R.id.spinner_time_range);
-
-        Spinner spinnerFriends = findViewById(R.id.spinner_select_friends);
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.time_range_options, android.R.layout.simple_spinner_item);
-
-        ArrayAdapter<CharSequence> friendsAdapter = ArrayAdapter.createFromResource(this,
-                R.array.friend_options, android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        spinnerTimeRange.setAdapter(adapter);
-
-        spinnerFriends.setAdapter(friendsAdapter);
-
-        // Set an item selected listener for the spinner (optional)
-        spinnerTimeRange.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // An item was selected. Retrieve the selected item using parent.getItemAtPosition(pos)
-                // Example: String selected = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Another interface callback
-            }
-        });
-
-        spinnerFriends.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // An item was selected. Retrieve the selected item using parent.getItemAtPosition(pos)
-                // Example: String selected = parent.getItemAtPosition(position).toString();
-                // Handle friend selection
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Handle no selection
-            }
-        });*/

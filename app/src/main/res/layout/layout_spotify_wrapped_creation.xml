@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:layout_marginBottom="20dp"
         android:hint="Title"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -31,9 +32,10 @@
         android:id="@+id/spotify_wrapped_title"/>
 
     <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
+        android:id="@+id/time_range"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:hint="Select Time Range"
         android:drawableEnd="@drawable/ic_arrow_drop_down"
         android:inputType="none"
@@ -42,11 +44,22 @@
         android:textColor="@color/white"
         android:background="@drawable/rounded_corners" />
 
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextViewFriends"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Select Friends"
+        android:hint=" Select Friends:"
+        android:textSize="20sp"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/friendsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="20dp"
+        android:scrollbars="vertical"
         android:drawableEnd="@drawable/ic_arrow_drop_down"
         android:inputType="none"
         android:padding="7dp"
@@ -54,21 +67,6 @@
         android:textColor="@color/white"
         android:background="@drawable/rounded_corners" />
 
-<!--    <Spinner
-        android:id="@+id/spinner_time_range"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_corners"
-        android:padding="18dp" />-->
-
-   <!-- <Spinner
-        android:id="@+id/spinner_select_friends"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_corners"
-        android:padding="18dp" />-->
 
     <Button
         android:layout_width="250dp"
@@ -79,7 +77,7 @@
         android:padding="10dp"
         android:layout_marginTop="3dp"
         android:textSize="20sp"
-        android:id="@+id/create_spotify_wrapped__button"
+        android:id="@+id/create_spotify_wrapped_button"
         />
 
 </LinearLayout>
