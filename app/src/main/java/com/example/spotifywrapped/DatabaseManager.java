@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.renderscript.Sampler;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -122,6 +123,7 @@ public class DatabaseManager {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(activity, "Login Failed!", Toast.LENGTH_SHORT).show();
+                activity.loadingScreen.setVisibility(View.INVISIBLE);
             }
         });
     } // loginUser
@@ -209,7 +211,7 @@ public class DatabaseManager {
 
         while(mResponse == null) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

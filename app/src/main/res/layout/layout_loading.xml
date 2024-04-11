@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#99000000">
+    android:visibility="invisible"
+    android:id="@+id/loadingScreen"
+    android:background="#AA000000">
 
     <ProgressBar
         android:id="@+id/loadingProgressBar"
@@ -14,7 +16,8 @@
         android:indeterminateTint="#FFFFFF" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/loadingText"
+        android:fontFamily="@font/font_gothammedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Loading..."
