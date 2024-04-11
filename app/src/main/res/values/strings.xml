@@ -2,4 +2,19 @@
     <string name="app_name">SpotifyWrapped</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="select_time_range">Select Time Range</string>
+    <string-array name="time_range_options">
+        <item>Long Term</item>
+        <item>Medium Term</item>
+        <item>Short Term</item>
+    </string-array>
+
+    <string name="select_friends">Select Friends</string>
+    <string-array name="friend_options">
+        <item>Friend 1</item>
+        <item>Friend 2</item>
+        <item>Friend 3</item>
+    </string-array>
+
 </resources>
