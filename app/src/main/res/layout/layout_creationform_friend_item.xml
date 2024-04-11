@@ -3,5 +3,6 @@
     android:id="@+id/friendCheckBox"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:fontFamily="@font/font_gothammedium"
     android:padding="8dp"
     android:textColor="@color/white" />

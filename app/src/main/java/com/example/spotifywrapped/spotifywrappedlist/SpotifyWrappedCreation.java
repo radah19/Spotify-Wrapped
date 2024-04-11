@@ -1,5 +1,6 @@
 package com.example.spotifywrapped.spotifywrappedlist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -8,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.spotifywrapped.DatabaseManager;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyAPIManager;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
@@ -23,7 +26,7 @@ public class SpotifyWrappedCreation extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_spotify_wrapped_creation);
+        setContentView(R.layout.activity_spotify_wrapped_creation);
 
         AutoCompleteTextView timeRangeDropDown = findViewById(R.id.time_range);
         EditText title = findViewById(R.id.spotify_wrapped_title);
@@ -45,31 +48,44 @@ public class SpotifyWrappedCreation extends AppCompatActivity {
         FriendsAdapter adapter2 = new FriendsAdapter(friendsList);
         friendsRecyclerView.setAdapter(adapter2);
 
+
         Button createButton = findViewById(R.id.create_spotify_wrapped_button);
         createButton.setOnClickListener(v -> {
+            if(title.getText().length() > 0){
             String timeRange = timeRangeDropDown.getText().toString();
             String actualTimeRange;
+
             if (timeRange.equals("1 Year")) {
                 actualTimeRange = "long_term";
-            } else if (timeRange.equals("6 Months")) {
-                actualTimeRange = "medium_term";
-            } else {
+            } else if (timeRange.equals("1 Month")) {
                 actualTimeRange = "short_term";
+            } else {
+                actualTimeRange = "medium_term";
             }
 
             SpotifyAPIManager apiManager = SpotifyAPIManager.getInstance();
             if (apiManager != null) {
-                SpotifyWrappedSummary summary = apiManager.generateSpotifyWrapped(title.getText().toString(), actualTimeRange, friendsList);
+                SpotifyWrappedSummary newSummary = apiManager.generateSpotifyWrapped(title.getText().toString(), actualTimeRange, friendsList);
 
-                if (summary != null) {
-                    Toast.makeText(this, "Spotify Wrapped Created!", Toast.LENGTH_SHORT).show();
+                if(newSummary != null) {
+                    DatabaseManager.addSpotifyWrapped(newSummary);
+                    SpotifyWrappedListActivity.ls_summaries.add(newSummary);
+                    //spotifyWrappedList.getAdapter().notifyItemInserted(SpotifyWrappedListActivity.ls_summaries.size() - 1);
+                    Toast.makeText(this, "Spotify Wrap Successfully Generated", Toast.LENGTH_SHORT).show();
+
+                    Intent generateIntent = new Intent(this, SpotifyWrappedListActivity.class);
+                    startActivity(generateIntent);
+                    } else {
+                        Toast.makeText(this, "Spotify Wrap Generation failed...\nPlease try again later.", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(this, "Failed to create Spotify Wrapped.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "SpotifyAPIManager not initialized.", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(this, "SpotifyAPIManager not initialized.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please Enter a Title!", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 }
 

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:padding="16dp"
     android:gravity="center">
 
     <TextView
@@ -23,6 +24,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="20dp"
         android:hint="Title"
+        android:fontFamily="@font/font_gothammedium"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="20sp"
@@ -31,15 +33,26 @@
         android:inputType="text"
         android:id="@+id/spotify_wrapped_title"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select a Time Frame to Generate by:"
+        android:fontFamily="@font/font_gothammedium"
+        android:textSize="18dp"
+        android:textColorHint="@color/white"
+        android:paddingBottom="8dp"
+        android:textColor="@color/white" />
+
     <AutoCompleteTextView
         android:id="@+id/time_range"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:hint="Select Time Range"
+        android:hint="6 Months"
+        android:fontFamily="@font/font_gothammedium"
         android:drawableEnd="@drawable/ic_arrow_drop_down"
         android:inputType="none"
-        android:padding="7dp"
+        android:padding="10dp"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
         android:background="@drawable/rounded_corners" />
@@ -47,7 +60,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint=" Select Friends:"
+        android:hint="Invite users to View your Wrap:"
+        android:fontFamily="@font/font_gothammedium"
         android:textSize="20sp"
         android:textColorHint="@color/white"
         android:textColor="@color/white" />

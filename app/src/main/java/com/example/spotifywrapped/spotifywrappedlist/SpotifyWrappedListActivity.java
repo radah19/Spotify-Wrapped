@@ -37,7 +37,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
     // --------------------------------------------------------------
 
     //Widgets
-    private RecyclerView spotifyWrappedList, friendsSpotifyWrappedList;
+    public RecyclerView spotifyWrappedList, friendsSpotifyWrappedList;
     private Button addSpotifyWrappedButton;
 
     @Override
@@ -72,17 +72,6 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         addSpotifyWrappedButton.setOnClickListener(v -> {
             Intent generateIntent = new Intent(this, SpotifyWrappedCreation.class);
             startActivity(generateIntent);
-            SpotifyWrappedSummary newSummary = SpotifyAPIManager.generateSpotifyWrapped(
-                    "My New Spotify Wrapped Wow", "medium_term", new ArrayList<>()
-            );
-            if(newSummary != null) {
-                DatabaseManager.addSpotifyWrapped(newSummary);
-                ls_summaries.add(newSummary);
-                spotifyWrappedList.getAdapter().notifyItemInserted(ls_summaries.size() - 1);
-                Toast.makeText(this, "Spotify Wrap Successfully Generated", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Spotify Wrap Generation failed...\nPlease try again later.", Toast.LENGTH_SHORT).show();
-            }
         });
     }
 
