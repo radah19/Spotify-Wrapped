@@ -9,9 +9,13 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
+import com.example.spotifywrapped.accountscreen.CreateAccountActivity;
+import com.example.spotifywrapped.accountscreen.LoginActivity;
+import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedCreation;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 import com.google.android.material.button.MaterialButton;
 

@@ -30,6 +30,9 @@
             android:name=".friendslist.FriendListActivity"
             android:exported="false" />
         <activity
+            android:name=".spotifywrappedlist.SpotifyWrappedCreation"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

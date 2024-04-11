@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import com.example.spotifywrapped.SpotifyArtist;
 import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
 import com.example.spotifywrapped.navbar.NavbarClass;
+import com.example.spotifywrapped.spotifywrap.SpotifyWrapActivity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,7 +37,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
     // --------------------------------------------------------------
 
     //Widgets
-    private RecyclerView spotifyWrappedList, friendsSpotifyWrappedList;
+    public RecyclerView spotifyWrappedList, friendsSpotifyWrappedList;
     private Button addSpotifyWrappedButton;
 
     @Override
@@ -56,7 +58,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         spotifyWrappedList.setLayoutManager(llm);
         spotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(userSpotifyWrappedSummaries));
 
-        if(ls_friendSummaries.size() == 0){
+        if (ls_friendSummaries.size() == 0) {
             findViewById(R.id.spotifyWrappedListDividerLine).setVisibility(View.GONE);
             findViewById(R.id.yourFriendsAlsoMadeText).setVisibility(View.GONE);
         }
@@ -66,18 +68,10 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         friendsSpotifyWrappedList.setLayoutManager(fllm);
         friendsSpotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(friendSpotifyWrappedSummaries));
 
+
         addSpotifyWrappedButton.setOnClickListener(v -> {
-            SpotifyWrappedSummary newSummary = SpotifyAPIManager.generateSpotifyWrapped(
-                    "My New Spotify Wrapped Wow", "medium_term", new ArrayList<>()
-            );
-            if(newSummary != null) {
-                DatabaseManager.addSpotifyWrapped(newSummary);
-                ls_summaries.add(newSummary);
-                spotifyWrappedList.getAdapter().notifyItemInserted(ls_summaries.size() - 1);
-                Toast.makeText(this, "Spotify Wrap Successfully Generated", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Spotify Wrap Generation failed...\nPlease try again later.", Toast.LENGTH_SHORT).show();
-            }
+            Intent generateIntent = new Intent(this, SpotifyWrappedCreation.class);
+            startActivity(generateIntent);
         });
     }
 

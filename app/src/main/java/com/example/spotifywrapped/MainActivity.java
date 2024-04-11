@@ -11,6 +11,7 @@ import com.example.spotifywrapped.accountscreen.LoginActivity;
 import com.example.spotifywrapped.spotifywrap.SpotifyWrapActivity;
 import com.example.spotifywrapped.friendslist.FriendListActivity;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
+import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedCreation;
 
 public class MainActivity extends AppCompatActivity {
     @Override
