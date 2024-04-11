@@ -66,16 +66,28 @@ public class DatabaseManager {
         } // if
     } // isLoggedin
 
-    public static void inputVerification(String email, String password, Activity activity) {
+    public static boolean createAccountVerification(String email, String password, Activity activity) {
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(activity, "Empty credentials!", Toast.LENGTH_SHORT).show();
+            return false;
         } else if (password.length() < 6){
             Toast.makeText(activity, "Password too short!", Toast.LENGTH_SHORT).show();
+            return false;
         } else {
             createNewAccount(email, password, activity);
+            return true;
         } // if
     } // inputVerification
 
+    public static boolean loginVerification(String email, String password, LoginActivity activity) {
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            Toast.makeText(activity, "Empty credentials!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            loginUser(email, password, activity);
+            return true;
+        } // if
+    } // inputVerification
     public static void loginUser(String email, String password, LoginActivity activity) {
         mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override

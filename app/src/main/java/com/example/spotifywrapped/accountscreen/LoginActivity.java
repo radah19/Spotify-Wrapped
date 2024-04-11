@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password_input = passwordInput.getText().toString();
 
                 DatabaseManager.setFirebaseAuth();
-                DatabaseManager.loginUser(email_input, password_input, this);
+                DatabaseManager.loginVerification(email_input, password_input, this);
             });
     }
 
