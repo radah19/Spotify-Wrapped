@@ -6,8 +6,11 @@ import androidx.lifecycle.Observer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.spotifywrapped.DatabaseManager;
@@ -33,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText emailInput;
     private EditText passwordInput;
+    public RelativeLayout loadingScreen;
+    private TextView loadingText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
 
         emailInput = findViewById(R.id.email_input);
         passwordInput = findViewById(R.id.password_input);
+        loadingScreen = findViewById(R.id.loadingScreen);
+        loadingText = findViewById(R.id.loadingText);
         Button loginButton = findViewById(R.id.createAccount_btn);
 
         // --- Testing for database ---
@@ -64,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> {
                 String email_input = emailInput.getText().toString();
                 String password_input = passwordInput.getText().toString();
+                loadingScreen.setVisibility(View.VISIBLE);
 
                 DatabaseManager.setFirebaseAuth();
                 DatabaseManager.loginVerification(email_input, password_input, this);
@@ -106,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                 default:
                     // Most likely auth flow was cancelled
                     Toast.makeText(this, "Authentication cancelled", Toast.LENGTH_LONG).show();
+                    loadingScreen.setVisibility(View.INVISIBLE);
                     break;
             }
         }
@@ -124,6 +133,8 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject userData = new JSONObject(getUserData);
 
                 User.setSpotifyUserId(userData.getString("id"));
+
+                SpotifyWrappedListActivity.ls_summaries = DatabaseManager.loadSpotifyWrapListForUser();
 
                 Intent myIntent = new Intent(this, SpotifyWrappedListActivity.class);
                 this.startActivity(myIntent);
