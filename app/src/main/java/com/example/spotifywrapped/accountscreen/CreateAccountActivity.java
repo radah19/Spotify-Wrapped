@@ -35,9 +35,11 @@ public class CreateAccountActivity extends AppCompatActivity {
             String password_input = password.getText().toString();
 
             DatabaseManager.setFirebaseAuth();
-            DatabaseManager.createNewAccount(email_input, password_input, CreateAccountActivity.this);
-            Intent myIntent = new Intent(this, LoginActivity.class);
-            this.startActivity(myIntent);
+            if (DatabaseManager.createAccountVerification(email_input, password_input, CreateAccountActivity.this) == true) {
+                Intent myIntent = new Intent(this, LoginActivity.class);
+                this.startActivity(myIntent);
+            } // if
+
         });
     }
 }
