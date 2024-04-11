@@ -5,6 +5,8 @@ import static com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListAc
 import android.os.NetworkOnMainThreadException;
 
 import com.example.spotifywrapped.useraccounts.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import org.json.JSONArray;
@@ -209,8 +212,12 @@ public class SpotifyAPIManager {
 
             //Get User's Recommended Tracks -------------------------------------------------------------------
             StringBuilder rTracksStr = new StringBuilder("https://api.spotify.com/v1/recommendations?limit=20&seed_genres=");
+            int added_vals = 0;
             for(String s: topGenres){
-                rTracksStr.append(s.replace(' ', '+').trim() + "%2C");
+                if(added_vals < 3) {
+                    rTracksStr.append(s.replace(' ', '+').trim() + "%2C");
+                    added_vals++;
+                }
             }
             rTracksStr.replace(rTracksStr.length()-3, rTracksStr.length(), "");
             if(topTracks.size() > 0) rTracksStr.append("&seed_tracks=" + topTracks.get(0).getId());
@@ -248,10 +255,16 @@ public class SpotifyAPIManager {
 
             for(SpotifyArtist a: recommendedArtists) rArtistIds.add(a.getId());
 
+            //Create Unique Id
+            HashMap<String, String> map = new HashMap<>();
+            map.put("Title", "");
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").push();
+            String id = ref.getKey();
+
             // Return Spotify Wrap -----------------------------------
             return new SpotifyWrappedSummary(
-                    ls_summaries.size(),
-                    User.getUsername(),
+                    id,
+                    User.getEmail(),
                     title,
                     LocalDateTime.now(),
                     invitedUsers,
