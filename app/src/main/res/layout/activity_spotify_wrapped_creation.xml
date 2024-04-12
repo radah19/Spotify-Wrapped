@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:hint="Invite users to View your Wrap:"
         android:fontFamily="@font/font_gothammedium"
-        android:textSize="20sp"
+        android:textSize="18dp"
         android:textColorHint="@color/white"
         android:textColor="@color/white" />
 
