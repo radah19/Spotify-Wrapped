@@ -183,7 +183,6 @@ public class DatabaseManager {
         FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(s.getId()).setValue(map);
     } // addSpotifyWrapped
 
-
     public static String generateFirebaseApiGetRequest(String s){
         if(mOkHttpClient == null){
             mOkHttpClient = new OkHttpClient();
@@ -289,6 +288,15 @@ public class DatabaseManager {
         }
 
         return ls;
+    }
+
+    public static void deleteSpotifyWrap(String id){
+        FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(id).removeValue();
+    }
+
+    public static void updateSpotifyWrap(String id, String title, List<String> invitedUsers){
+        FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(id).child("Title").setValue(title);
+        FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(id).child("Invited Users").setValue(invitedUsers);
     }
 
 } // DatabaseManager
