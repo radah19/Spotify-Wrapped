@@ -18,9 +18,11 @@ import java.util.List;
 public class SWPagerArtistRecommendationsFragment extends Fragment {
     private List<SpotifyArtist> ls_artists;
     private RecyclerView artistList;
+    private boolean isHoliday;
 
-    public SWPagerArtistRecommendationsFragment(List<SpotifyArtist> ls_artists) {
+    public SWPagerArtistRecommendationsFragment(List<SpotifyArtist> ls_artists, boolean isHoliday) {
         this.ls_artists = ls_artists;
+        this.isHoliday = isHoliday;
     }
 
     @Override

@@ -16,13 +16,15 @@ import com.squareup.picasso.Picasso;
 public class SWPagerTopTrackFragment extends Fragment {
     private ImageView topTrackImg;
     private TextView topTrackNameText, topTrackArtistText;
+    private boolean isHoliday;
 
     String topTrackImgUrl, topTrackName, topTrackArtistName;
 
-    public SWPagerTopTrackFragment(String topTrackImgUrl, String topTrackName, String topTrackArtistName) {
+    public SWPagerTopTrackFragment(String topTrackImgUrl, String topTrackName, String topTrackArtistName, boolean isHoliday) {
         this.topTrackImgUrl = topTrackImgUrl;
         this.topTrackName = topTrackName;
         this.topTrackArtistName = topTrackArtistName;
+        this.isHoliday = isHoliday;
     }
 
     @Override

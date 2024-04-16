@@ -10,16 +10,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.spotifywrapped.R;
+import androidx.core.content.ContextCompat;
+
+
+import org.w3c.dom.Text;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class SWPagerIntroductionFragment extends Fragment {
     private LocalDateTime startTime, endTime;
+    private boolean isHoliday;
 
-    public SWPagerIntroductionFragment(LocalDateTime startTime, LocalDateTime endTime) {
+    public SWPagerIntroductionFragment(LocalDateTime startTime, LocalDateTime endTime, boolean isHoliday) {
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isHoliday = isHoliday;
     }
 
     @Override
@@ -40,6 +46,14 @@ public class SWPagerIntroductionFragment extends Fragment {
         str.append(endTime.format(DateTimeFormatter.ofPattern("MMMM d, yyyy")).toString());
 
         fromToDate.setText(str);
+
+        TextView date = view.findViewById(R.id.fromToDates);
+        if(isHoliday) {
+            view.setBackgroundResource(R.drawable.holiday_theme);
+            int greenColor = ContextCompat.getColor(getContext(), R.color.green);
+            date.setTextColor(greenColor);
+        }
+
 
         return view;
     }

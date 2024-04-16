@@ -17,9 +17,11 @@ public class SWPagerGenresFragment extends Fragment {
     private TextView sw_s1, sw_s2, sw_s3;
     private StringBuilder s1, s2, s3;
     private List<String> ls_genres;
+    private boolean isHoliday;
 
-    public SWPagerGenresFragment(List<String> ls_genres) {
+    public SWPagerGenresFragment(List<String> ls_genres, boolean isHoliday) {
         this.ls_genres = ls_genres;
+        this.isHoliday = isHoliday;
     }
 
     @Override

@@ -17,9 +17,11 @@ import java.util.List;
 public class SWPagerTracksFragment extends Fragment {
     private List<SpotifyTrack> ls_tracks;
     private RecyclerView trackList;
+    private boolean isHoliday;
 
-    public SWPagerTracksFragment(List<SpotifyTrack> ls_tracks) {
+    public SWPagerTracksFragment(List<SpotifyTrack> ls_tracks, boolean isHoliday) {
         this.ls_tracks = ls_tracks;
+        this.isHoliday = isHoliday;
     }
 
     @Override
@@ -39,6 +41,13 @@ public class SWPagerTracksFragment extends Fragment {
         trackList.setLayoutManager(llm);
 
         trackList.setAdapter(new SWPagerTracksAdapter(this.ls_tracks, getContext()));
+
+        if(isHoliday) {
+            int greenColor = getResources().getColor(R.color.green, null);
+            view.setBackgroundColor(greenColor);
+            RecyclerView recyclerView = view.findViewById(R.id.spotifyWrapTopTracksList);
+            recyclerView.setBackgroundColor(greenColor);
+        }
 
         return view;
     }

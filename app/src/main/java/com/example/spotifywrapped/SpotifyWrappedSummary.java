@@ -2,6 +2,7 @@ package com.example.spotifywrapped;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.time.Month;
 
 public class SpotifyWrappedSummary {
     private String id;
@@ -12,6 +13,7 @@ public class SpotifyWrappedSummary {
     public List<SpotifyTrack> topTracks, trackRecommendations;
     public List<SpotifyArtist> topArtists, artistRecommendations;
     public List<String> topGenres;
+    private boolean isHoliday;
 
     //Filters & Customizations
     public LocalDateTime startTime, endTime;
@@ -29,6 +31,7 @@ public class SpotifyWrappedSummary {
         this.topGenres = topGenres;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isHoliday = LocalDateTime.now().getMonth() == Month.APRIL;
     }
 
     public String getCreatedBy() {
@@ -78,4 +81,12 @@ public class SpotifyWrappedSummary {
     public void setId(String id) {
         this.id = id;
     }
+
+    public boolean isHoliday() {
+        return isHoliday;
+    }
+    public void setHoliday(boolean isHoliday) {
+        this.isHoliday = isHoliday;
+    }
+
 }
