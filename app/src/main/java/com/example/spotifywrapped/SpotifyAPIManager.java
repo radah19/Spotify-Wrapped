@@ -36,6 +36,7 @@ public class SpotifyAPIManager {
     private static OkHttpClient mOkHttpClient;
     private static Call mCall;
     private static String mResponse;
+    private static int mApiCallsRedone = 0;
 
     private static String accessToken, accessCode;
 
@@ -332,10 +333,15 @@ public class SpotifyAPIManager {
 
         //Rate Limit Hit
         if(mResponse.equals("Too many requests")){
+            mApiCallsRedone++;
             try {
-                Thread.sleep(5000);
+                Thread.sleep(3000 * mApiCallsRedone);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
+            }
+
+            if(mApiCallsRedone >= 5) {
+                return "TRANSACTION_FAILED";
             }
             return makeRequest(url);
         }
