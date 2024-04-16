@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         emailInput = findViewById(R.id.email_input);
         passwordInput = findViewById(R.id.password_input);
         loadingScreen = findViewById(R.id.loadingScreen);
+        loadingScreen.setVisibility(View.INVISIBLE);
         loadingText = findViewById(R.id.loadingText);
         Button loginButton = findViewById(R.id.createAccount_btn);
 

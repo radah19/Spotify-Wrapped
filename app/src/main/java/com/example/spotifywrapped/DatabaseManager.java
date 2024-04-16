@@ -183,8 +183,7 @@ public class DatabaseManager {
         FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(s.getId()).setValue(map);
     } // addSpotifyWrapped
 
-
-    public static String generateFirebaseApiRequest(String s){
+    public static String generateFirebaseApiGetRequest(String s){
         if(mOkHttpClient == null){
             mOkHttpClient = new OkHttpClient();
         }
@@ -222,7 +221,7 @@ public class DatabaseManager {
 
     public static SpotifyWrappedSummary loadSpotifyWrappedById(String id){
         try {
-            JSONObject data = new JSONObject(generateFirebaseApiRequest("Spotify Wrapped/" + id));
+            JSONObject data = new JSONObject(generateFirebaseApiGetRequest("Spotify Wrapped/" + id));
 
             List<SpotifyTrack> lsTracks = new ArrayList<>(), lsRTracks = new ArrayList<>();
             List<SpotifyArtist> lsArtists = new ArrayList<>(), lsRArtists = new ArrayList<>();
@@ -275,11 +274,11 @@ public class DatabaseManager {
         List<SpotifyWrappedSummary> ls = new ArrayList<>();
 
         try {
-            JSONObject data = new JSONObject(generateFirebaseApiRequest("Spotify Wrapped"));
+            JSONObject data = new JSONObject(generateFirebaseApiGetRequest("Spotify Wrapped"));
             Iterator<String> i = data.keys();
             while(i.hasNext()){
                 String id = i.next();
-                String userId = generateFirebaseApiRequest("Spotify Wrapped/" + id + "/Created by").replace("\"", "");
+                String userId = generateFirebaseApiGetRequest("Spotify Wrapped/" + id + "/Created by").replace("\"", "");
                 if(userId.equals(user)){
                     ls.add(loadSpotifyWrappedById(id));
                 }
@@ -289,6 +288,15 @@ public class DatabaseManager {
         }
 
         return ls;
+    }
+
+    public static void deleteSpotifyWrap(String id){
+        FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(id).removeValue();
+    }
+
+    public static void updateSpotifyWrap(String id, String title, List<String> invitedUsers){
+        FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(id).child("Title").setValue(title);
+        FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(id).child("Invited Users").setValue(invitedUsers);
     }
 
 } // DatabaseManager

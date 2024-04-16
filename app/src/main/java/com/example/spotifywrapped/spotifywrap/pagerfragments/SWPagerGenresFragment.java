@@ -29,16 +29,13 @@ public class SWPagerGenresFragment extends Fragment {
         s2 = new StringBuilder("");
         s3 = new StringBuilder("");
 
-        for(int i = 0; i < ls_genres.size(); i++) {
-            String spacing = (ls_genres.get(i).length() >= 12) ? "\n\n" : "\n\n\n";
-            if (i % 2 == 0) {
-                if (i == ls_genres.size() - 1) {
-                    s3.append(ls_genres.get(i) + spacing);
-                } else {
-                    s1.append(ls_genres.get(i) + spacing);
-                }
+        for(int i = 0; i < ls_genres.size(); i += 2) {
+            String spacing = (ls_genres.get(i).length() >= 12 || ls_genres.get(i + 1).length() >= 12) ? "\n\n" : "\n\n\n";
+            if (i + 1 != ls_genres.size()) {
+                s1.append(ls_genres.get(i) + spacing);
+                s2.append(ls_genres.get(i + 1) + spacing);
             } else {
-                s2.append(ls_genres.get(i) + spacing);
+                s3.append(ls_genres.get(i) + spacing);
             }
         }
     }
