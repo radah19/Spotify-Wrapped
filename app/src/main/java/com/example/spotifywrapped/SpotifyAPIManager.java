@@ -340,12 +340,13 @@ public class SpotifyAPIManager {
                 throw new RuntimeException(e);
             }
 
-            if(mApiCallsRedone >= 5) {
+            if(mApiCallsRedone >= 7) {
                 return "TRANSACTION_FAILED";
             }
             return makeRequest(url);
         }
 
+        mApiCallsRedone = 0;
         return mResponse;
     }
 
