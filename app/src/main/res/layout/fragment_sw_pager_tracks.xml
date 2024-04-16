@@ -36,7 +36,9 @@
             android:textAlignment="center"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/banana"
-            android:text="Click on a track to navigate to its Spotify Page"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Click on a track to listen to a Preview of it"
             android:layout_marginBottom="18dp"
             />
 

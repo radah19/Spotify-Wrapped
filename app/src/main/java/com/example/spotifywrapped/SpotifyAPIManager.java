@@ -299,7 +299,7 @@ public class SpotifyAPIManager {
         return LocalDate.now();
     }
 
-    private static String makeRequest(String url) {
+    private static String makeRequest(String url){
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Authorization", "Bearer " + getAccessToken())
@@ -324,10 +324,20 @@ public class SpotifyAPIManager {
 
         while(mResponse == null) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+        }
+
+        //Rate Limit Hit
+        if(mResponse.equals("Too many requests")){
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return makeRequest(url);
         }
 
         return mResponse;
