@@ -15,7 +15,7 @@
         android:layout_height="125dp"
         android:layout_margin="10dp"
         android:background="@drawable/spotify_wrap_image_border"
-        android:backgroundTint="@color/yellow"
+        android:backgroundTint="@color/banana"
         android:src="@drawable/default_track_img"
         />
 

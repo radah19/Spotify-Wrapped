@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="2dp"
-    android:background="@color/black"
-    >
+    android:background="@color/black">
 
     <ImageView
         android:id="@+id/sw_img"
@@ -24,14 +24,41 @@
         android:orientation="vertical"
         >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/sw_title"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:fontFamily="@font/font_gothambold"
+                android:textSize="18dp"
+                android:text="TITLE"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sw_modifySettings"
+                android:layout_width="0dp"
+                android:layout_weight="0.75"
+                android:layout_height="25dp"
+                android:background="@color/transparent"
+                app:iconGravity="textEnd"
+                app:icon="@drawable/icon_settings" />
+
+        </LinearLayout>
+
         <TextView
-            android:id="@+id/sw_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:id="@+id/sw_datesRange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:fontFamily="@font/font_gothambold"
-            android:textSize="18dp"
-            android:text="TITLE"
+            android:fontFamily="@font/font_gothammedium"
+            android:textSize="14dp"
+            android:text="April 4, 2023 to April 4, 2024"
             />
 
         <TextView

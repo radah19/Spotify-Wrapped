@@ -36,6 +36,7 @@ public class SpotifyAPIManager {
     private static OkHttpClient mOkHttpClient;
     private static Call mCall;
     private static String mResponse;
+    private static int mApiCallsRedone = 0;
 
     private static String accessToken, accessCode;
 
@@ -299,7 +300,7 @@ public class SpotifyAPIManager {
         return LocalDate.now();
     }
 
-    private static String makeRequest(String url) {
+    private static String makeRequest(String url){
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Authorization", "Bearer " + getAccessToken())
@@ -324,12 +325,28 @@ public class SpotifyAPIManager {
 
         while(mResponse == null) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
 
+        //Rate Limit Hit
+        if(mResponse.equals("Too many requests")){
+            mApiCallsRedone++;
+            try {
+                Thread.sleep(3000 * mApiCallsRedone);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            if(mApiCallsRedone >= 7) {
+                return "TRANSACTION_FAILED";
+            }
+            return makeRequest(url);
+        }
+
+        mApiCallsRedone = 0;
         return mResponse;
     }
 

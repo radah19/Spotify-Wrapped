@@ -43,12 +43,20 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
         holder.sw_img.setImageResource(R.drawable.default_track_img);
         holder.sw_title.setText(spotifyWrappedSummaries.get(position).getTitle());
 
+        //Generate Created At Date
         StringBuilder strDate = new StringBuilder();
         strDate.append("Created ");
         strDate.append(
                 spotifyWrappedSummaries.get(position).getCreatedAt().format(DateTimeFormatter.ofPattern("MMMM d, yyyy")).toString()
         );
         holder.sw_createdAtDate.setText(strDate);
+
+        //Genenerate Date Range
+        StringBuilder strRange = new StringBuilder("");
+        strRange.append(spotifyWrappedSummaries.get(position).startTime.format(DateTimeFormatter.ofPattern("MMMM d, yyyy")).toString());
+        strRange.append(" to ");
+        strRange.append(spotifyWrappedSummaries.get(position).endTime.format(DateTimeFormatter.ofPattern("MMMM d, yyyy")).toString());
+        holder.sw_datesRange.setText(strRange);
 
         StringBuilder str = new StringBuilder();
         boolean foundImg = false;
@@ -90,6 +98,7 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
         TextView sw_title;
         TextView sw_createdAtDate;
         TextView sw_trackNameList;
+        TextView sw_datesRange;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +106,7 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
             sw_title = itemView.findViewById(R.id.sw_title);
             sw_createdAtDate = itemView.findViewById(R.id.sw_createdAtDate);
             sw_trackNameList = itemView.findViewById(R.id.sw_trackNameList);
+            sw_datesRange = itemView.findViewById(R.id.sw_datesRange);
         }
     } // MyViewHolder
 }
