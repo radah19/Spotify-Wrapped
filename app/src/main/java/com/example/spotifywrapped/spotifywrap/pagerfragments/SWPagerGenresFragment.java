@@ -2,6 +2,7 @@ package com.example.spotifywrapped.spotifywrap.pagerfragments;
 
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -58,6 +59,18 @@ public class SWPagerGenresFragment extends Fragment {
         sw_s2.setText(s2);
         sw_s3.setText(s3);
 
+        if(isHoliday) {
+            view.setBackgroundResource(R.drawable.holiday_theme_2);
+            int redColor = ContextCompat.getColor(getContext(), R.color.red);
+            TextView genres = view.findViewById(R.id.sw_top_genres_s1);
+            TextView genres2 = view.findViewById(R.id.sw_top_genres_s2);
+            TextView genres3 = view.findViewById(R.id.sw_top_genres_s3);
+            genres.setTextColor(redColor);
+            genres2.setTextColor(redColor);
+            genres3.setTextColor(redColor);
+        }
+
         return view;
+
     }
 }

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyArtist;
@@ -42,6 +43,11 @@ public class SWPagerTopArtistsFragment extends Fragment {
         artistList.setLayoutManager(llm);
 
         artistList.setAdapter(new SWPagerTopArtistsAdapter(this.ls_artists, getContext()));
+
+        if (isHoliday) {
+            ImageView lights = view.findViewById(R.id.lightsImageView);
+            lights.setVisibility(View.VISIBLE);
+        }
 
         return view;
     }

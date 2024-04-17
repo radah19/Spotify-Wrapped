@@ -1,5 +1,6 @@
 package com.example.spotifywrapped.spotifywrap.pagerfragments;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyArtist;
+import android.widget.ImageView;
 
 import java.util.List;
 
@@ -42,6 +44,11 @@ public class SWPagerArtistRecommendationsFragment extends Fragment {
         artistList.setLayoutManager(llm);
 
         artistList.setAdapter(new SWPagerArtistRecommendationsAdapter(this.ls_artists, getContext()));
+
+        if (isHoliday) {
+            ImageView lights = view.findViewById(R.id.lightsImageView);
+            lights.setVisibility(View.VISIBLE);
+        }
 
         return view;
     }

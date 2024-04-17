@@ -3,6 +3,9 @@ package com.example.spotifywrapped.spotifywrap.pagerfragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import android.content.res.ColorStateList;
+import androidx.core.content.ContextCompat;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,8 @@ import android.widget.TextView;
 
 import com.example.spotifywrapped.R;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 public class SWPagerTopArtistFragment extends Fragment {
     private ImageView topArtistImg;
@@ -43,6 +48,14 @@ public class SWPagerTopArtistFragment extends Fragment {
         topArtistText.setText(topArtistName);
 
         // Inflate the layout for this fragment
+        ImageView artistImage = view.findViewById(R.id.sw_top_artist_img);
+        TextView artistName = view.findViewById(R.id.sw_top_artist_artistName);
+        if (isHoliday) {
+            int greenColor = getResources().getColor(R.color.green, null);
+            view.setBackgroundColor(greenColor);
+            artistImage.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.red)));
+            artistName.setTextColor(ContextCompat.getColor(getContext(), R.color.red));
+        }
         return view;
     }
 }

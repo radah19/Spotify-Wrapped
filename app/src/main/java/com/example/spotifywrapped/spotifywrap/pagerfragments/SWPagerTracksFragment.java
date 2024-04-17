@@ -1,5 +1,6 @@
 package com.example.spotifywrapped.spotifywrap.pagerfragments;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyTrack;
 
@@ -43,10 +45,8 @@ public class SWPagerTracksFragment extends Fragment {
         trackList.setAdapter(new SWPagerTracksAdapter(this.ls_tracks, getContext()));
 
         if(isHoliday) {
-            int greenColor = getResources().getColor(R.color.green, null);
-            view.setBackgroundColor(greenColor);
-            RecyclerView recyclerView = view.findViewById(R.id.spotifyWrapTopTracksList);
-            recyclerView.setBackgroundColor(greenColor);
+            ImageView lights = view.findViewById(R.id.lightsImageView);
+            lights.setVisibility(View.VISIBLE);
         }
 
         return view;

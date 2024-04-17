@@ -16,6 +16,15 @@
         android:paddingBottom="50dp"
         android:paddingTop="30dp"
         >
+        <ImageView
+            android:id="@+id/lightsImageView"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:layout_alignParentTop="true"
+            android:visibility="gone"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/lights" />
 
         <TextView
             android:layout_width="wrap_content"
