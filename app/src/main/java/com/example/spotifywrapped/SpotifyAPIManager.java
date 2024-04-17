@@ -392,4 +392,28 @@ public class SpotifyAPIManager {
 
         return ls;
     }
+
+    public static List<SpotifyTrack> getHolidayTracks(String holidayTheme) {
+        String url = "https://api.spotify.com/v1/search?q=" + holidayTheme + "&type=track&limit=20";
+        String data = makeRequest(url);
+        List<SpotifyTrack> holidayTracks = new ArrayList<>();
+
+        if (!data.equals("TRANSACTION FAILED")) {
+            try {
+                JSONObject jsonResponse = new JSONObject(data);
+                JSONArray tracks = jsonResponse.getJSONObject("tracks").getJSONArray("items");
+
+                for (int i = 0; i < tracks.length(); i++) {
+                    JSONObject trackJson = tracks.getJSONObject(i);
+                    SpotifyTrack track = createSpotifyTrackFromJson(trackJson);
+                    holidayTracks.add(track);
+                }
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return holidayTracks;
+    }
 }
