@@ -320,6 +320,11 @@ public class SpotifyAPIManager {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 mResponse = response.body().string();
+                try {
+                    Thread.sleep(750);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -340,7 +345,7 @@ public class SpotifyAPIManager {
                 throw new RuntimeException(e);
             }
 
-            if(mApiCallsRedone >= 7) {
+            if(mApiCallsRedone >= 3) {
                 return "TRANSACTION_FAILED";
             }
             return makeRequest(url);
