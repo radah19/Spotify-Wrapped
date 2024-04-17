@@ -18,11 +18,13 @@ public class SWPagerGenresFragment extends Fragment {
     private TextView sw_s1, sw_s2, sw_s3;
     private StringBuilder s1, s2, s3;
     private List<String> ls_genres;
-    private boolean isHoliday;
+    private String isChristmasHoliday;
+    private String isHalloween;
 
-    public SWPagerGenresFragment(List<String> ls_genres, boolean isHoliday) {
+    public SWPagerGenresFragment(List<String> ls_genres, String isChristmasHoliday, String isHalloween) {
         this.ls_genres = ls_genres;
-        this.isHoliday = isHoliday;
+        this.isChristmasHoliday = isChristmasHoliday;
+        this.isHalloween = isHalloween;
     }
 
     @Override
@@ -59,15 +61,19 @@ public class SWPagerGenresFragment extends Fragment {
         sw_s2.setText(s2);
         sw_s3.setText(s3);
 
-        if(isHoliday) {
+        if("isChristmas".equals(isChristmasHoliday)) {
             view.setBackgroundResource(R.drawable.holiday_theme_2);
             int redColor = ContextCompat.getColor(getContext(), R.color.red);
-            TextView genres = view.findViewById(R.id.sw_top_genres_s1);
-            TextView genres2 = view.findViewById(R.id.sw_top_genres_s2);
-            TextView genres3 = view.findViewById(R.id.sw_top_genres_s3);
-            genres.setTextColor(redColor);
-            genres2.setTextColor(redColor);
-            genres3.setTextColor(redColor);
+            sw_s1.setTextColor(redColor);
+            sw_s2.setTextColor(redColor);
+            sw_s3.setTextColor(redColor);
+        }
+        if("isHalloween".equals(isHalloween)) {
+            view.setBackgroundResource(R.drawable.halloween_background_2);
+            int orangeColor = ContextCompat.getColor(getContext(), R.color.orange);
+            sw_s1.setTextColor(orangeColor);
+            sw_s2.setTextColor(orangeColor);
+            sw_s3.setTextColor(orangeColor);
         }
 
         return view;

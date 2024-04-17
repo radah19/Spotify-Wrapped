@@ -35,12 +35,13 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        boolean isHoliday = mSummary.isHoliday();
+        String isChristmasHoliday = mSummary.isChristmasHoliday();
+        String isHalloween = mSummary.isHalloween();
 
         switch(position) {
             //Introduction Screen
             case 0:
-                return new SWPagerIntroductionFragment(mSummary.startTime, mSummary.endTime, isHoliday);
+                return new SWPagerIntroductionFragment(mSummary.startTime, mSummary.endTime, isChristmasHoliday, isHalloween);
 
             //Top Track
             case 1:
@@ -48,39 +49,41 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
                         mSummary.topTracks.get(0).getTrackImageLink(),
                         mSummary.topTracks.get(0).getTrackName(),
                         mSummary.topTracks.get(0).getTrackArtist(),
-                        isHoliday
+                        isChristmasHoliday,
+                        isHalloween
                         );
 
             //Top 10 Tracks
             case 2:
-                return new SWPagerTracksFragment(mSummary.topTracks, isHoliday);
+                return new SWPagerTracksFragment(mSummary.topTracks, isChristmasHoliday, isHalloween);
 
             //Top Artist
             case 3:
                 return new SWPagerTopArtistFragment(
                         mSummary.topArtists.get(0).getArtistImageLink(),
                         mSummary.topArtists.get(0).getArtistName(),
-                        isHoliday
+                        isChristmasHoliday,
+                        isHalloween
                         );
 
             //Top 10 Artists
             case 4:
-                return new SWPagerTopArtistsFragment(mSummary.topArtists, isHoliday);
+                return new SWPagerTopArtistsFragment(mSummary.topArtists, isChristmasHoliday, isHalloween);
 
             //Top Genres
             case 5:
-                return new SWPagerGenresFragment(mSummary.topGenres, isHoliday);
+                return new SWPagerGenresFragment(mSummary.topGenres, isChristmasHoliday, isHalloween);
 
             //Recommended Tracks
             case 6:
-                return new SWPagerTrackRecommendationsFragment(mSummary.trackRecommendations, isHoliday);
+                return new SWPagerTrackRecommendationsFragment(mSummary.trackRecommendations, isChristmasHoliday, isHalloween);
 
             case 7:
-                return new SWPagerArtistRecommendationsFragment(mSummary.artistRecommendations, isHoliday);
+                return new SWPagerArtistRecommendationsFragment(mSummary.artistRecommendations, isChristmasHoliday, isHalloween);
 
             //Conclusion
             case 8:
-                return new SWPagerConclusionFragment(mSummary.startTime, mSummary.endTime, isHoliday);
+                return new SWPagerConclusionFragment(mSummary.startTime, mSummary.endTime, isChristmasHoliday, isHalloween);
 
             default:
                 return null;

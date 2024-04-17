@@ -16,12 +16,14 @@ import java.time.format.DateTimeFormatter;
 
 public class SWPagerConclusionFragment extends Fragment {
     private LocalDateTime startTime, endTime;
-    private boolean isHoliday;
+    private String isChristmasHoliday;
+    private String isHalloween;
 
-    public SWPagerConclusionFragment(LocalDateTime startTime, LocalDateTime endTime, boolean isHoliday) {
+    public SWPagerConclusionFragment(LocalDateTime startTime, LocalDateTime endTime, String isChristmasHoliday, String isHalloween) {
         this.startTime = startTime;
         this.endTime = endTime;
-        this.isHoliday = isHoliday;
+        this.isChristmasHoliday = isChristmasHoliday;
+        this.isHalloween = isHalloween;
     }
 
     @Override
@@ -43,8 +45,11 @@ public class SWPagerConclusionFragment extends Fragment {
 
         fromToDate.setText(str);
 
-        if(isHoliday) {
+        if("isChristmas".equals(isChristmasHoliday)) {
             view.setBackgroundResource(R.drawable.holiday_theme);
+        }
+        if("isHalloween".equals(isHalloween)) {
+            view.setBackgroundResource(R.drawable.halloween_background);
         }
 
         return view;

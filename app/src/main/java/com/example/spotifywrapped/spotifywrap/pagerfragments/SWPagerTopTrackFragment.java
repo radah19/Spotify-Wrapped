@@ -19,15 +19,17 @@ import com.squareup.picasso.Picasso;
 public class SWPagerTopTrackFragment extends Fragment {
     private ImageView topTrackImg;
     private TextView topTrackNameText, topTrackArtistText;
-    private boolean isHoliday;
+    private String isChristmasHoliday;
+    private String isHalloween;
 
     String topTrackImgUrl, topTrackName, topTrackArtistName;
 
-    public SWPagerTopTrackFragment(String topTrackImgUrl, String topTrackName, String topTrackArtistName, boolean isHoliday) {
+    public SWPagerTopTrackFragment(String topTrackImgUrl, String topTrackName, String topTrackArtistName, String isChristmasHoliday, String isHalloween) {
         this.topTrackImgUrl = topTrackImgUrl;
         this.topTrackName = topTrackName;
         this.topTrackArtistName = topTrackArtistName;
-        this.isHoliday = isHoliday;
+        this.isChristmasHoliday = isChristmasHoliday;
+        this.isHalloween = isHalloween;
     }
 
     @Override
@@ -49,12 +51,25 @@ public class SWPagerTopTrackFragment extends Fragment {
         topTrackArtistText.setText(topTrackArtistName);
 
 
-        if (isHoliday) {
+        if ("isChristmas".equals(isChristmasHoliday)) {
+            ImageView reindeer = view.findViewById(R.id.imageViewReindeer);
+            reindeer.setVisibility(View.VISIBLE);
+            ImageView garland = view.findViewById(R.id.garlandImage);
+            garland.setVisibility(View.VISIBLE);
             int greenColor = getResources().getColor(R.color.green, null);
             view.setBackgroundColor(greenColor);
             topTrackImg.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.red)));
             topTrackArtistText.setTextColor(ContextCompat.getColor(getContext(), R.color.red));
             topTrackNameText.setTextColor(ContextCompat.getColor(getContext(), R.color.red));
+        }
+        if("isHalloween".equals(isHalloween)) {
+            int blackColor = getResources().getColor(R.color.black, null);
+            view.setBackgroundColor(blackColor);
+            topTrackImg.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.orange)));
+            topTrackArtistText.setTextColor(ContextCompat.getColor(getContext(), R.color.orange));
+            topTrackNameText.setTextColor(ContextCompat.getColor(getContext(), R.color.red));
+            ImageView pumpkin = view.findViewById(R.id.pumpkin);
+            pumpkin.setVisibility(View.VISIBLE);
         }
 
         // Inflate the layout for this fragment
