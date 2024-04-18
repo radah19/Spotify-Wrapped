@@ -19,17 +19,15 @@ import com.squareup.picasso.Picasso;
 public class SWPagerTopTrackFragment extends Fragment {
     private ImageView topTrackImg;
     private TextView topTrackNameText, topTrackArtistText;
-    private String isChristmasHoliday;
-    private String isHalloween;
+    private String isHoliday;
 
     String topTrackImgUrl, topTrackName, topTrackArtistName;
 
-    public SWPagerTopTrackFragment(String topTrackImgUrl, String topTrackName, String topTrackArtistName, String isChristmasHoliday, String isHalloween) {
+    public SWPagerTopTrackFragment(String topTrackImgUrl, String topTrackName, String topTrackArtistName, String isHoliday) {
         this.topTrackImgUrl = topTrackImgUrl;
         this.topTrackName = topTrackName;
         this.topTrackArtistName = topTrackArtistName;
-        this.isChristmasHoliday = isChristmasHoliday;
-        this.isHalloween = isHalloween;
+        this.isHoliday = isHoliday;
     }
 
     @Override
@@ -51,7 +49,7 @@ public class SWPagerTopTrackFragment extends Fragment {
         topTrackArtistText.setText(topTrackArtistName);
 
 
-        if ("isChristmas".equals(isChristmasHoliday)) {
+        if ("Christmas".equals(isHoliday)) {
             ImageView reindeer = view.findViewById(R.id.imageViewReindeer);
             reindeer.setVisibility(View.VISIBLE);
             ImageView garland = view.findViewById(R.id.garlandImage);
@@ -62,7 +60,7 @@ public class SWPagerTopTrackFragment extends Fragment {
             topTrackArtistText.setTextColor(ContextCompat.getColor(getContext(), R.color.red));
             topTrackNameText.setTextColor(ContextCompat.getColor(getContext(), R.color.red));
         }
-        if("isHalloween".equals(isHalloween)) {
+        if("Halloween".equals(isHoliday)) {
             int blackColor = getResources().getColor(R.color.black, null);
             view.setBackgroundColor(blackColor);
             topTrackImg.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.orange)));

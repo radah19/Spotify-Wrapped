@@ -23,16 +23,14 @@ import org.w3c.dom.Text;
 public class SWPagerTopArtistFragment extends Fragment {
     private ImageView topArtistImg;
     private TextView topArtistText;
-    private String isChristmasHoliday;
-    private String isHalloween;
+    private String isHoliday;
 
     private String topArtistImgUrl, topArtistName;
 
-    public SWPagerTopArtistFragment(String topArtistImgUrl, String topArtistName, String isChristmasHoliday, String isHalloween) {
+    public SWPagerTopArtistFragment(String topArtistImgUrl, String topArtistName, String isHoliday) {
         this.topArtistImgUrl = topArtistImgUrl;
         this.topArtistName = topArtistName;
-        this.isChristmasHoliday = isChristmasHoliday;
-        this.isHalloween = isHalloween;
+        this.isHoliday = isHoliday;
     }
 
     @Override
@@ -54,7 +52,7 @@ public class SWPagerTopArtistFragment extends Fragment {
         // Inflate the layout for this fragment
         ImageView artistImage = view.findViewById(R.id.sw_top_artist_img);
         TextView artistName = view.findViewById(R.id.sw_top_artist_artistName);
-        if ("isChristmas".equals(isChristmasHoliday)) {
+        if ("Christmas".equals(isHoliday)) {
             ImageView reindeer = view.findViewById(R.id.imageViewReindeer);
             reindeer.setVisibility(View.VISIBLE);
             ImageView garland = view.findViewById(R.id.garlandImage);
@@ -64,7 +62,7 @@ public class SWPagerTopArtistFragment extends Fragment {
             artistImage.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.red)));
             artistName.setTextColor(ContextCompat.getColor(getContext(), R.color.red));
         }
-        if("isHalloween".equals(isHalloween)) {
+        if("Halloween".equals(isHoliday)) {
             int blackColor = getResources().getColor(R.color.black, null);
             view.setBackgroundColor(blackColor);
             artistImage.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.orange)));

@@ -13,8 +13,7 @@ public class SpotifyWrappedSummary {
     public List<SpotifyTrack> topTracks, trackRecommendations;
     public List<SpotifyArtist> topArtists, artistRecommendations;
     public List<String> topGenres;
-    private String isChristmasHoliday;
-    private String isHalloween;
+    private String isHoliday;
 
     //Filters & Customizations
     public LocalDateTime startTime, endTime;
@@ -32,8 +31,7 @@ public class SpotifyWrappedSummary {
         this.topGenres = topGenres;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.isChristmasHoliday = "isNotChristmas";
-        this.isHalloween = "isNotHalloween";
+        this.isHoliday = "No Holiday";
     }
 
     public String getCreatedBy() {
@@ -84,15 +82,11 @@ public class SpotifyWrappedSummary {
         this.id = id;
     }
 
-    public String isChristmasHoliday() {
-        return isChristmasHoliday;
+    public String isHoliday() {
+        return isHoliday;
     }
-    public void setChristmasHoliday(String isChristmasHoliday) {
-        this.isChristmasHoliday = isChristmasHoliday;
-    }
-    public String isHalloween(){ return isHalloween;}
-    public void setIsHalloween(String isHalloween) {
-        this.isHalloween = isHalloween;
+    public void setChristmasHoliday(String isHoliday) {
+        this.isHoliday = isHoliday;
     }
 
 }

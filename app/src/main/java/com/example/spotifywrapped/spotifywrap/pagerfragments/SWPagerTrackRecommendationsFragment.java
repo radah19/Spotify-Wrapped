@@ -20,13 +20,11 @@ import java.util.List;
 public class SWPagerTrackRecommendationsFragment extends Fragment {
     private List<SpotifyTrack> ls_r_tracks;
     private RecyclerView rTracksList;
-    private String isChristmasHoliday;
-    private String isHalloween;
+    private String isHoliday;
 
-    public SWPagerTrackRecommendationsFragment(List<SpotifyTrack> ls_r_tracks, String isChristmasHoliday, String isHalloween) {
+    public SWPagerTrackRecommendationsFragment(List<SpotifyTrack> ls_r_tracks, String isHoliday) {
         this.ls_r_tracks = ls_r_tracks;
-        this.isChristmasHoliday = isChristmasHoliday;
-        this.isHalloween = isHalloween;
+        this.isHoliday = isHoliday;
     }
 
     @Override
@@ -47,11 +45,11 @@ public class SWPagerTrackRecommendationsFragment extends Fragment {
 
         rTracksList.setAdapter(new SWPagerTrackRecommendationsAdapter(this.ls_r_tracks, getContext()));
 
-        if ("isChristmas".equals(isChristmasHoliday)) {
+        if ("Christmas".equals(isHoliday)) {
             ImageView lights = view.findViewById(R.id.lightsImageView);
             lights.setVisibility(View.VISIBLE);
         }
-        if("isHalloween".equals(isHalloween)) {
+        if("Halloween".equals(isHoliday)) {
             ImageView halloween_garland = view.findViewById(R.id.halloween_garland);
             halloween_garland.setVisibility(View.VISIBLE);
         }
