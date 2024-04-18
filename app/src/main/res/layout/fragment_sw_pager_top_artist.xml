@@ -15,6 +15,14 @@
         android:layout_marginLeft="10dp"
         android:paddingBottom="100dp"
         >
+        <ImageView
+            android:id="@+id/garlandImage"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:visibility="gone"
+            android:scaleType="fitXY"
+            android:src="@drawable/garland" />
 
         <ImageView
             android:id="@+id/sw_top_artist_img"
@@ -57,5 +65,22 @@
                 />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/imageViewReindeer"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/reindeer"
+            android:visibility="gone"
+            android:padding="10dp" />
+        <ImageView
+            android:id="@+id/pumpkin"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:src="@drawable/pumpkin" />
+
     </LinearLayout>
+
 </LinearLayout>

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,7 +74,6 @@ public class SWPagerTracksAdapter extends RecyclerView.Adapter<SWPagerTracksAdap
                     len.format(DateTimeFormatter.ofPattern("m:ss")).toString()
             );
         }
-
     }
 
     @Override

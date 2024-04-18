@@ -1,5 +1,6 @@
 package com.example.spotifywrapped.spotifywrap.pagerfragments;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyTrack;
 
@@ -17,9 +19,11 @@ import java.util.List;
 public class SWPagerTracksFragment extends Fragment {
     private List<SpotifyTrack> ls_tracks;
     private RecyclerView trackList;
+    private String isHoliday;
 
-    public SWPagerTracksFragment(List<SpotifyTrack> ls_tracks) {
+    public SWPagerTracksFragment(List<SpotifyTrack> ls_tracks, String isHoliday) {
         this.ls_tracks = ls_tracks;
+        this.isHoliday = isHoliday;
     }
 
     @Override
@@ -39,6 +43,15 @@ public class SWPagerTracksFragment extends Fragment {
         trackList.setLayoutManager(llm);
 
         trackList.setAdapter(new SWPagerTracksAdapter(this.ls_tracks, getContext()));
+
+        if("Christmas".equals(isHoliday)) {
+            ImageView lights = view.findViewById(R.id.lightsImageView);
+            lights.setVisibility(View.VISIBLE);
+        }
+        if("Halloween".equals(isHoliday)) {
+            ImageView halloween_garland = view.findViewById(R.id.halloween_garland);
+            halloween_garland.setVisibility(View.VISIBLE);
+        }
 
         return view;
     }
