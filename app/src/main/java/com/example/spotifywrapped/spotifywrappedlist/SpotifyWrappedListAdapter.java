@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.spotifywrapped.DatabaseManager;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
@@ -86,6 +88,13 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
             myIntent.putExtra("spotifyWrapId", spotifyWrappedSummaries.get(position).getId());
             v.getContext().startActivity(myIntent);
         });
+
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseManager.deleteSpotifyWrap("Spotify Wrapped");
+            }
+        });
     }
 
     @Override
@@ -99,6 +108,7 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
         TextView sw_createdAtDate;
         TextView sw_trackNameList;
         TextView sw_datesRange;
+        Button deleteButton;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -107,6 +117,7 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
             sw_createdAtDate = itemView.findViewById(R.id.sw_createdAtDate);
             sw_trackNameList = itemView.findViewById(R.id.sw_trackNameList);
             sw_datesRange = itemView.findViewById(R.id.sw_datesRange);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
     } // MyViewHolder
 }

@@ -18,6 +18,7 @@ import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
 import com.example.spotifywrapped.navbar.NavbarClass;
 import com.example.spotifywrapped.spotifywrap.SpotifyWrapActivity;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
