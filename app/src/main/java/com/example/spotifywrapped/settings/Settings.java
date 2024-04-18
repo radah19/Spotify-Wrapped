@@ -1,10 +1,5 @@
 package com.example.spotifywrapped.settings;
 
-import static com.example.spotifywrapped.DatabaseManager.deleteSpotifyWrapListForUser;
-import static com.example.spotifywrapped.DatabaseManager.deleteUser;
-import static com.example.spotifywrapped.DatabaseManager.logOut;
-import static com.example.spotifywrapped.DatabaseManager.updateAccountPassword;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -43,28 +38,28 @@ public class Settings extends AppCompatActivity {
         updatePassword_btn.setOnClickListener(v -> {
             Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
             updatePassword_btn.setOnClickListener(u -> {
-                updateAccountPassword(newPassword_input, this);
+                DatabaseManager.updateAccountPassword(newPassword_input, this);
             });
         });
 
         logOut_btn.setOnClickListener(v -> {
             Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
             logOut_btn.setOnClickListener(u -> {
-                logOut();
+                DatabaseManager.logOut();
             });
         });
 
         deleteAccount_btn.setOnClickListener(v -> {
             Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
             deleteAccount_btn.setOnClickListener(u -> {
-                deleteUser(this);
+                DatabaseManager.deleteUser(this);
             });
         });
 
         clearAccountData_btn.setOnClickListener(v -> {
             Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
             clearAccountData_btn.setOnClickListener(u -> {
-                deleteSpotifyWrapListForUser();
+                DatabaseManager.deleteSpotifyWrapListForUser();
             });
         });
 
