@@ -33,7 +33,7 @@ public class SpotifyWrappedSummary {
         this.startTime = startTime;
         this.endTime = endTime;
         this.isChristmasHoliday = "isNotChristmas";
-        this.isHalloween = "isHalloween";
+        this.isHalloween = "isNotHalloween";
     }
 
     public String getCreatedBy() {
