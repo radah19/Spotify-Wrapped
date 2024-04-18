@@ -1,5 +1,10 @@
 package com.example.spotifywrapped.settings;
 
+import static com.example.spotifywrapped.DatabaseManager.deleteSpotifyWrapListForUser;
+import static com.example.spotifywrapped.DatabaseManager.deleteUser;
+import static com.example.spotifywrapped.DatabaseManager.logOut;
+import static com.example.spotifywrapped.DatabaseManager.updateAccountPassword;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.spotifywrapped.DatabaseManager;
 import com.example.spotifywrapped.R;
@@ -19,9 +25,8 @@ public class Settings extends AppCompatActivity {
     public EditText oldPassword, newPassword;
     public Button updatePassword_btn;
     public Button logOut_btn;
-    public Button clearAccountData_btn;
     public Button deleteAccount_btn;
-
+    public Button clearAccountData_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,19 +34,39 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         NavbarClass.initializeNavbar(this);
-
-        //updatePassword method
-
         oldPassword = findViewById(R.id.oldPassword_input);
         newPassword = findViewById(R.id.newPassword_input);
-
         String oldPassword_input = oldPassword.getText().toString();
         String newPassword_input = newPassword.getText().toString();
+        Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
 
-        //log out method
+        updatePassword_btn.setOnClickListener(v -> {
+            Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
+            updatePassword_btn.setOnClickListener(u -> {
+                updateAccountPassword(newPassword_input, this);
+            });
+        });
 
-        //delete account method
+        logOut_btn.setOnClickListener(v -> {
+            Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
+            logOut_btn.setOnClickListener(u -> {
+                logOut();
+            });
+        });
 
-        //clear data method
+        deleteAccount_btn.setOnClickListener(v -> {
+            Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
+            deleteAccount_btn.setOnClickListener(u -> {
+                deleteUser(this);
+            });
+        });
+
+        clearAccountData_btn.setOnClickListener(v -> {
+            Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
+            clearAccountData_btn.setOnClickListener(u -> {
+                deleteSpotifyWrapListForUser();
+            });
+        });
+
     }
 }
