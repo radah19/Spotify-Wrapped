@@ -2,11 +2,13 @@ package com.example.spotifywrapped.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.spotifywrapped.DatabaseManager;
@@ -17,11 +19,12 @@ import com.example.spotifywrapped.navbar.NavbarClass;
 
 public class Settings extends AppCompatActivity {
 
-    public EditText oldPassword, newPassword;
+    public EditText newPassword;
     public Button updatePassword_btn;
     public Button logOut_btn;
     public Button deleteAccount_btn;
     public Button clearAccountData_btn;
+    public RelativeLayout loadingScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,38 +32,87 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         NavbarClass.initializeNavbar(this);
-        oldPassword = findViewById(R.id.oldPassword_input);
         newPassword = findViewById(R.id.newPassword_input);
-        String oldPassword_input = oldPassword.getText().toString();
-        String newPassword_input = newPassword.getText().toString();
-        Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
+
+        updatePassword_btn = findViewById(R.id.updatePassword_btn);
+        logOut_btn = findViewById(R.id.logOut_btn);
+        deleteAccount_btn = findViewById(R.id.deleteAccount_btn);
+        clearAccountData_btn = findViewById(R.id.clearAccountData_btn);
+
+        loadingScreen = findViewById(R.id.loadingScreen);
+        loadingScreen.setVisibility(View.INVISIBLE);
 
         updatePassword_btn.setOnClickListener(v -> {
-            Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
-            updatePassword_btn.setOnClickListener(u -> {
-                DatabaseManager.updateAccountPassword(newPassword_input, this);
-            });
+            if(newPassword.getText().toString().length() >= 6) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder
+                        .setMessage("Are you sure you want to update your password?")
+                        .setPositiveButton("Yes", (dialogInterface, i) -> {
+                            loadingScreen.setVisibility(View.VISIBLE);
+                            DatabaseManager.updateAccountPassword(newPassword.getText().toString(), this);
+                            loadingScreen.setVisibility(View.INVISIBLE);
+                            dialogInterface.dismiss();
+                        })
+                        .setNegativeButton("No", (dialogInterface, i) -> {
+                            dialogInterface.dismiss();
+                        })
+                        .show();
+            } else {
+                if(newPassword.getText().toString().length() == 0)
+                    Toast.makeText(this, "Please enter a valid string in the field.", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(this, "New password is too short! Please enter a new one.", Toast.LENGTH_SHORT).show();
+            }
         });
 
         logOut_btn.setOnClickListener(v -> {
-            Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
-            logOut_btn.setOnClickListener(u -> {
-                DatabaseManager.logOut();
-            });
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder
+                    .setMessage("Are you sure you want to log out?")
+                    .setPositiveButton("Yes", (dialogInterface, i) -> {
+                        DatabaseManager.logOut();
+                        Intent myIntent = new Intent(this, LoginActivity.class);
+                        this.startActivity(myIntent);
+                        dialogInterface.dismiss();
+                    })
+                    .setNegativeButton("No", (dialogInterface, i) -> {
+                        dialogInterface.dismiss();
+                    })
+                    .show();
         });
 
         deleteAccount_btn.setOnClickListener(v -> {
-            Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
-            deleteAccount_btn.setOnClickListener(u -> {
-                DatabaseManager.deleteUser(this);
-            });
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder
+                .setMessage("Are you sure you want to clear account data?")
+                .setPositiveButton("Yes", (dialogInterface, i) -> {
+                    loadingScreen.setVisibility(View.VISIBLE);
+                    DatabaseManager.deleteUser(this);
+                    loadingScreen.setVisibility(View.INVISIBLE);
+                    dialogInterface.dismiss();
+                    Intent myIntent = new Intent(this, LoginActivity.class);
+                    this.startActivity(myIntent);
+                })
+                .setNegativeButton("No", (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                })
+                .show();
         });
 
         clearAccountData_btn.setOnClickListener(v -> {
-            Toast.makeText(this, "Are you sure?", Toast.LENGTH_SHORT).show();
-            clearAccountData_btn.setOnClickListener(u -> {
-                DatabaseManager.deleteSpotifyWrapListForUser();
-            });
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder
+                    .setMessage("Are you sure you want to clear account data?")
+                    .setPositiveButton("Yes", (dialogInterface, i) -> {
+                        loadingScreen.setVisibility(View.VISIBLE);
+                        DatabaseManager.deleteSpotifyWrapListForUser(this);
+                        loadingScreen.setVisibility(View.INVISIBLE);
+                        dialogInterface.dismiss();
+                    })
+                    .setNegativeButton("No", (dialogInterface, i) -> {
+                        dialogInterface.dismiss();
+                    })
+                    .show();
         });
 
     }

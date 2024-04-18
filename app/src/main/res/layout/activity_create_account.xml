@@ -26,6 +26,7 @@
             android:letterSpacing="0.05"
             android:textSize="45sp"
             android:gravity="center"
+            android:fontFamily="@font/font_gothambold"
             android:padding="18dp"
             />
 
@@ -45,6 +46,7 @@
             android:background="@drawable/rounded_corners"
             android:padding="18dp"
             android:inputType="text"
+            android:fontFamily="@font/font_gothammedium"
             android:id="@+id/email_input"/>
 
         <EditText
@@ -58,6 +60,7 @@
             android:background="@drawable/rounded_corners"
             android:padding="18dp"
             android:inputType="text"
+            android:fontFamily="@font/font_gothammedium"
             android:id="@+id/username_input"/>
 
         <EditText
@@ -71,6 +74,7 @@
             android:background="@drawable/rounded_corners"
             android:padding="18dp"
             android:inputType="textPassword"
+            android:fontFamily="@font/font_gothammedium"
             android:id="@+id/password_input"/>
 
         <Button
@@ -82,6 +86,7 @@
             android:padding="10dp"
             android:layout_marginTop="32dp"
             android:textSize="20sp"
+            android:fontFamily="@font/font_gothammedium"
             android:id="@+id/createAccount_btn"
             />
 

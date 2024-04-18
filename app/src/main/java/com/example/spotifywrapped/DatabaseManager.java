@@ -297,12 +297,9 @@ public class DatabaseManager {
 
     public static void updateAccountPassword(String password, Activity activity) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        currentUser.updatePassword(password).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(activity, "Successfully updated password!", Toast.LENGTH_SHORT).show();
-                } // if
+        currentUser.updatePassword(password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(activity, "Successfully updated password!", Toast.LENGTH_SHORT).show();
             }
         });
     } // updateAccountPassword
@@ -337,24 +334,15 @@ public class DatabaseManager {
 
     public static void deleteUser(Activity activity) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference().child("Users").child(User.getUsername());
-        reference.setValue(null);
-        reference = FirebaseDatabase.getInstance().getReference().child("Current Users").child(User.getUsername());
-        reference.setValue(null);
-        DatabaseManager.deleteUserFromList(activity);
-        currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(activity, "Account successfully deleted!", Toast.LENGTH_SHORT).show();
-                } // if
+        currentUser.delete().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(activity, "Account successfully deleted!", Toast.LENGTH_SHORT).show();
             }
         });
     } // deleteUser
 
-    public static List<SpotifyWrappedSummary> deleteSpotifyWrapListForUser(){
+    public static void deleteSpotifyWrapListForUser(Activity activity){
         String user = User.getEmail();
-        List<SpotifyWrappedSummary> ls = new ArrayList<>();
 
         try {
             JSONObject data = new JSONObject(generateFirebaseApiRequest("Spotify Wrapped"));
@@ -367,8 +355,10 @@ public class DatabaseManager {
                 }
             }
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            Toast.makeText(activity, "Account could not be deleted, please try again later.", Toast.LENGTH_SHORT).show();
         }
-        return ls;
+
+        SpotifyWrappedListActivity.ls_summaries = new ArrayList<>();
+        Toast.makeText(activity, "Account data has been cleared.", Toast.LENGTH_SHORT).show();
     }
 } // DatabaseManager
