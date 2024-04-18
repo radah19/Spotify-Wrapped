@@ -1,5 +1,6 @@
 package com.example.spotifywrapped.spotifywrappedlist;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spotifywrapped.R;
@@ -23,9 +26,11 @@ import java.util.List;
 
 public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrappedListAdapter.MyViewHolder>{
     public List<SpotifyWrappedSummary> spotifyWrappedSummaries;
+    private Context context;
 
-    public SpotifyWrappedListAdapter(List<SpotifyWrappedSummary> spotifyWrappedSummaries) {
+    public SpotifyWrappedListAdapter(List<SpotifyWrappedSummary> spotifyWrappedSummaries, Context c) {
         this.spotifyWrappedSummaries = spotifyWrappedSummaries;
+        this.context = c;
     }
 
     @NonNull
@@ -41,6 +46,17 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
         List<SpotifyTrack> mTracks = spotifyWrappedSummaries.get(position).topTracks;
 
         holder.sw_img.setImageResource(R.drawable.default_track_img);
+
+        if(spotifyWrappedSummaries.get(position).isHoliday().equals("Halloween")){
+            holder.sw_img.getBackground().setTint(ContextCompat.getColor(this.context, R.color.jolly_red));
+            holder.sw_title.setTextColor(ContextCompat.getColor(this.context, R.color.jolly_red));
+        }
+
+        if(spotifyWrappedSummaries.get(position).isHoliday().equals("Christmas")){
+            holder.sw_img.getBackground().setTint(ContextCompat.getColor(this.context, R.color.strong_orange));
+            holder.sw_title.setTextColor(ContextCompat.getColor(this.context, R.color.strong_orange));
+        }
+
         holder.sw_title.setText(spotifyWrappedSummaries.get(position).getTitle());
 
         //Generate Created At Date

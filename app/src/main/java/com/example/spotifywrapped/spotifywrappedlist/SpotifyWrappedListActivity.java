@@ -52,7 +52,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         spotifyWrappedList.setLayoutManager(llm);
-        spotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(userSpotifyWrappedSummaries));
+        spotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(userSpotifyWrappedSummaries, this));
 
         addSpotifyWrappedButton.setOnClickListener(v -> {
             Intent generateIntent = new Intent(this, SpotifyWrappedCreation.class);
@@ -62,7 +62,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         if(LocalDateTime.now().getMonth() == Month.DECEMBER) {
             christmasAddSpotifyWrappedButton.setVisibility(View.VISIBLE);
             christmasAddSpotifyWrappedButton.setOnClickListener(v -> {
-                Intent generateIntent = new Intent(this, SpotifyWrappedCreation.class);
+                Intent generateIntent = new Intent(this, SpotifyWrappedCreationChristmasActivity.class);
                 startActivity(generateIntent);
             });
         }
@@ -70,7 +70,7 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         if(LocalDateTime.now().getMonth() == Month.OCTOBER) {
             halloweenAddSpotifyWrappedButton.setVisibility(View.VISIBLE);
             halloweenAddSpotifyWrappedButton.setOnClickListener(v -> {
-                Intent generateIntent = new Intent(this, SpotifyWrappedCreation.class);
+                Intent generateIntent = new Intent(this, SpotifyWrappedCreationHalloweenActivity.class);
                 startActivity(generateIntent);
             });
         }

@@ -247,6 +247,13 @@ public class DatabaseManager {
                 lsRArtists.add(SpotifyAPIManager.loadSpotifyArtistById(i));
             }
 
+            String theme;
+            try {
+                theme = data.getString("Theme").toString();
+            } catch (JSONException e) {
+                theme = "No Holiday";
+            }
+
             return new SpotifyWrappedSummary(
                     id,
                     data.getString("Created by").toString(),
@@ -259,7 +266,7 @@ public class DatabaseManager {
                     SpotifyAPIManager.convertJsonArrToStringList(data.getJSONArray("Top Genres")),
                     LocalDateTime.parse(data.getString("Start Time").toString()),
                     LocalDateTime.parse(data.getString("End Time").toString()),
-                    data.getString("Theme").toString()
+                    theme
             );
         } catch (JSONException e) {
             throw new RuntimeException(e);
