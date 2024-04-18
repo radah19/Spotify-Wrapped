@@ -2,14 +2,12 @@ package com.example.spotifywrapped;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.time.Month;
 
 public class SpotifyWrappedSummary {
     private String id;
     private String createdBy;
     private String title;
     private LocalDateTime createdAt;
-    private List<String> invitedUsers;
     public List<SpotifyTrack> topTracks, trackRecommendations;
     public List<SpotifyArtist> topArtists, artistRecommendations;
     public List<String> topGenres;
@@ -23,7 +21,6 @@ public class SpotifyWrappedSummary {
         this.createdBy = createdBy;
         this.title = title;
         this.createdAt = createdAt;
-        this.invitedUsers = invitedUsers;
         this.topTracks = topTracks;
         this.trackRecommendations = trackRecommendations;
         this.topArtists = topArtists;
@@ -40,14 +37,6 @@ public class SpotifyWrappedSummary {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
-    }
-
-    public List<String> getInvitedUsers() {
-        return invitedUsers;
-    }
-
-    public void setInvitedUsers(List<String> invitedUsers) {
-        this.invitedUsers = invitedUsers;
     }
 
     public List<SpotifyTrack> getTrackRecommendations() {
