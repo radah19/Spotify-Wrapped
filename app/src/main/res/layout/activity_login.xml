@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/main_background"
     android:gravity="center"
     android:padding="16dp"
@@ -19,10 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:hint="Spotify"
+            android:hint="Spotify Wrapped"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textStyle="bold"
+            android:fontFamily="@font/font_gothambold"
             android:letterSpacing="0.05"
             android:textSize="65sp"
             android:gravity="center"
@@ -41,6 +46,7 @@
             android:hint="Email"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
+            android:fontFamily="@font/font_gothammedium"
             android:textSize="20sp"
             android:background="@drawable/rounded_corners"
             android:padding="18dp"
@@ -54,6 +60,7 @@
             android:hint="Password"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
+            android:fontFamily="@font/font_gothammedium"
             android:textSize="20sp"
             android:background="@drawable/rounded_corners"
             android:padding="18dp"
@@ -65,6 +72,7 @@
             android:layout_height="wrap_content"
             android:text="Login"
             android:textColor="#237841"
+            android:fontFamily="@font/font_gothammedium"
             android:backgroundTint="@color/white"
             android:padding="10dp"
             android:layout_marginTop="32dp"
@@ -77,6 +85,7 @@
             android:layout_height="wrap_content"
             android:text="Create New Account"
             android:textColor="#237841"
+            android:fontFamily="@font/font_gothammedium"
             android:backgroundTint="@color/white"
             android:padding="10dp"
             android:layout_marginTop="3dp"
@@ -85,4 +94,8 @@
             />
 
     </LinearLayout>
+</RelativeLayout>
+<include
+    layout="@layout/layout_loading"
+    />
 </RelativeLayout>

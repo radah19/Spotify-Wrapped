@@ -2,9 +2,10 @@ package com.example.spotifywrapped;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.time.Month;
 
 public class SpotifyWrappedSummary {
-    private int id;
+    private String id;
     private String createdBy;
     private String title;
     private LocalDateTime createdAt;
@@ -12,11 +13,12 @@ public class SpotifyWrappedSummary {
     public List<SpotifyTrack> topTracks, trackRecommendations;
     public List<SpotifyArtist> topArtists, artistRecommendations;
     public List<String> topGenres;
+    private String isHoliday;
 
     //Filters & Customizations
     public LocalDateTime startTime, endTime;
 
-    public SpotifyWrappedSummary(int id, String createdBy, String title, LocalDateTime createdAt, List<String> invitedUsers, List<SpotifyTrack> topTracks, List<SpotifyTrack> trackRecommendations, List<SpotifyArtist> topArtists, List<SpotifyArtist> artistRecommendations, List<String> topGenres, LocalDateTime startTime, LocalDateTime endTime) {
+    public SpotifyWrappedSummary(String id, String createdBy, String title, LocalDateTime createdAt, List<String> invitedUsers, List<SpotifyTrack> topTracks, List<SpotifyTrack> trackRecommendations, List<SpotifyArtist> topArtists, List<SpotifyArtist> artistRecommendations, List<String> topGenres, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
         this.createdBy = createdBy;
         this.title = title;
@@ -29,6 +31,7 @@ public class SpotifyWrappedSummary {
         this.topGenres = topGenres;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isHoliday = "No Holiday";
     }
 
     public String getCreatedBy() {
@@ -71,11 +74,19 @@ public class SpotifyWrappedSummary {
         this.createdAt = createdAt;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
+
+    public String isHoliday() {
+        return isHoliday;
+    }
+    public void setChristmasHoliday(String isHoliday) {
+        this.isHoliday = isHoliday;
+    }
+
 }

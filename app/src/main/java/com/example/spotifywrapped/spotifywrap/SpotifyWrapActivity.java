@@ -35,10 +35,15 @@ public class SpotifyWrapActivity extends FragmentActivity {
         //Retrieve Id of Selected Spotify Wrap
         Bundle b = getIntent().getExtras();
         if(b != null) {
-            int wrapId = b.getInt("spotifyWrapId");
+            String wrapId = b.getString("spotifyWrapId");
 
             //Query database to get Spotify Wrap Information
-            mSummary = ls_summaries.get(wrapId); //temporary
+            for(SpotifyWrappedSummary s: ls_summaries){
+                if(s.getId().equals(wrapId)){
+                    mSummary = s;
+                    break;
+                }
+            }
         }
 
         ViewPager2 pager = findViewById(R.id.viewPager);

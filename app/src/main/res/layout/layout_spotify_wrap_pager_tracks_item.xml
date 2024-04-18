@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingLeft="2dp"
     android:paddingRight="8dp"
+    android:id="@+id/your_linear_layout_id"
     android:background="@color/red">
 
     <ImageView
@@ -14,7 +15,7 @@
         android:layout_height="125dp"
         android:layout_margin="10dp"
         android:background="@drawable/spotify_wrap_image_border"
-        android:backgroundTint="@color/yellow"
+        android:backgroundTint="@color/banana"
         android:src="@drawable/default_track_img"
         />
 

@@ -2,6 +2,7 @@ package com.example.spotifywrapped.spotifywrap.pagerfragments;
 
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -17,9 +18,11 @@ public class SWPagerGenresFragment extends Fragment {
     private TextView sw_s1, sw_s2, sw_s3;
     private StringBuilder s1, s2, s3;
     private List<String> ls_genres;
+    private String isHoliday;
 
-    public SWPagerGenresFragment(List<String> ls_genres) {
+    public SWPagerGenresFragment(List<String> ls_genres, String isHoliday) {
         this.ls_genres = ls_genres;
+        this.isHoliday = isHoliday;
     }
 
     @Override
@@ -29,16 +32,13 @@ public class SWPagerGenresFragment extends Fragment {
         s2 = new StringBuilder("");
         s3 = new StringBuilder("");
 
-        for(int i = 0; i < ls_genres.size(); i++) {
-            String spacing = (ls_genres.get(i).length() >= 12) ? "\n\n" : "\n\n\n";
-            if (i % 2 == 0) {
-                if (i == ls_genres.size() - 1) {
-                    s3.append(ls_genres.get(i) + spacing);
-                } else {
-                    s1.append(ls_genres.get(i) + spacing);
-                }
+        for(int i = 0; i < ls_genres.size(); i += 2) {
+            String spacing = (ls_genres.get(i).length() >= 12 || ls_genres.get(i + 1).length() >= 12) ? "\n\n" : "\n\n\n";
+            if (i + 1 != ls_genres.size()) {
+                s1.append(ls_genres.get(i) + spacing);
+                s2.append(ls_genres.get(i + 1) + spacing);
             } else {
-                s2.append(ls_genres.get(i) + spacing);
+                s3.append(ls_genres.get(i) + spacing);
             }
         }
     }
@@ -56,6 +56,22 @@ public class SWPagerGenresFragment extends Fragment {
         sw_s2.setText(s2);
         sw_s3.setText(s3);
 
+        if("Christmas".equals(isHoliday)) {
+            view.setBackgroundResource(R.drawable.holiday_theme_2);
+            int redColor = ContextCompat.getColor(getContext(), R.color.red);
+            sw_s1.setTextColor(redColor);
+            sw_s2.setTextColor(redColor);
+            sw_s3.setTextColor(redColor);
+        }
+        if("Halloween".equals(isHoliday)) {
+            view.setBackgroundResource(R.drawable.halloween_background_2);
+            int orangeColor = ContextCompat.getColor(getContext(), R.color.orange);
+            sw_s1.setTextColor(orangeColor);
+            sw_s2.setTextColor(orangeColor);
+            sw_s3.setTextColor(orangeColor);
+        }
+
         return view;
+
     }
 }

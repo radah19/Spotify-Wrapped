@@ -5,6 +5,8 @@ import static com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListAc
 import android.os.NetworkOnMainThreadException;
 
 import com.example.spotifywrapped.useraccounts.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import org.json.JSONArray;
@@ -33,6 +36,7 @@ public class SpotifyAPIManager {
     private static OkHttpClient mOkHttpClient;
     private static Call mCall;
     private static String mResponse;
+    private static int mApiCallsRedone = 0;
 
     private static String accessToken, accessCode;
 
@@ -209,12 +213,16 @@ public class SpotifyAPIManager {
 
             //Get User's Recommended Tracks -------------------------------------------------------------------
             StringBuilder rTracksStr = new StringBuilder("https://api.spotify.com/v1/recommendations?limit=20&seed_genres=");
+            int added_vals = 0;
             for(String s: topGenres){
-                rTracksStr.append(s.replace(' ', '+').trim() + "%2C");
+                if(added_vals < 3) {
+                    rTracksStr.append(s.replace(' ', '+').trim() + "%2C");
+                    added_vals++;
+                }
             }
-            rTracksStr.replace(rTracksStr.length()-3, rTracksStr.length(), "&seed_tracks=");
-            rTracksStr.append(topTracks.get(0).getId() + "&seed_artists=");
-            rTracksStr.append(topArtists.get(0).getId());
+            rTracksStr.replace(rTracksStr.length()-3, rTracksStr.length(), "");
+            if(topTracks.size() > 0) rTracksStr.append("&seed_tracks=" + topTracks.get(0).getId());
+            if(topArtists.size() > 0) rTracksStr.append("&seed_artists=" + topArtists.get(0).getId());
             dataHolder = makeRequest(rTracksStr.toString());
 
             if(!dataHolder.equals("TRANSACTION FAILED")) {
@@ -248,10 +256,16 @@ public class SpotifyAPIManager {
 
             for(SpotifyArtist a: recommendedArtists) rArtistIds.add(a.getId());
 
+            //Create Unique Id
+            HashMap<String, String> map = new HashMap<>();
+            map.put("Title", "");
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").push();
+            String id = ref.getKey();
+
             // Return Spotify Wrap -----------------------------------
             return new SpotifyWrappedSummary(
-                    ls_summaries.size(),
-                    User.getUsername(),
+                    id,
+                    User.getEmail(),
                     title,
                     LocalDateTime.now(),
                     invitedUsers,
@@ -286,7 +300,7 @@ public class SpotifyAPIManager {
         return LocalDate.now();
     }
 
-    private static String makeRequest(String url) {
+    private static String makeRequest(String url){
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Authorization", "Bearer " + getAccessToken())
@@ -306,17 +320,38 @@ public class SpotifyAPIManager {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 mResponse = response.body().string();
+                try {
+                    Thread.sleep(750);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
         while(mResponse == null) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
 
+        //Rate Limit Hit
+        if(mResponse.equals("Too many requests")){
+            mApiCallsRedone++;
+            try {
+                Thread.sleep(3000 * mApiCallsRedone);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            if(mApiCallsRedone >= 3) {
+                return "TRANSACTION_FAILED";
+            }
+            return makeRequest(url);
+        }
+
+        mApiCallsRedone = 0;
         return mResponse;
     }
 
@@ -361,5 +396,29 @@ public class SpotifyAPIManager {
         }
 
         return ls;
+    }
+
+    public static List<SpotifyTrack> getHolidayTracks(String holidayTheme) {
+        String url = "https://api.spotify.com/v1/search?q=" + holidayTheme + "&type=track&limit=20";
+        String data = makeRequest(url);
+        List<SpotifyTrack> holidayTracks = new ArrayList<>();
+
+        if (!data.equals("TRANSACTION FAILED")) {
+            try {
+                JSONObject jsonResponse = new JSONObject(data);
+                JSONArray tracks = jsonResponse.getJSONObject("tracks").getJSONArray("items");
+
+                for (int i = 0; i < tracks.length(); i++) {
+                    JSONObject trackJson = tracks.getJSONObject(i);
+                    SpotifyTrack track = createSpotifyTrackFromJson(trackJson);
+                    holidayTracks.add(track);
+                }
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return holidayTracks;
     }
 }

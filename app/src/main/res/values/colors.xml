@@ -21,11 +21,13 @@
     <color name="cyan">#0DECEC</color>
     <color name="aquamarine">#4EFFD3</color>
     <color name="mint">#00FF7B</color>
+    <color name="distinguished_pink">#FF9CC8</color>
     <color name="pink">#FF7BB6</color>
     <color name="hot_pink">#FF2085</color>
     <color name="red">#FA5050</color>
     <color name="l_green">#00FF5A</color>
     <color name="lime">#95FF00</color>
     <color name="d_green">#1D6737</color>
+    <color name="dd_green">#12371F</color>
 
 </resources>

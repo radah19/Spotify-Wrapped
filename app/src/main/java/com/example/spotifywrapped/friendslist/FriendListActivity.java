@@ -8,6 +8,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.widget.SearchView;
 
+import com.example.spotifywrapped.DatabaseManager;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.navbar.NavbarClass;
 
