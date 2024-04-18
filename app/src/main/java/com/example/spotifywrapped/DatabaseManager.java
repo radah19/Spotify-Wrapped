@@ -180,6 +180,7 @@ public class DatabaseManager {
         map.put("Recommended Artists", s.artistRecommendations.stream().map(SpotifyArtist::getId).collect(Collectors.toList()));
         map.put("Start Time", s.startTime.toString());
         map.put("End Time", s.endTime.toString());
+        map.put("Theme", s.isHoliday().toString())
         FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(s.getId()).setValue(map);
     } // addSpotifyWrapped
 
@@ -261,7 +262,8 @@ public class DatabaseManager {
                     lsRArtists,
                     SpotifyAPIManager.convertJsonArrToStringList(data.getJSONArray("Top Genres")),
                     LocalDateTime.parse(data.getString("Start Time").toString()),
-                    LocalDateTime.parse(data.getString("End Time").toString())
+                    LocalDateTime.parse(data.getString("End Time").toString()),
+                    data.getString("Theme").toString()
             );
         } catch (JSONException e) {
             throw new RuntimeException(e);
