@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -79,6 +80,7 @@ public class DatabaseManager {
                 } // if
             }
         });
+        User.setUsername(username);
     } // registerUser
 
     public static boolean isLoggedin() {
@@ -132,10 +134,6 @@ public class DatabaseManager {
         FirebaseAuth.getInstance().signOut();
     } // logOut
 
-    public static void initializeUserTree() {
-        // reference = rootNode.getReference("Users");
-    } // initializeUserTree
-
     public static void addUser(String username, String password, ArrayList<String> friendsList, int spotifyUserID) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("Password", password);
@@ -183,7 +181,8 @@ public class DatabaseManager {
         FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(s.getId()).setValue(map);
     } // addSpotifyWrapped
 
-    public static String generateFirebaseApiGetRequest(String s){
+
+    public static String generateFirebaseApiRequest(String s){
         if(mOkHttpClient == null){
             mOkHttpClient = new OkHttpClient();
         }
@@ -221,7 +220,7 @@ public class DatabaseManager {
 
     public static SpotifyWrappedSummary loadSpotifyWrappedById(String id){
         try {
-            JSONObject data = new JSONObject(generateFirebaseApiGetRequest("Spotify Wrapped/" + id));
+            JSONObject data = new JSONObject(generateFirebaseApiRequest("Spotify Wrapped/" + id));
 
             List<SpotifyTrack> lsTracks = new ArrayList<>(), lsRTracks = new ArrayList<>();
             List<SpotifyArtist> lsArtists = new ArrayList<>(), lsRArtists = new ArrayList<>();
@@ -274,11 +273,11 @@ public class DatabaseManager {
         List<SpotifyWrappedSummary> ls = new ArrayList<>();
 
         try {
-            JSONObject data = new JSONObject(generateFirebaseApiGetRequest("Spotify Wrapped"));
+            JSONObject data = new JSONObject(generateFirebaseApiRequest("Spotify Wrapped"));
             Iterator<String> i = data.keys();
             while(i.hasNext()){
                 String id = i.next();
-                String userId = generateFirebaseApiGetRequest("Spotify Wrapped/" + id + "/Created by").replace("\"", "");
+                String userId = generateFirebaseApiRequest("Spotify Wrapped/" + id + "/Created by").replace("\"", "");
                 if(userId.equals(user)){
                     ls.add(loadSpotifyWrappedById(id));
                 }
@@ -290,13 +289,76 @@ public class DatabaseManager {
         return ls;
     }
 
-    public static void deleteSpotifyWrap(String id){
-        FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(id).removeValue();
+    public static void addCurrentUser(String username) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("User", username);
+        FirebaseDatabase.getInstance().getReference().child("Current Users").child(username).setValue(map);
+    } // addCurrentUser
+
+    public static void updateAccountPassword(String password, Activity activity) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        currentUser.updatePassword(password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(activity, "Successfully updated password!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    } // updateAccountPassword
+
+    public static void deleteUserFromList(Activity activity) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference().child("Users");
+        // now change the ind friends list
+        // loop thru users, loop trhus friends list, add new list
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data: snapshot.getChildren()) {
+                    String user = data.getValue().toString();
+                    ArrayList<String> friendsList = (ArrayList<String>)data.child("Friends List").getValue();
+                    for (int i = 0; i < friendsList.size(); i++) {
+                        if (friendsList.get(i).compareTo(User.getUsername()) == 0) {
+                            friendsList.remove(i);
+                        } // if
+                    } // for
+                    reference.child(user).child("Friends List").setValue(friendsList);
+                } // for
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
-    public static void updateSpotifyWrap(String id, String title, List<String> invitedUsers){
-        FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(id).child("Title").setValue(title);
-        FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(id).child("Invited Users").setValue(invitedUsers);
-    }
+    public static void deleteUser(Activity activity) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        currentUser.delete().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(activity, "Account successfully deleted!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    } // deleteUser
 
+    public static void deleteSpotifyWrapListForUser(Activity activity){
+        String user = User.getEmail();
+
+        try {
+            JSONObject data = new JSONObject(generateFirebaseApiRequest("Spotify Wrapped"));
+            Iterator<String> i = data.keys();
+            while(i.hasNext()){
+                String id = i.next();
+                String userId = generateFirebaseApiRequest("Spotify Wrapped/" + id + "/Created by").replace("\"", "");
+                if(userId.equals(user)){
+                    FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(id).removeValue();
+                }
+            }
+        } catch (JSONException e) {
+            Toast.makeText(activity, "Account could not be deleted, please try again later.", Toast.LENGTH_SHORT).show();
+        }
+
+        SpotifyWrappedListActivity.ls_summaries = new ArrayList<>();
+        Toast.makeText(activity, "Account data has been cleared.", Toast.LENGTH_SHORT).show();
+    }
 } // DatabaseManager

@@ -46,7 +46,9 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_spotify_wrapped_list);
 
         userSpotifyWrappedSummaries = new ArrayList<>();
-        userSpotifyWrappedSummaries.addAll(ls_summaries);
+        if(ls_summaries != null) {
+            userSpotifyWrappedSummaries.addAll(ls_summaries);
+        }
         friendSpotifyWrappedSummaries = new ArrayList<>();
         friendSpotifyWrappedSummaries.addAll(ls_friendSummaries);
 
