@@ -43,12 +43,6 @@ public class SpotifyWrappedCreation extends AppCompatActivity {
         //RecyclerView friendsRecyclerView = findViewById(R.id.friendsRecyclerView);
         //friendsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        String[] friendsArray = {"Friend 1", "Friend 2", "Friend 3", "Friend 4", "Friend 5", "Friend 6", "Friend 7", "Friend 8", "Friend 9", "Friend 10"};
-        List<String> friendsList = new ArrayList<>(Arrays.asList(friendsArray));
-        FriendsAdapter adapter2 = new FriendsAdapter(friendsList);
-        //friendsRecyclerView.setAdapter(adapter2);
-
-
         Button createButton = findViewById(R.id.create_spotify_wrapped_button);
         createButton.setOnClickListener(v -> {
             if(title.getText().length() > 0){
@@ -65,7 +59,7 @@ public class SpotifyWrappedCreation extends AppCompatActivity {
 
             SpotifyAPIManager apiManager = SpotifyAPIManager.getInstance();
             if (apiManager != null) {
-                SpotifyWrappedSummary newSummary = apiManager.generateSpotifyWrapped(title.getText().toString(), actualTimeRange, friendsList);
+                SpotifyWrappedSummary newSummary = apiManager.generateSpotifyWrapped(title.getText().toString(), actualTimeRange, "No Holiday");
 
                 if(newSummary != null) {
                     DatabaseManager.addSpotifyWrapped(newSummary);

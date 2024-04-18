@@ -180,7 +180,7 @@ public class DatabaseManager {
         map.put("Recommended Artists", s.artistRecommendations.stream().map(SpotifyArtist::getId).collect(Collectors.toList()));
         map.put("Start Time", s.startTime.toString());
         map.put("End Time", s.endTime.toString());
-        map.put("Theme", s.isHoliday().toString())
+        map.put("Theme", s.isHoliday().toString());
         FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(s.getId()).setValue(map);
     } // addSpotifyWrapped
 
@@ -253,9 +253,6 @@ public class DatabaseManager {
                     data.getString("Created by").toString(),
                     data.getString("Title").toString(),
                     LocalDateTime.parse(data.getString("Created on").toString()),
-                    (!hasFriends) ?
-                            new ArrayList<>() :
-                            SpotifyAPIManager.convertJsonArrToStringList(data.getJSONArray("Invited users")),
                     lsTracks ,
                     lsRTracks ,
                     lsArtists,

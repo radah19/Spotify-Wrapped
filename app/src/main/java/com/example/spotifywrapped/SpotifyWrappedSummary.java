@@ -16,7 +16,7 @@ public class SpotifyWrappedSummary {
     //Filters & Customizations
     public LocalDateTime startTime, endTime;
 
-    public SpotifyWrappedSummary(String id, String createdBy, String title, LocalDateTime createdAt, List<String> invitedUsers, List<SpotifyTrack> topTracks, List<SpotifyTrack> trackRecommendations, List<SpotifyArtist> topArtists, List<SpotifyArtist> artistRecommendations, List<String> topGenres, LocalDateTime startTime, LocalDateTime endTime, String theme) {
+    public SpotifyWrappedSummary(String id, String createdBy, String title, LocalDateTime createdAt, List<SpotifyTrack> topTracks, List<SpotifyTrack> trackRecommendations, List<SpotifyArtist> topArtists, List<SpotifyArtist> artistRecommendations, List<String> topGenres, LocalDateTime startTime, LocalDateTime endTime, String theme) {
         this.id = id;
         this.createdBy = createdBy;
         this.title = title;

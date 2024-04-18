@@ -149,7 +149,7 @@ public class SpotifyAPIManager {
         );
     }
 
-    public static SpotifyWrappedSummary generateSpotifyWrapped(String title, String term, List<String> invitedUsers, String theme) {
+    public static SpotifyWrappedSummary generateSpotifyWrapped(String title, String term, String theme) {
         List<SpotifyTrack> topTracks = new ArrayList<>();
         List<SpotifyTrack> recommendedTracks = new ArrayList<>();
         List<SpotifyArtist> topArtists = new ArrayList<>();
@@ -268,7 +268,6 @@ public class SpotifyAPIManager {
                     User.getEmail(),
                     title,
                     LocalDateTime.now(),
-                    invitedUsers,
                     topTracks,
                     recommendedTracks,
                     topArtists,
