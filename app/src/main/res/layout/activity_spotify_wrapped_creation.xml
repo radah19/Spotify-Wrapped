@@ -57,29 +57,6 @@
         android:textColor="@color/white"
         android:background="@drawable/rounded_corners" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Invite users to View your Wrap:"
-        android:fontFamily="@font/font_gothammedium"
-        android:textSize="18dp"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/friendsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="20dp"
-        android:scrollbars="vertical"
-        android:drawableEnd="@drawable/ic_arrow_drop_down"
-        android:inputType="none"
-        android:padding="7dp"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
-        android:background="@drawable/rounded_corners" />
 
 
     <Button
