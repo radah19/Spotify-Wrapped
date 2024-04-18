@@ -352,5 +352,23 @@ public class DatabaseManager {
         });
     } // deleteUser
 
+    public static List<SpotifyWrappedSummary> deleteSpotifyWrapListForUser(){
+        String user = User.getEmail();
+        List<SpotifyWrappedSummary> ls = new ArrayList<>();
 
+        try {
+            JSONObject data = new JSONObject(generateFirebaseApiRequest("Spotify Wrapped"));
+            Iterator<String> i = data.keys();
+            while(i.hasNext()){
+                String id = i.next();
+                String userId = generateFirebaseApiRequest("Spotify Wrapped/" + id + "/Created by").replace("\"", "");
+                if(userId.equals(user)){
+                    FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(id).removeValue();
+                }
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return ls;
+    }
 } // DatabaseManager
