@@ -170,7 +170,7 @@ public class DatabaseManager {
     public static void addSpotifyWrapped(SpotifyWrappedSummary s) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("Created by", s.getCreatedBy());
-        map.put("Invited users", s.getInvitedUsers());;
+        //map.put("Invited users", s.getInvitedUsers());;
         map.put("Title", s.getTitle());
         map.put("Created on", s.getCreatedAt().toString());
         map.put("Top Artists", s.topArtists.stream().map(SpotifyArtist::getId).collect(Collectors.toList()));
