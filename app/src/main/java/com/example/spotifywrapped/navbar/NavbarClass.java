@@ -49,16 +49,5 @@ public class NavbarClass {
 //                    .show();
 //        });
 
-        // Notifications
-        a.findViewById(R.id.navbarNotifications).setOnClickListener(view -> {
-//            Intent myIntent = new Intent(a, SpotifyWrappedListActivity.class);
-//            a.startActivity(myIntent);
-        });
-
-        // Friends
-        a.findViewById(R.id.navbarFriends).setOnClickListener(view -> {
-            Intent myIntent = new Intent(a, FriendListActivity.class);
-            a.startActivity(myIntent);
-        });
     }
 }
