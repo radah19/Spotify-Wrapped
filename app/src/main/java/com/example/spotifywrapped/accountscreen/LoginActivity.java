@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class LoginActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 1337; // Any arbitrary number for the request code
-    private static final String CLIENT_ID = "2097d5cb4f4549c49316373f2a950735";
+    private static final String CLIENT_ID = "3e82d56a15ac4887b2e645941b29b6cc";
     private static final String REDIRECT_URI = "spotifywrapped://auth";
     //private static final String CLIENT_SECRET = "your_client_secret_here";
 

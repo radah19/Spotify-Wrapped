@@ -321,7 +321,7 @@ public class SpotifyAPIManager {
             public void onResponse(Call call, Response response) throws IOException {
                 mResponse = response.body().string();
                 try {
-                    Thread.sleep(750);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
