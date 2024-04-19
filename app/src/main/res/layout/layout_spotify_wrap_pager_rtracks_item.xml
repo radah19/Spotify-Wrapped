@@ -8,15 +8,38 @@
     android:paddingRight="8dp"
     android:background="@color/cyan">
 
-    <ImageView
-        android:id="@+id/sw_tracks_img"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/spotify_wrap_image_border"
-        android:backgroundTint="@color/papaya"
-        android:src="@drawable/default_track_img"
-        />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <ImageView
+            android:id="@+id/sw_tracks_img"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+
+            android:background="@drawable/spotify_wrap_image_border"
+            android:backgroundTint="@color/papaya"
+            android:src="@drawable/default_track_img"
+            />
+
+        <ImageView
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:src="@drawable/baseline_play_arrow_24"
+            app:tint="@color/papaya"
+            android:id="@+id/sw_tracks_play_button"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:src="@drawable/baseline_pause_24"
+            app:tint="@color/papaya"
+            android:id="@+id/sw_tracks_pause_button"
+            android:visibility="invisible"
+            />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,15 +48,29 @@
         android:orientation="vertical"
         >
 
-        <TextView
-            android:id="@+id/sw_tracks_trackTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="@color/black"
-            android:fontFamily="@font/font_gothambold"
-            android:textSize="22dp"
-            android:text="TITLE"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/sw_tracks_trackTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:textColor="@color/black"
+                android:fontFamily="@font/font_gothambold"
+                android:textSize="22dp"
+                android:text="TITLE"
+                />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/baseline_link_24"
+                app:tint="@color/papaya"
+                android:id="@+id/sw_tracks_hyperlink"
+                />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/sw_tracks_trackArtist"

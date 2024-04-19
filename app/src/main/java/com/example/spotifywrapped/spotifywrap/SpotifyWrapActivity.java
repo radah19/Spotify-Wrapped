@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
@@ -22,6 +23,7 @@ import com.google.android.material.button.MaterialButton;
 public class SpotifyWrapActivity extends FragmentActivity {
     private SpotifyWrappedSummary mSummary;
     private MaterialButton exitButton;
+    private TextView currentSong;
 
     public SpotifyWrapActivity() {
 
@@ -47,7 +49,7 @@ public class SpotifyWrapActivity extends FragmentActivity {
         }
 
         ViewPager2 pager = findViewById(R.id.viewPager);
-        pager.setAdapter(new SpotifyWrapAdapter(this, mSummary));
+        pager.setAdapter(new SpotifyWrapAdapter(this, mSummary, exitButton, currentSong));
 
         exitButton = findViewById(R.id.sw_exitSpotifyWrapButton);
         exitButton.setOnClickListener(v -> {

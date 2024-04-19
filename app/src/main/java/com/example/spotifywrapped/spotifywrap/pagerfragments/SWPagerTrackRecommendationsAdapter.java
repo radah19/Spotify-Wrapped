@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,10 +42,24 @@ public class SWPagerTrackRecommendationsAdapter extends RecyclerView.Adapter<SWP
     @Override
     public void onBindViewHolder(@NonNull SWPagerTrackRecommendationsAdapter.MyViewHolder holder, int position) {
         holder.itemView.setOnClickListener(v -> {
-            try {
-                Mp3Player.playMp3(ls_rTracks.get(position).getMp3url());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            if(ls_rTracks.get(position).getMp3url().equals("null")) {
+                Toast.makeText(this.context, "No Preview available for this Track!", Toast.LENGTH_SHORT).show();
+            } else {
+                if(Mp3Player.elementPlaying.equals(ls_rTracks.get(position).getId())){
+                    Mp3Player.elementPlaying = "";
+                    try {
+                        Mp3Player.stopMp3();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    Mp3Player.elementPlaying = ls_rTracks.get(position).getId();
+                    try {
+                        Mp3Player.playMp3(ls_rTracks.get(position).getMp3url());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
 
         });
