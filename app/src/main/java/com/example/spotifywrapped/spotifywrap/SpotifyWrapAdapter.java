@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.spotifywrapped.SpotifyWrappedSummary;
+import com.example.spotifywrapped.spotifywrap.MediaPlayer.Mp3Player;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerArtistRecommendationsFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerGenresFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerIntroductionFragment;
@@ -19,8 +20,10 @@ import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerConclusionFr
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTrackRecommendationsFragment;
 import com.google.android.material.button.MaterialButton;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class SpotifyWrapAdapter extends FragmentStateAdapter {
     private SpotifyWrappedSummary mSummary;
@@ -55,6 +58,7 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
                         mSummary.topTracks.get(0).getTrackImageLink(),
                         mSummary.topTracks.get(0).getTrackName(),
                         mSummary.topTracks.get(0).getTrackArtist(),
+                        mSummary.topTracks.get(0).getMp3url(),
                         isHoliday
                         );
 

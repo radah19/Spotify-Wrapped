@@ -55,19 +55,21 @@
             <TextView
                 android:id="@+id/sw_tracks_trackTitle"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:textColor="@color/black"
                 android:fontFamily="@font/font_gothambold"
                 android:textSize="22dp"
                 android:text="TITLE"
                 />
-            <ImageView
+            <com.google.android.material.button.MaterialButton
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:layout_weight="1"
-                android:src="@drawable/baseline_link_24"
-                app:tint="@color/papaya"
+                android:background="@color/transparent"
+                app:iconGravity="textStart"
+                app:icon="@drawable/baseline_link_24"
+                app:iconTint="@color/papaya"
                 android:id="@+id/sw_tracks_hyperlink"
                 />
         </LinearLayout>

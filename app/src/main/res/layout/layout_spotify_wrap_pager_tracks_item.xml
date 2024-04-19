@@ -26,15 +26,31 @@
         android:orientation="vertical"
         >
 
-        <TextView
-            android:id="@+id/sw_tracks_trackTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="@color/white"
-            android:fontFamily="@font/font_gothambold"
-            android:textSize="22dp"
-            android:text="TITLE"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/sw_tracks_trackTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textColor="@color/white"
+                android:fontFamily="@font/font_gothambold"
+                android:textSize="22dp"
+                android:text="TITLE"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                app:iconGravity="textStart"
+                app:icon="@drawable/baseline_link_24"
+                app:iconTint="@color/banana"
+                android:id="@+id/sw_tracks_hyperlink"
+                />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/sw_tracks_trackArtist"

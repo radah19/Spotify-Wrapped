@@ -1,6 +1,8 @@
 package com.example.spotifywrapped.spotifywrap.pagerfragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.spotifywrap.MediaPlayer.Mp3Player;
+import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -61,7 +64,13 @@ public class SWPagerTrackRecommendationsAdapter extends RecyclerView.Adapter<SWP
                     }
                 }
             }
+        });
 
+        holder.sw_tracks_hyperlink.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(
+                    ls_rTracks.get(position).getTrackLink()
+            ));
+            context.startActivity(browserIntent);
         });
 
         Picasso.get().load(ls_rTracks.get(position).getTrackImageLink()).into(holder.sw_tracks_img);
@@ -100,6 +109,7 @@ public class SWPagerTrackRecommendationsAdapter extends RecyclerView.Adapter<SWP
         ImageView sw_tracks_img;
         TextView sw_tracks_trackTitle, sw_tracks_trackArtist, sw_tracks_trackRelease;
         TextView sw_tracks_popularity, sw_tracks_duration;
+        MaterialButton sw_tracks_hyperlink;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,6 +120,8 @@ public class SWPagerTrackRecommendationsAdapter extends RecyclerView.Adapter<SWP
 
             sw_tracks_popularity = itemView.findViewById(R.id.sw_tracks_popularity);
             sw_tracks_duration = itemView.findViewById(R.id.sw_tracks_duration);
+
+            sw_tracks_hyperlink = itemView.findViewById(R.id.sw_tracks_hyperlink);
         }
     } // MyViewHolder
 }

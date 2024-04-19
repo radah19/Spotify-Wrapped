@@ -16,9 +16,14 @@ import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
 import com.example.spotifywrapped.accountscreen.CreateAccountActivity;
 import com.example.spotifywrapped.accountscreen.LoginActivity;
+import com.example.spotifywrapped.spotifywrap.MediaPlayer.Mp3Player;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTopTrackFragment;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTracksAdapter;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedCreation;
 import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 import com.google.android.material.button.MaterialButton;
+
+import java.io.IOException;
 
 public class SpotifyWrapActivity extends FragmentActivity {
     private SpotifyWrappedSummary mSummary;
