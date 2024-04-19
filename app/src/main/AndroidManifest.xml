@@ -15,6 +15,15 @@
         android:theme="@style/Theme.SpotifyWrapped"
         tools:targetApi="34">
         <activity
+            android:name=".spotifywrappedlist.SpotifyWrappedCreationHalloweenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".spotifywrappedlist.SpotifyWrappedCreationChristmasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".settings.Settings"
+            android:exported="false" />
+        <activity
             android:name=".accountscreen.LoginActivity"
             android:exported="false" />
         <activity

@@ -36,24 +36,5 @@
 <!--        android:backgroundTint="@color/green"-->
 <!--        />-->
 
-    <ImageButton
-        android:id="@+id/navbarNotifications"
-        android:src="@drawable/icon_notification"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:cornerRadius="0dp"
-        android:backgroundTint="@color/green"
-        />
-
-    <ImageButton
-        android:id="@+id/navbarFriends"
-        android:src="@drawable/icon_friends"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:cornerRadius="0dp"
-        android:backgroundTint="@color/green"
-        />
 
 </LinearLayout>

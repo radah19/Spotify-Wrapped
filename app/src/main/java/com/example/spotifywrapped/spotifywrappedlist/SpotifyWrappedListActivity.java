@@ -29,17 +29,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SpotifyWrappedListActivity extends AppCompatActivity {
-    public List<SpotifyWrappedSummary> userSpotifyWrappedSummaries, friendSpotifyWrappedSummaries;
-    public String orderBy;
-
-
+    public List<SpotifyWrappedSummary> userSpotifyWrappedSummaries;
     public static List<SpotifyWrappedSummary> ls_summaries;
-    public static List<SpotifyWrappedSummary> ls_friendSummaries = new ArrayList<>();
     // --------------------------------------------------------------
 
     //Widgets
-    public RecyclerView spotifyWrappedList, friendsSpotifyWrappedList;
-    private Button addSpotifyWrappedButton;
+    public RecyclerView spotifyWrappedList;
+    private Button addSpotifyWrappedButton, christmasAddSpotifyWrappedButton, halloweenAddSpotifyWrappedButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +43,9 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_spotify_wrapped_list);
 
         userSpotifyWrappedSummaries = new ArrayList<>();
-        userSpotifyWrappedSummaries.addAll(ls_summaries);
-        friendSpotifyWrappedSummaries = new ArrayList<>();
-        friendSpotifyWrappedSummaries.addAll(ls_friendSummaries);
+        if(ls_summaries != null) {
+            userSpotifyWrappedSummaries.addAll(ls_summaries);
+        }
 
         initUserSummaries();
         initWidgets();
@@ -57,23 +53,28 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         spotifyWrappedList.setLayoutManager(llm);
-        spotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(userSpotifyWrappedSummaries));
-
-        if (ls_friendSummaries.size() == 0) {
-            findViewById(R.id.spotifyWrappedListDividerLine).setVisibility(View.GONE);
-            findViewById(R.id.yourFriendsAlsoMadeText).setVisibility(View.GONE);
-        }
-
-        LinearLayoutManager fllm = new LinearLayoutManager(this);
-        fllm.setOrientation(LinearLayoutManager.VERTICAL);
-        friendsSpotifyWrappedList.setLayoutManager(fllm);
-        friendsSpotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(friendSpotifyWrappedSummaries));
-
+        spotifyWrappedList.setAdapter(new SpotifyWrappedListAdapter(userSpotifyWrappedSummaries, this));
 
         addSpotifyWrappedButton.setOnClickListener(v -> {
             Intent generateIntent = new Intent(this, SpotifyWrappedCreation.class);
             startActivity(generateIntent);
         });
+
+        if(LocalDateTime.now().getMonth() == Month.DECEMBER) {
+            christmasAddSpotifyWrappedButton.setVisibility(View.VISIBLE);
+            christmasAddSpotifyWrappedButton.setOnClickListener(v -> {
+                Intent generateIntent = new Intent(this, SpotifyWrappedCreationChristmasActivity.class);
+                startActivity(generateIntent);
+            });
+        }
+
+        if(LocalDateTime.now().getMonth() == Month.OCTOBER) {
+            halloweenAddSpotifyWrappedButton.setVisibility(View.VISIBLE);
+            halloweenAddSpotifyWrappedButton.setOnClickListener(v -> {
+                Intent generateIntent = new Intent(this, SpotifyWrappedCreationHalloweenActivity.class);
+                startActivity(generateIntent);
+            });
+        }
     }
 
     public void initUserSummaries(){
@@ -82,8 +83,9 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
 
     public void initWidgets(){
         spotifyWrappedList = findViewById(R.id.spotifyWrappedList);
-        friendsSpotifyWrappedList = findViewById(R.id.friendsSpotifyWrappedList);
         addSpotifyWrappedButton = findViewById(R.id.addSpotifyWrappedButton);
+        christmasAddSpotifyWrappedButton = findViewById(R.id.christmasAddSpotifyWrappedButton);
+        halloweenAddSpotifyWrappedButton = findViewById(R.id.halloweenAddSpotifyWrappedButton);
         NavbarClass.initializeNavbar(this);
     }
 }
