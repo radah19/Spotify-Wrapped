@@ -40,15 +40,6 @@
                 android:text="TITLE"
                 />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/sw_modifySettings"
-                android:layout_width="0dp"
-                android:layout_weight="0.75"
-                android:layout_height="25dp"
-                android:background="@color/transparent"
-                app:iconGravity="textEnd"
-                app:icon="@drawable/icon_settings" />
-
             <Button
                 android:id="@+id/deleteButton"
                 android:layout_width="0dp"

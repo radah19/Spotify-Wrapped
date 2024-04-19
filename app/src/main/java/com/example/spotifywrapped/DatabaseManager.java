@@ -369,4 +369,8 @@ public class DatabaseManager {
         SpotifyWrappedListActivity.ls_summaries = new ArrayList<>();
         Toast.makeText(activity, "Account data has been cleared.", Toast.LENGTH_SHORT).show();
     }
+
+    public static void deleteSpotifyWrapById(String id){
+        FirebaseDatabase.getInstance().getReference().child("Spotify Wrapped").child(id).removeValue();
+    }
 } // DatabaseManager
