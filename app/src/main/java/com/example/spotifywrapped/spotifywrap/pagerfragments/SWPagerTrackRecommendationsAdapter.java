@@ -1,8 +1,6 @@
 package com.example.spotifywrapped.spotifywrap.pagerfragments;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyTrack;
+import com.example.spotifywrapped.spotifywrap.MediaPlayer.Mp3Player;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -41,10 +41,12 @@ public class SWPagerTrackRecommendationsAdapter extends RecyclerView.Adapter<SWP
     @Override
     public void onBindViewHolder(@NonNull SWPagerTrackRecommendationsAdapter.MyViewHolder holder, int position) {
         holder.itemView.setOnClickListener(v -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(
-                    ls_rTracks.get(position).getTrackLink()
-            ));
-            context.startActivity(browserIntent);
+            try {
+                Mp3Player.playMp3(ls_rTracks.get(position).getMp3url());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
         });
 
         Picasso.get().load(ls_rTracks.get(position).getTrackImageLink()).into(holder.sw_tracks_img);
