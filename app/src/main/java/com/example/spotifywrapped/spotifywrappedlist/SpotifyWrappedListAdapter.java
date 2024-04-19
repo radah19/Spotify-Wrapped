@@ -1,19 +1,23 @@
 package com.example.spotifywrapped.spotifywrappedlist;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.spotifywrapped.DatabaseManager;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
@@ -102,6 +106,24 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
             myIntent.putExtra("spotifyWrapId", spotifyWrappedSummaries.get(position).getId());
             v.getContext().startActivity(myIntent);
         });
+
+        holder.deleteButton.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
+            builder
+                    .setMessage("Are you sure you want to delete " + spotifyWrappedSummaries.get(position).getTitle() + "?")
+                    .setPositiveButton("Yes", (dialogInterface, i) -> {
+                        DatabaseManager.deleteSpotifyWrapById(spotifyWrappedSummaries.get(position).getId());
+                        spotifyWrappedSummaries.remove(spotifyWrappedSummaries.get(position));
+                        this.notifyDataSetChanged();
+                        Toast.makeText(this.context, "Spotify Wrap was successfully deleted!", Toast.LENGTH_SHORT).show();
+                        dialogInterface.dismiss();
+                    })
+                    .setNegativeButton("No", (dialogInterface, i) -> {
+                        Toast.makeText(this.context, "Unable to delete Spotify Wrap... Please try again later.", Toast.LENGTH_SHORT).show();
+                        dialogInterface.dismiss();
+                    })
+                    .show();
+        });
     }
 
     @Override
@@ -115,6 +137,7 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
         TextView sw_createdAtDate;
         TextView sw_trackNameList;
         TextView sw_datesRange;
+        Button deleteButton;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -123,6 +146,7 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
             sw_createdAtDate = itemView.findViewById(R.id.sw_createdAtDate);
             sw_trackNameList = itemView.findViewById(R.id.sw_trackNameList);
             sw_datesRange = itemView.findViewById(R.id.sw_datesRange);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
     } // MyViewHolder
 }

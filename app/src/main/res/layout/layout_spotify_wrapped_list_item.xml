@@ -40,14 +40,14 @@
                 android:text="TITLE"
                 />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/sw_modifySettings"
+            <Button
+                android:id="@+id/deleteButton"
                 android:layout_width="0dp"
                 android:layout_weight="0.75"
                 android:layout_height="25dp"
                 android:background="@color/transparent"
                 app:iconGravity="textEnd"
-                app:icon="@drawable/icon_settings" />
+                app:icon="@drawable/delete_icon" />
 
         </LinearLayout>
 
@@ -80,5 +80,6 @@
             android:textSize="14dp"
             android:text="Martin Luther King - Yuno Miles, Blizzard - Yuno Miles, I'm an Alcoholic - Yuno Miles, I want Ice Cream - Yuno Miles..."
             />
+
     </LinearLayout>
 </LinearLayout>
