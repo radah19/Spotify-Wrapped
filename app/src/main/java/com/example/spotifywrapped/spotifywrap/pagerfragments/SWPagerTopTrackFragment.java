@@ -61,6 +61,13 @@ public class SWPagerTopTrackFragment extends Fragment {
         topTrackNameText.setText(topTrackName);
         topTrackArtistText.setText(topTrackArtistName);
 
+        topTrackImg.setOnClickListener(v -> {
+            try {
+                Mp3Player.stopMp3();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         if ("Christmas".equals(isHoliday)) {
             ImageView reindeer = view.findViewById(R.id.imageViewReindeer);
