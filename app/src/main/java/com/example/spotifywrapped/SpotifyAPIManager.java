@@ -149,7 +149,7 @@ public class SpotifyAPIManager {
         );
     }
 
-    public static SpotifyWrappedSummary generateSpotifyWrapped(String title, String term, List<String> invitedUsers) {
+    public static SpotifyWrappedSummary generateSpotifyWrapped(String title, String term, String theme) {
         List<SpotifyTrack> topTracks = new ArrayList<>();
         List<SpotifyTrack> recommendedTracks = new ArrayList<>();
         List<SpotifyArtist> topArtists = new ArrayList<>();
@@ -212,18 +212,7 @@ public class SpotifyAPIManager {
             }
 
             //Get User's Recommended Tracks -------------------------------------------------------------------
-            StringBuilder rTracksStr = new StringBuilder("https://api.spotify.com/v1/recommendations?limit=20&seed_genres=");
-            int added_vals = 0;
-            for(String s: topGenres){
-                if(added_vals < 3) {
-                    rTracksStr.append(s.replace(' ', '+').trim() + "%2C");
-                    added_vals++;
-                }
-            }
-            rTracksStr.replace(rTracksStr.length()-3, rTracksStr.length(), "");
-            if(topTracks.size() > 0) rTracksStr.append("&seed_tracks=" + topTracks.get(0).getId());
-            if(topArtists.size() > 0) rTracksStr.append("&seed_artists=" + topArtists.get(0).getId());
-            dataHolder = makeRequest(rTracksStr.toString());
+            dataHolder = makeRequest(generateTrackRecommendationsStr(theme, topGenres, topTracks, topArtists));
 
             if(!dataHolder.equals("TRANSACTION FAILED")) {
                 JSONArray rTracksData = new JSONObject(dataHolder).getJSONArray("tracks");
@@ -268,14 +257,14 @@ public class SpotifyAPIManager {
                     User.getEmail(),
                     title,
                     LocalDateTime.now(),
-                    invitedUsers,
                     topTracks,
                     recommendedTracks,
                     topArtists,
                     recommendedArtists,
                     new ArrayList<>(topGenres),
                     daysOffset,
-                    LocalDateTime.now()
+                    LocalDateTime.now(),
+                    theme
             );
 
         } catch (JSONException e) {
@@ -283,6 +272,48 @@ public class SpotifyAPIManager {
         }
 
         return null;
+    }
+
+    public static String generateTrackRecommendationsStr(String theme, HashSet<String> topGenres, List<SpotifyTrack> topTracks, List<SpotifyArtist> topArtists){
+        StringBuilder rTracksStr = new StringBuilder("https://api.spotify.com/v1/recommendations?limit=20");
+        int added_vals = 0;
+
+        rTracksStr.append("&seed_genres=");
+
+        if(theme.equals("Halloween")) {
+            rTracksStr.append("halloween%2Cgothic%2C");
+            for(String s: topGenres){
+                if(added_vals < 1) {
+                    rTracksStr.append(s.replace(' ', '+').trim() + "%2C");
+                    added_vals++;
+                }
+            }
+            rTracksStr.replace(rTracksStr.length()-3, rTracksStr.length(), "");
+        }
+        else if (theme.equals("Christmas")) {
+            rTracksStr.append("holidays%2C");
+            for(String s: topGenres){
+                if(added_vals < 2) {
+                    rTracksStr.append(s.replace(' ', '+').trim() + "%2C");
+                    added_vals++;
+                }
+            }
+            rTracksStr.replace(rTracksStr.length()-3, rTracksStr.length(), "");
+        }
+        else {
+            for(String s: topGenres){
+                if(added_vals < 3) {
+                    rTracksStr.append(s.replace(' ', '+').trim() + "%2C");
+                    added_vals++;
+                }
+            }
+            rTracksStr.replace(rTracksStr.length()-3, rTracksStr.length(), "");
+        }
+
+        if(topTracks.size() > 0) rTracksStr.append("&seed_tracks=" + topTracks.get(0).getId());
+        if(topArtists.size() > 0) rTracksStr.append("&seed_artists=" + topArtists.get(0).getId());
+
+        return rTracksStr.toString();
     }
 
     public static LocalDate parseSpotifyApiDate(String s){

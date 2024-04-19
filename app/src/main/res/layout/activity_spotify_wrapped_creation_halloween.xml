@@ -11,14 +11,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:hint="Generate a New Spotify Wrapped"
+        android:hint="Generate a New Holiday Themed Spotify Wrap!"
         android:textAlignment="center"
         android:letterSpacing="0.05"
-        android:padding="18dp"
-        android:textColorHint="@color/white"
-        android:textSize="30sp"
+        android:padding="12dp"
         android:fontFamily="@font/font_gothambold"
+        android:textColorHint="@color/strong_orange"
+        android:textSize="30dp"
         android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Until November, you will have the choice to generate a Halloween themed Spotify Wrap, that will generate some spooky track recommendations for you!"
+        android:textAlignment="center"
+        android:letterSpacing="0.05"
+        android:padding="5dp"
+        android:textColorHint="@color/orange"
+        android:fontFamily="@font/font_gothammedium"
+        android:textSize="16dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -27,8 +38,8 @@
         android:layout_marginBottom="20dp"
         android:hint="Title"
         android:fontFamily="@font/font_gothammedium"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColor="@color/strong_orange"
+        android:textColorHint="@color/strong_orange"
         android:textSize="20sp"
         android:background="@drawable/rounded_corners"
         android:padding="18dp"
@@ -41,9 +52,8 @@
         android:hint="Select a Time Frame to Generate by:"
         android:fontFamily="@font/font_gothammedium"
         android:textSize="18dp"
-        android:textColorHint="@color/white"
-        android:paddingBottom="8dp"
-        android:textColor="@color/white" />
+        android:textColorHint="@color/strong_orange"
+        android:paddingBottom="8dp" />
 
     <AutoCompleteTextView
         android:id="@+id/time_range"
@@ -55,8 +65,8 @@
         android:drawableEnd="@drawable/ic_arrow_drop_down"
         android:inputType="none"
         android:padding="10dp"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
+        android:textColor="@color/strong_orange"
+        android:textColorHint="@color/strong_orange"
         android:background="@drawable/rounded_corners" />
 
 
@@ -66,7 +76,7 @@
         android:layout_height="wrap_content"
         android:text="Create Spotify Wrapped"
         android:textColor="#000000"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/strong_orange"
         android:padding="10dp"
         android:layout_marginTop="3dp"
         android:textSize="18dp"

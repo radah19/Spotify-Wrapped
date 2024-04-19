@@ -25,33 +25,28 @@
             android:id="@+id/spotifyWrappedList"
             />
 
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="380dp"
-            android:layout_height="wrap_content"
-            app:dividerColor="@color/gray"
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center"
-            android:id="@+id/spotifyWrappedListDividerLine"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:fontFamily="@font/font_gothammedium"
-            android:layout_marginTop="5dp"
-            android:text="Yours Friends Also Made"
-            android:id="@+id/yourFriendsAlsoMadeText"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/friendsSpotifyWrappedList"
-            />
     </LinearLayout>
 </ScrollView>
+    <Button
+        android:id="@+id/christmasAddSpotifyWrappedButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/jolly_red"
+        android:textColor="@color/black"
+        android:fontFamily="@font/font_gothammedium"
+        android:visibility="gone"
+        android:text="Generate a Jolly Spotify Wrap" />
+<Button
+    android:id="@+id/halloweenAddSpotifyWrappedButton"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:backgroundTint="@color/strong_orange"
+    android:textColor="@color/black"
+    android:fontFamily="@font/font_gothammedium"
+    android:visibility="gone"
+    android:text="Generate New SpoooOOOoooky Spotify Wrap" />
 <Button
     android:id="@+id/addSpotifyWrappedButton"
     android:layout_width="300dp"
