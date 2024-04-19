@@ -113,7 +113,8 @@ public class SpotifyAPIManager {
                 parseSpotifyApiDate(
                         json.getJSONObject("album").getString("release_date")
                 ),
-                json.getInt("popularity")
+                json.getInt("popularity"),
+                json.getString("preview_url")
         );
     }
 

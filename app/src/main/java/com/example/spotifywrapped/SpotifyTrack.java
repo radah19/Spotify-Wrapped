@@ -10,8 +10,9 @@ public class SpotifyTrack {
     private LocalTime trackLen;
     private LocalDate trackPublishDate;
     private int trackPopularity;
+    private String mp3url;
 
-    public SpotifyTrack(String id, String trackArtist, String trackName, String trackLink, String trackImageLink, LocalTime trackLen, LocalDate trackPublishDate, int trackPopularity) {
+    public SpotifyTrack(String id, String trackArtist, String trackName, String trackLink, String trackImageLink, LocalTime trackLen, LocalDate trackPublishDate, int trackPopularity, String mp3url) {
         this.id = id;
         this.trackArtist = trackArtist;
         this.trackName = trackName;
@@ -20,6 +21,7 @@ public class SpotifyTrack {
         this.trackLen = trackLen;
         this.trackPublishDate = trackPublishDate;
         this.trackPopularity = trackPopularity;
+        this.mp3url = mp3url;
     }
 
     public String getId() {
@@ -92,5 +94,13 @@ public class SpotifyTrack {
 
     public void setTrackPopularity(int trackPopularity) {
         this.trackPopularity = trackPopularity;
+    }
+
+    public String getMp3url() {
+        return mp3url;
+    }
+
+    public void setMp3url(String mp3url) {
+        this.mp3url = mp3url;
     }
 }
