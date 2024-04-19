@@ -8,14 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyTrack;
+import com.example.spotifywrapped.spotifywrap.MediaPlayer.Mp3Player;
+import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -41,6 +45,28 @@ public class SWPagerTrackRecommendationsAdapter extends RecyclerView.Adapter<SWP
     @Override
     public void onBindViewHolder(@NonNull SWPagerTrackRecommendationsAdapter.MyViewHolder holder, int position) {
         holder.itemView.setOnClickListener(v -> {
+            if(ls_rTracks.get(position).getMp3url().equals("null")) {
+                Toast.makeText(this.context, "No Preview available for this Track!", Toast.LENGTH_SHORT).show();
+            } else {
+                if(Mp3Player.elementPlaying.equals(ls_rTracks.get(position).getId())){
+                    Mp3Player.elementPlaying = "";
+                    try {
+                        Mp3Player.stopMp3();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    Mp3Player.elementPlaying = ls_rTracks.get(position).getId();
+                    try {
+                        Mp3Player.playMp3(ls_rTracks.get(position).getMp3url());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+
+        holder.sw_tracks_hyperlink.setOnClickListener(v -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(
                     ls_rTracks.get(position).getTrackLink()
             ));
@@ -83,6 +109,7 @@ public class SWPagerTrackRecommendationsAdapter extends RecyclerView.Adapter<SWP
         ImageView sw_tracks_img;
         TextView sw_tracks_trackTitle, sw_tracks_trackArtist, sw_tracks_trackRelease;
         TextView sw_tracks_popularity, sw_tracks_duration;
+        MaterialButton sw_tracks_hyperlink;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,6 +120,8 @@ public class SWPagerTrackRecommendationsAdapter extends RecyclerView.Adapter<SWP
 
             sw_tracks_popularity = itemView.findViewById(R.id.sw_tracks_popularity);
             sw_tracks_duration = itemView.findViewById(R.id.sw_tracks_duration);
+
+            sw_tracks_hyperlink = itemView.findViewById(R.id.sw_tracks_hyperlink);
         }
     } // MyViewHolder
 }

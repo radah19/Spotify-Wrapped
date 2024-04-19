@@ -1,11 +1,14 @@
 package com.example.spotifywrapped.spotifywrap;
 
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.spotifywrapped.SpotifyWrappedSummary;
+import com.example.spotifywrapped.spotifywrap.MediaPlayer.Mp3Player;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerArtistRecommendationsFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerGenresFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerIntroductionFragment;
@@ -15,21 +18,28 @@ import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTopTrackFrag
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTracksFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerConclusionFragment;
 import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTrackRecommendationsFragment;
+import com.google.android.material.button.MaterialButton;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class SpotifyWrapAdapter extends FragmentStateAdapter {
     private SpotifyWrappedSummary mSummary;
+    private MaterialButton exitButton;
+    private TextView currentSong;
 
     public List<String> myFragments = Arrays.asList(new String[]{
             "Intro Fragment", "Top Track Fragment", "Top Tracks Fragment", "Top Artist Fragment",
             "Top Artists Fragment", "Top Genres Fragment", "Recommended Tracks", "Recommended Artists", "Conclusion"
     });
 
-    public SpotifyWrapAdapter(@NonNull FragmentActivity fragmentActivity, SpotifyWrappedSummary mSummary) {
+    public SpotifyWrapAdapter(@NonNull FragmentActivity fragmentActivity, SpotifyWrappedSummary mSummary, MaterialButton exitButton, TextView currentSong) {
         super(fragmentActivity);
         this.mSummary = mSummary;
+        this.exitButton = exitButton;
+        this.currentSong = currentSong;
     }
 
     @NonNull
@@ -48,6 +58,7 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
                         mSummary.topTracks.get(0).getTrackImageLink(),
                         mSummary.topTracks.get(0).getTrackName(),
                         mSummary.topTracks.get(0).getTrackArtist(),
+                        mSummary.topTracks.get(0).getMp3url(),
                         isHoliday
                         );
 

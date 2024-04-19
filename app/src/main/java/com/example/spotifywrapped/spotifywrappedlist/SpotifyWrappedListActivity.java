@@ -17,9 +17,12 @@ import com.example.spotifywrapped.SpotifyArtist;
 import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
 import com.example.spotifywrapped.navbar.NavbarClass;
+import com.example.spotifywrapped.spotifywrap.MediaPlayer.Mp3Player;
 import com.example.spotifywrapped.spotifywrap.SpotifyWrapActivity;
+import com.example.spotifywrapped.spotifywrap.pagerfragments.SWPagerTopTrackFragment;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -41,6 +44,13 @@ public class SpotifyWrappedListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spotify_wrapped_list);
+
+        try {
+            Mp3Player.stopMp3();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        SWPagerTopTrackFragment.IveBeenPlayed = false;
 
         userSpotifyWrappedSummaries = new ArrayList<>();
         if(ls_summaries != null) {

@@ -14,25 +14,38 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.spotifywrapped.R;
+import com.example.spotifywrapped.spotifywrap.MediaPlayer.Mp3Player;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 public class SWPagerTopTrackFragment extends Fragment {
     private ImageView topTrackImg;
     private TextView topTrackNameText, topTrackArtistText;
-    private String isHoliday;
+    private String isHoliday, mp3Url;
+    public static boolean IveBeenPlayed = false;
 
     String topTrackImgUrl, topTrackName, topTrackArtistName;
 
-    public SWPagerTopTrackFragment(String topTrackImgUrl, String topTrackName, String topTrackArtistName, String isHoliday) {
+    public SWPagerTopTrackFragment(String topTrackImgUrl, String topTrackName, String topTrackArtistName, String mp3Url, String isHoliday) {
         this.topTrackImgUrl = topTrackImgUrl;
         this.topTrackName = topTrackName;
         this.topTrackArtistName = topTrackArtistName;
+        this.mp3Url = mp3Url;
         this.isHoliday = isHoliday;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(!IveBeenPlayed) {
+            try {
+                Mp3Player.playMp3(mp3Url);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            IveBeenPlayed = true;
+        }
     }
 
     @Override
@@ -48,6 +61,13 @@ public class SWPagerTopTrackFragment extends Fragment {
         topTrackNameText.setText(topTrackName);
         topTrackArtistText.setText(topTrackArtistName);
 
+        topTrackImg.setOnClickListener(v -> {
+            try {
+                Mp3Player.stopMp3();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         if ("Christmas".equals(isHoliday)) {
             ImageView reindeer = view.findViewById(R.id.imageViewReindeer);
