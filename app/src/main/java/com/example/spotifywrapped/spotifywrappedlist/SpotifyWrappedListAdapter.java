@@ -52,13 +52,13 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
         holder.sw_img.setImageResource(R.drawable.default_track_img);
 
         if(spotifyWrappedSummaries.get(position).isHoliday().equals("Halloween")){
-            holder.sw_img.getBackground().setTint(ContextCompat.getColor(this.context, R.color.jolly_red));
-            holder.sw_title.setTextColor(ContextCompat.getColor(this.context, R.color.jolly_red));
+            holder.sw_img.getBackground().setTint(ContextCompat.getColor(this.context, R.color.strong_orange));
+            holder.sw_title.setTextColor(ContextCompat.getColor(this.context, R.color.strong_orange));
         }
 
         if(spotifyWrappedSummaries.get(position).isHoliday().equals("Christmas")){
-            holder.sw_img.getBackground().setTint(ContextCompat.getColor(this.context, R.color.strong_orange));
-            holder.sw_title.setTextColor(ContextCompat.getColor(this.context, R.color.strong_orange));
+            holder.sw_img.getBackground().setTint(ContextCompat.getColor(this.context, R.color.jolly_red));
+            holder.sw_title.setTextColor(ContextCompat.getColor(this.context, R.color.jolly_red));
         }
 
         holder.sw_title.setText(spotifyWrappedSummaries.get(position).getTitle());
