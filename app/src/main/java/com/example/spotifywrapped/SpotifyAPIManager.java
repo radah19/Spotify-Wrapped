@@ -236,7 +236,9 @@ public class SpotifyAPIManager {
 
                         int amn = (topArtistIds.size() >= 3) ? 14 : (topArtistIds.size() == 2) ? 8 : 0;
                         while (topArtistsData.length() > amn){
-                            recommendedArtists.add(createSpotifyArtistFromJson(topArtistsData.getJSONObject(0)));
+                            SpotifyArtist rArtist = createSpotifyArtistFromJson(topArtistsData.getJSONObject(0));
+                            if(!topArtists.contains(rArtist))
+                                recommendedArtists.add(rArtist);
                             topArtistsData.remove(0);
                         }
                     }
