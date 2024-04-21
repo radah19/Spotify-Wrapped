@@ -109,6 +109,7 @@ public class DatabaseManager {
     public static boolean loginVerification(String email, String password, LoginActivity activity) {
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(activity, "Empty credentials!", Toast.LENGTH_SHORT).show();
+            activity.loadingScreen.setVisibility(View.INVISIBLE);
             return false;
         } else {
             loginUser(email, password, activity);

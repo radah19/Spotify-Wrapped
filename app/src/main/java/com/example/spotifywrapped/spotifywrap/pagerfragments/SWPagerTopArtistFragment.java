@@ -1,6 +1,8 @@
 package com.example.spotifywrapped.spotifywrap.pagerfragments;
 
+import android.content.Intent;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,11 +27,12 @@ public class SWPagerTopArtistFragment extends Fragment {
     private TextView topArtistText;
     private String isHoliday;
 
-    private String topArtistImgUrl, topArtistName;
+    private String topArtistImgUrl, topArtistName, topArtistSpotifyUrl;
 
-    public SWPagerTopArtistFragment(String topArtistImgUrl, String topArtistName, String isHoliday) {
+    public SWPagerTopArtistFragment(String topArtistImgUrl, String topArtistName, String topArtistSpotifyUrl, String isHoliday) {
         this.topArtistImgUrl = topArtistImgUrl;
         this.topArtistName = topArtistName;
+        this.topArtistSpotifyUrl = topArtistSpotifyUrl;
         this.isHoliday = isHoliday;
     }
 
@@ -45,6 +48,12 @@ public class SWPagerTopArtistFragment extends Fragment {
 
         topArtistText = view.findViewById(R.id.sw_top_artist_artistName);
         topArtistImg = view.findViewById(R.id.sw_top_artist_img);
+        topArtistImg.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(
+                    topArtistSpotifyUrl
+            ));
+            this.startActivity(browserIntent);
+        });
 
         Picasso.get().load(topArtistImgUrl).into(topArtistImg);
         topArtistText.setText(topArtistName);

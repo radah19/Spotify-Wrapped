@@ -52,21 +52,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:hint="New Username"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="20sp"
-            android:background="@drawable/rounded_corners"
-            android:padding="18dp"
-            android:inputType="text"
-            android:fontFamily="@font/font_gothammedium"
-            android:id="@+id/username_input"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="10dp"
             android:hint="New Password"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
@@ -88,6 +74,18 @@
             android:textSize="20sp"
             android:fontFamily="@font/font_gothammedium"
             android:id="@+id/createAccount_btn"
+            />
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:textColor="#237841"
+            android:backgroundTint="@color/white"
+            android:padding="10dp"
+            android:layout_marginTop="3dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/font_gothammedium"
+            android:id="@+id/createAccount_cancelBtn"
             />
 
     </LinearLayout>
