@@ -16,6 +16,8 @@ import com.example.spotifywrapped.SpotifyAPIManager;
 import com.example.spotifywrapped.SpotifyWrappedSummary;
 
 public class SpotifyWrappedCreationChristmasActivity extends AppCompatActivity {
+    private boolean activated;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spotify_wrapped_creation_christmas);
@@ -41,42 +43,45 @@ public class SpotifyWrappedCreationChristmasActivity extends AppCompatActivity {
             this.startActivity(myIntent);
         });
 
+        activated = false;
         Button createButton = findViewById(R.id.create_spotify_wrapped_button);
         createButton.setOnClickListener(v -> {
-            if(title.getText().length() > 0){
-                String timeRange = timeRangeDropDown.getText().toString();
-                String actualTimeRange;
+            if(!activated) {
+                if (title.getText().length() > 0) {
+                    activated = true;
+                    String timeRange = timeRangeDropDown.getText().toString();
+                    String actualTimeRange;
 
-                if (timeRange.equals("1 Year")) {
-                    actualTimeRange = "long_term";
-                } else if (timeRange.equals("1 Month")) {
-                    actualTimeRange = "short_term";
-                } else {
-                    actualTimeRange = "medium_term";
-                }
-
-                SpotifyAPIManager apiManager = SpotifyAPIManager.getInstance();
-                if (apiManager != null) {
-                    SpotifyWrappedSummary newSummary = apiManager.generateSpotifyWrapped(title.getText().toString(), actualTimeRange, "Christmas");
-
-                    if(newSummary != null) {
-                        DatabaseManager.addSpotifyWrapped(newSummary);
-                        SpotifyWrappedListActivity.ls_summaries.add(newSummary);
-                        //spotifyWrappedList.getAdapter().notifyItemInserted(SpotifyWrappedListActivity.ls_summaries.size() - 1);
-                        Toast.makeText(this, "Your Spotify Wrap was Successfully Generated!", Toast.LENGTH_SHORT).show();
-
-                        Intent generateIntent = new Intent(this, SpotifyWrappedListActivity.class);
-                        startActivity(generateIntent);
+                    if (timeRange.equals("1 Year")) {
+                        actualTimeRange = "long_term";
+                    } else if (timeRange.equals("1 Month")) {
+                        actualTimeRange = "short_term";
                     } else {
-                        Toast.makeText(this, "Spotify Wrap Generation failed...\nPlease try again later.", Toast.LENGTH_SHORT).show();
+                        actualTimeRange = "medium_term";
+                    }
+
+                    SpotifyAPIManager apiManager = SpotifyAPIManager.getInstance();
+                    if (apiManager != null) {
+                        SpotifyWrappedSummary newSummary = apiManager.generateSpotifyWrapped(title.getText().toString(), actualTimeRange, "Christmas");
+
+                        if (newSummary != null) {
+                            DatabaseManager.addSpotifyWrapped(newSummary);
+                            SpotifyWrappedListActivity.ls_summaries.add(newSummary);
+                            //spotifyWrappedList.getAdapter().notifyItemInserted(SpotifyWrappedListActivity.ls_summaries.size() - 1);
+                            Toast.makeText(this, "Your Spotify Wrap was Successfully Generated!", Toast.LENGTH_SHORT).show();
+
+                            Intent generateIntent = new Intent(this, SpotifyWrappedListActivity.class);
+                            startActivity(generateIntent);
+                        } else {
+                            Toast.makeText(this, "Spotify Wrap Generation failed...\nPlease try again later.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(this, "SpotifyAPIManager not initialized...\nPlease try again later.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(this, "SpotifyAPIManager not initialized...\nPlease try again later.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please Enter a Title!", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(this, "Please Enter a Title!", Toast.LENGTH_SHORT).show();
-            }
-        });
+            }});
 
     }
 }

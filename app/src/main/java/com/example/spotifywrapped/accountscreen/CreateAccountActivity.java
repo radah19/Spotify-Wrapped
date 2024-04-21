@@ -15,7 +15,7 @@ import com.example.spotifywrapped.spotifywrappedlist.SpotifyWrappedListActivity;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
-    public EditText email, password, username;
+    public EditText email, password;
     public Button createAccount;
 
 
@@ -25,13 +25,11 @@ public class CreateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
 
         email = findViewById(R.id.email_input);
-        username = findViewById(R.id.username_input);
         password = findViewById(R.id.password_input);
         createAccount = findViewById(R.id.createAccount_btn);
 
         createAccount.setOnClickListener((View v) -> {
             String email_input = email.getText().toString();
-            String username_input = username.getText().toString();
             String password_input = password.getText().toString();
 
             DatabaseManager.setFirebaseAuth();
