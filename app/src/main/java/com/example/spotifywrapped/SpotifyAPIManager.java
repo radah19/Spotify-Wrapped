@@ -219,9 +219,12 @@ public class SpotifyAPIManager {
                 JSONArray rTracksData = new JSONObject(dataHolder).getJSONArray("tracks");
 
                 while (rTracksData.length() > 0){
-                    SpotifyTrack t = createSpotifyTrackFromJson(rTracksData.getJSONObject(0));
-                    recommendedTracks.add(t);
-                    rTrackIds.add(t.getId());
+                    if(!topTrackIds.contains(rTracksData.getJSONObject(0).getString("id"))
+                        && !rTrackIds.contains(rTracksData.getJSONObject(0).getString("id"))) {
+                        SpotifyTrack t = createSpotifyTrackFromJson(rTracksData.getJSONObject(0));
+                        recommendedTracks.add(t);
+                        rTrackIds.add(t.getId());
+                    }
                     rTracksData.remove(0);
                 }
             }
@@ -236,9 +239,12 @@ public class SpotifyAPIManager {
 
                         int amn = (topArtistIds.size() >= 3) ? 14 : (topArtistIds.size() == 2) ? 8 : 0;
                         while (topArtistsData.length() > amn){
-                            SpotifyArtist rArtist = createSpotifyArtistFromJson(topArtistsData.getJSONObject(0));
-                            if(!topArtists.contains(rArtist))
+                            if(!topArtistIds.contains(topArtistsData.getJSONObject(0).getString("id"))
+                                && !rArtistIds.contains(topArtistsData.getJSONObject(0).getString("id"))) {
+                                SpotifyArtist rArtist = createSpotifyArtistFromJson(topArtistsData.getJSONObject(0));
                                 recommendedArtists.add(rArtist);
+                                rArtistIds.add(rArtist.getId());
+                            }
                             topArtistsData.remove(0);
                         }
                     }
@@ -246,6 +252,7 @@ public class SpotifyAPIManager {
             }
             Collections.sort(recommendedArtists, Comparator.comparingInt(SpotifyArtist::getArtistPopularity).reversed());
 
+            rArtistIds.clear();
             for(SpotifyArtist a: recommendedArtists) rArtistIds.add(a.getId());
 
             //Create Unique Id

@@ -118,10 +118,7 @@ public class SpotifyWrappedListAdapter extends RecyclerView.Adapter<SpotifyWrapp
                         Toast.makeText(this.context, "Spotify Wrap was successfully deleted!", Toast.LENGTH_SHORT).show();
                         dialogInterface.dismiss();
                     })
-                    .setNegativeButton("No", (dialogInterface, i) -> {
-                        Toast.makeText(this.context, "Unable to delete Spotify Wrap... Please try again later.", Toast.LENGTH_SHORT).show();
-                        dialogInterface.dismiss();
-                    })
+                    .setNegativeButton("No", (dialogInterface, i) -> dialogInterface.dismiss())
                     .show();
         });
     }

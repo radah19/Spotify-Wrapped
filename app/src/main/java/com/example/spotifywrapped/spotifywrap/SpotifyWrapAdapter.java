@@ -71,6 +71,7 @@ public class SpotifyWrapAdapter extends FragmentStateAdapter {
                 return new SWPagerTopArtistFragment(
                         mSummary.topArtists.get(0).getArtistImageLink(),
                         mSummary.topArtists.get(0).getArtistName(),
+                        mSummary.topArtists.get(0).getArtistLink(),
                         isHoliday
                         );
 
